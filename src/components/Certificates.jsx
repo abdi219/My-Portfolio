@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Certificates.css';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import FloatingDoodles from './FloatingDoodles';
 import { Users, Bot, Gamepad2, BadgeCheck, ExternalLink, FileSpreadsheet, Award, ShieldAlert, Cpu, X } from 'lucide-react';
 
 const Certificates = () => {
@@ -116,7 +117,8 @@ const Certificates = () => {
     };
 
     return (
-        <section id="certificates" className="certificates">
+        <section id="certificates" className="certificates" style={{ position: "relative" }}>
+            <FloatingDoodles section="certificates" />
             <div className="container">
                 <div className="section-header animate-on-scroll">
                     <h2>Certificates</h2>

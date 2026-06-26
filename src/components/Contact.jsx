@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./Contact.css";
+import FloatingDoodles from "./FloatingDoodles";
 import {
   Send,
   Loader2,
@@ -70,7 +71,8 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact" style={{ position: "relative" }}>
+      <FloatingDoodles section="contact" />
       <div className="container">
         <div className="section-header animate-on-scroll">
           <h2>Contact</h2>

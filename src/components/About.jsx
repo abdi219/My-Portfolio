@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./About.css";
 import useScrollAnimation from "../hooks/useScrollAnimation";
+import FloatingDoodles from "./FloatingDoodles";
 import {
   Code2, Gamepad2, Terminal, FileJson, Atom, Server, Palette, BrainCircuit, Sparkles, MapPin, Briefcase, UserCheck, Users
 } from "lucide-react";
@@ -47,7 +48,8 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="about">
+    <section id="about" className="about" style={{ position: "relative" }}>
+      <FloatingDoodles section="about" />
       <div className="container">
         <div className="section-header animate-on-scroll">
           <h2>About Me</h2>

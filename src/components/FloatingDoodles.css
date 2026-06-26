@@ -1,0 +1,53 @@
+/* ── Doodle item ────────────────────────────────────────────────────────────── */
+.doodle-item {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  will-change: transform;
+  /* Light mode — strong dark ink */
+  opacity: 0.35;
+  color: #1a1a1a;
+}
+
+/* ── Dark mode — bright silver/grey ────────────────────────────────────────── */
+:root:not([data-theme="light"]) .doodle-item {
+  opacity: 0.30;
+  color: #c4c4c8;
+}
+
+/* ── Float keyframes (use --rot for per-doodle starting angle) ─────────────── */
+@keyframes floatA {
+  0%,100% { transform: translateY(0px)   rotate(var(--rot, -4deg)); }
+  35%      { transform: translateY(-14px) rotate(calc(var(--rot, -4deg) + 5deg)); }
+  70%      { transform: translateY(-6px)  rotate(calc(var(--rot, -4deg) - 3deg)); }
+}
+
+@keyframes floatB {
+  0%,100% { transform: translateY(0px)   rotate(var(--rot, 5deg)); }
+  40%      { transform: translateY(-18px) rotate(calc(var(--rot, 5deg) - 6deg)); }
+  75%      { transform: translateY(-8px)  rotate(calc(var(--rot, 5deg) + 4deg)); }
+}
+
+@keyframes floatC {
+  0%,100% { transform: translateY(0px)   rotate(var(--rot, -3deg)); }
+  50%      { transform: translateY(-12px) rotate(calc(var(--rot, -3deg) + 7deg)); }
+}
+
+.doodle-float-a { animation: floatA 8s  ease-in-out infinite; }
+.doodle-float-b { animation: floatB 10s ease-in-out infinite; }
+.doodle-float-c { animation: floatC 9s  ease-in-out infinite; }
+
+/* ── Sections must clip their doodles ─────────────────────────────────────── */
+.about,
+.projects,
+.certificates,
+.extracurricular,
+.contact {
+  overflow: hidden;
+}
+
+/* ── Hide on small screens ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .doodle-item { display: none; }
+}

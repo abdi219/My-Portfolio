@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ExtraCurricular.css";
 import useScrollAnimation from "../hooks/useScrollAnimation";
+import FloatingDoodles from "./FloatingDoodles";
 import { ChevronLeft, ChevronRight, X, Calendar, FolderOpen, Images } from "lucide-react";
 
 // Helper to encode spaces and parentheses in image paths
@@ -296,7 +297,8 @@ const ExtraCurricular = () => {
   };
 
   return (
-    <section id="extracurricular" className="extracurricular">
+    <section id="extracurricular" className="extracurricular" style={{ position: "relative" }}>
+      <FloatingDoodles section="extracurricular" />
       <div className="container">
         <div className="section-header animate-on-scroll">
           <h2>Extra-curricular Activities</h2>

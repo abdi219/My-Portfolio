@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Projects.css";
 import useScrollAnimation from "../hooks/useScrollAnimation";
+import FloatingDoodles from "./FloatingDoodles";
 import { Github, Cpu, Play, CircleAlert } from "lucide-react";
 
 const Projects = () => {
@@ -86,7 +87,8 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="projects">
+    <section id="projects" className="projects" style={{ position: "relative" }}>
+      <FloatingDoodles section="projects" />
       <div className="container">
         <div className="section-header animate-on-scroll">
           <h2>Featured Projects</h2>
