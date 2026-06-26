@@ -120,12 +120,12 @@ const Certificates = () => {
         <section id="certificates" className="certificates" style={{ position: "relative" }}>
             <FloatingDoodles section="certificates" />
             <div className="container">
-                <div className="section-header animate-on-scroll">
+                <div className="section-header anim-rise">
                     <h2>Certificates</h2>
                     <p className="section-subtitle">Holographic Pedestal Projector & Verification System</p>
                 </div>
 
-                <div className="certificates-projector-layout animate-on-scroll">
+                <div className="certificates-projector-layout anim-slide-left">
                     {/* Left Column: Keycard Rack */}
                     <div className="keycard-rack-container">
                         <span className="rack-title-text">KEYCARD ARCHIVE SLOTS</span>

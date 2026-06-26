@@ -51,12 +51,12 @@ const About = () => {
     <section id="about" className="about" style={{ position: "relative" }}>
       <FloatingDoodles section="about" />
       <div className="container">
-        <div className="section-header animate-on-scroll">
+        <div className="section-header anim-rise">
           <h2>About Me</h2>
           <p className="section-subtitle">Dossier & System Diagnostic</p>
         </div>
 
-        <div className="about-layout animate-on-scroll">
+        <div className="about-layout anim-slide-left">
           {/* Left Column: Blueprint Picture */}
           <div className="blueprint-column">
             <div className="blueprint-frame glass">

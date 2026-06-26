@@ -300,14 +300,14 @@ const ExtraCurricular = () => {
     <section id="extracurricular" className="extracurricular" style={{ position: "relative" }}>
       <FloatingDoodles section="extracurricular" />
       <div className="container">
-        <div className="section-header animate-on-scroll">
+        <div className="section-header anim-rise">
           <h2>Extra-curricular Activities</h2>
           <p className="section-subtitle">Chronological Tech Milestones, Competitions & Events</p>
         </div>
 
 
         {/* 3D Coverflow Slider Container */}
-        <div className="activity-carousel-container animate-on-scroll">
+        <div className="activity-carousel-container anim-slide-right">
           {filteredEvents.length > 1 && (
             <button className="carousel-nav-arrow arrow-left" onClick={handlePrev} aria-label="Previous slide">
               <ChevronLeft size={24} />

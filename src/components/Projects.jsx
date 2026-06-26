@@ -90,12 +90,12 @@ const Projects = () => {
     <section id="projects" className="projects" style={{ position: "relative" }}>
       <FloatingDoodles section="projects" />
       <div className="container">
-        <div className="section-header animate-on-scroll">
+        <div className="section-header anim-rise">
           <h2>Featured Projects</h2>
           <p className="section-subtitle">Tactile Cartridge Console & Arcade Browser</p>
         </div>
 
-        <div className="projects-arcade-layout animate-on-scroll">
+        <div className="projects-arcade-layout anim-slide-right">
           {/* Left Side: Cartridge Rack */}
           <div className="cartridge-rack-container">
             <h3 className="rack-title">Game Cartridge Rack</h3>

@@ -241,65 +241,106 @@ section {
   position: relative;
 }
 
-/* Animations - GPU Accelerated */
-.animate-on-scroll {
+/* ════════════════════════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS — Canva-quality variants
+   Spring easing: cubic-bezier(0.16, 1, 0.3, 1) — fast out, gentle settle
+   Pop   easing: cubic-bezier(0.34, 1.56, 0.64, 1) — overshoot bounce
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. RISE — smooth upward drift (section headers, titles) ─────────────── */
+.anim-rise,
+.animate-on-scroll {          /* legacy compat */
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateY(44px);
+  transition:
+    opacity  0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
-
+.anim-rise.visible,
 .animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.slide-in-left-scroll {
+/* ── 2. POP — scale from small with bounce overshoot (cards, badges) ──────── */
+.anim-pop {
   opacity: 0;
-  transform: translateX(-50px);
-  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(0.82) translateY(20px);
+  transition:
+    opacity  0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
+}
+.anim-pop.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
 }
 
+/* ── 3. SLIDE LEFT — pan in from the left (left-side panels) ─────────────── */
+.anim-slide-left,
+.slide-in-left-scroll {       /* legacy compat */
+  opacity: 0;
+  transform: translateX(-60px);
+  transition:
+    opacity  0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.anim-slide-left.visible,
 .slide-in-left-scroll.visible {
   opacity: 1;
   transform: translateX(0);
 }
 
-.slide-in-right-scroll {
+/* ── 4. SLIDE RIGHT — pan in from the right (right-side panels) ──────────── */
+.anim-slide-right,
+.slide-in-right-scroll {      /* legacy compat */
   opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateX(60px);
+  transition:
+    opacity  0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
-
+.anim-slide-right.visible,
 .slide-in-right-scroll.visible {
   opacity: 1;
   transform: translateX(0);
 }
 
-.stagger-delay-1 {
-  transition-delay: 100ms;
+
+/* ── 6. CASCADE — auto-stagger children (data-cascade parent) ─────────────── */
+.cascade-child {
+  opacity: 0;
+  transform: translateY(28px) scale(0.95);
+  transition:
+    opacity   0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+  will-change: opacity, transform;
+}
+.cascade-child.cascade-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-.stagger-delay-2 {
-  transition-delay: 200ms;
+/* ── Legacy stagger delays ────────────────────────────────────────────────── */
+.stagger-delay-1 { transition-delay: 100ms !important; }
+.stagger-delay-2 { transition-delay: 200ms !important; }
+.stagger-delay-3 { transition-delay: 300ms !important; }
+.stagger-delay-4 { transition-delay: 400ms !important; }
+.stagger-delay-5 { transition-delay: 500ms !important; }
+
+/* ── Hero text own animation (not scroll-triggered) ──────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.fade-in-up {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.stagger-delay-3 {
-  transition-delay: 300ms;
-}
 
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-15px);
-  }
-}
 
 @keyframes pulse-soft {
 

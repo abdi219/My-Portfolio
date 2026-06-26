@@ -74,7 +74,7 @@ const Contact = () => {
     <section id="contact" className="contact" style={{ position: "relative" }}>
       <FloatingDoodles section="contact" />
       <div className="container">
-        <div className="section-header animate-on-scroll">
+        <div className="section-header anim-rise">
           <h2>Contact</h2>
           <p className="section-subtitle">
             Get in touch to collaborate or chat about tech.
@@ -83,7 +83,7 @@ const Contact = () => {
 
         <div className="contact-content">
           {/* Left Side: Modern Info Panel */}
-          <div className="contact-info animate-on-scroll">
+          <div className="contact-info anim-slide-left">
             <div className="contact-intro-card glass">
               <h3 className="contact-intro-title">Let's build something together</h3>
               <p className="contact-intro-desc">
@@ -125,7 +125,7 @@ const Contact = () => {
           </div>
 
           {/* Right Side: Sleek Modern Glassmorphic Form */}
-          <div className="contact-form-wrapper animate-on-scroll">
+          <div className="contact-form-wrapper anim-slide-right">
             <form
               ref={formRef}
               onSubmit={handleSubmit}

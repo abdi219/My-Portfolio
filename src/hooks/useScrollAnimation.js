@@ -1,34 +1,67 @@
 import { useEffect } from 'react';
 
 const useScrollAnimation = () => {
-    useEffect(() => {
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        };
+  useEffect(() => {
+    // ── 1. Per-element observer: adds `visible` when in view ─────────────────
+    const elementObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    // Remove visible class when element leaves viewport
-                    // This allows the animation to re-trigger when scrolling back
-                    entry.target.classList.remove('visible');
-                }
+    const targets = document.querySelectorAll(
+      '.anim-rise, .anim-pop, .anim-slide-left, .anim-slide-right, .anim-flip, ' +
+      // legacy class support
+      '.animate-on-scroll, .slide-in-left-scroll, .slide-in-right-scroll'
+    );
+    targets.forEach((el) => elementObserver.observe(el));
+
+    // ── 2. Cascade observer: staggers direct children of [data-cascade] ──────
+    const cascadeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const parent = entry.target;
+          if (entry.isIntersecting) {
+            const children = parent.querySelectorAll(':scope > *');
+            children.forEach((child, i) => {
+              child.style.transitionDelay = `${i * 80}ms`;
+              child.classList.add('cascade-visible');
             });
-        }, observerOptions);
+            parent.dataset.cascadeTriggered = 'true';
+          } else {
+            const children = parent.querySelectorAll(':scope > *');
+            children.forEach((child) => {
+              child.style.transitionDelay = '';
+              child.classList.remove('cascade-visible');
+            });
+            delete parent.dataset.cascadeTriggered;
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+    );
 
-        const animatedElements = document.querySelectorAll(
-            '.animate-on-scroll, .slide-in-left-scroll, .slide-in-right-scroll'
-        );
+    const cascadeParents = document.querySelectorAll('[data-cascade]');
+    cascadeParents.forEach((el) => {
+      // Mark each child as a cascade item
+      el.querySelectorAll(':scope > *').forEach((child) => {
+        child.classList.add('cascade-child');
+      });
+      cascadeObserver.observe(el);
+    });
 
-        animatedElements.forEach((el) => observer.observe(el));
-
-        return () => {
-            animatedElements.forEach((el) => observer.unobserve(el));
-        };
-    }, []);
+    return () => {
+      targets.forEach((el) => elementObserver.unobserve(el));
+      cascadeParents.forEach((el) => cascadeObserver.unobserve(el));
+    };
+  }, []);
 };
 
 export default useScrollAnimation;
