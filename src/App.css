@@ -1,0 +1,32 @@
+.App {
+  min-height: 100vh;
+  position: relative;
+  /* Global continuous background - grid pattern */
+  background: var(--color-bg-primary);
+  background-image:
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Global Overlay */
+.App::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Sleek vignette to focus content, neutral black shading */
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.3) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+[data-theme="light"] .App::before {
+  background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, 0.03) 100%);
+}
+
+main {
+  position: relative;
+}

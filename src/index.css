@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Colors - Complete Black & Obsidian Grey Shades with Purple/Violet Accents */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0c0c0c;
+  --color-glass: rgba(12, 12, 12, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-shadow: rgba(0, 0, 0, 0.65);
+  --color-shadow-md: rgba(0, 0, 0, 0.8);
+  --color-shadow-lg: rgba(0, 0, 0, 0.95);
+  --color-grid-line: rgba(255, 255, 255, 0.015);
+
+  /* Primary Accent & Helpers (Amethyst Purple - No Blue) */
+  --color-primary: #a855f7; 
+  --color-primary-rgb: 168, 85, 247;
+  --color-primary-light: #c084fc;
+  --color-primary-dark: #8b5cf6;
+  --color-secondary: #a1a1aa; /* Monochrome grey shades */
+  --color-accent-1: #10b981; /* Emerald Green */
+  --color-accent-2: #ec4899; /* Pink/Rose */
+  --color-accent-3: #f43f5e; /* Rose Red */
+  --color-accent-4: #06b6d4; /* Teal/Cyan */
+
+  /* Text Colors - Monochrome White/Grey */
+  --color-text-primary: #ffffff; /* White text */
+  --color-text-secondary: #a1a1aa; /* Soft grey text */
+  --color-text-muted: #71717a; /* Muted grey text */
+  --color-text-white: #ffffff;
+
+  /* Arcade Console Theme Variables - Dark Mode */
+  --color-console-bezel: #1f2330;
+  --color-console-casing: #2b303c;
+  --color-console-casing-active: #1c1f27;
+  --color-console-slot: #111318;
+  --color-console-screen: #060b13;
+  --color-console-screen-border: #0d121c;
+  --color-console-text: #e2e8f0;
+  --color-console-desc: #c4c7d0;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2.25rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Z-index */
+  --z-navbar: 1000;
+  --z-modal: 2000;
+  --z-tooltip: 3000;
+}
+
+/* Light Theme Overrides (Cozy Minimalist: Warm Oat, Charcoal & Sage Green) */
+[data-theme="light"] {
+  --color-bg-primary: #f7f4ef; /* Tier 1: Warm Oat / Cream */
+  --color-bg-secondary: #edeae4; /* Tier 1 Variant: Soft Oat card base */
+  --color-glass: rgba(237, 234, 228, 0.85);
+  --color-glass-border: rgba(26, 31, 44, 0.08);
+  --color-shadow: rgba(26, 31, 44, 0.02);
+  --color-shadow-md: rgba(26, 31, 44, 0.05);
+  --color-shadow-lg: rgba(26, 31, 44, 0.08);
+  --color-grid-line: rgba(26, 31, 44, 0.015);
+
+  --color-text-primary: #1a1f2c; /* Tier 2: Charcoal-Ink */
+  --color-text-secondary: rgba(26, 31, 44, 0.75);
+  --color-text-muted: rgba(26, 31, 44, 0.5);
+
+  --color-primary: #4d7c0f; /* Tier 3: Olive-Sage Green */
+  --color-primary-rgb: 77, 124, 15;
+  --color-primary-light: #65a30d;
+  --color-primary-dark: #3f6212;
+  --color-secondary: #3f6212;
+  --color-accent-1: #4d7c0f;
+  --color-accent-2: #4d7c0f;
+  --color-accent-3: #4d7c0f;
+  --color-accent-4: #4d7c0f;
+
+  /* Arcade Console Theme Variables - Light Mode */
+  --color-console-bezel: #dcdad4;
+  --color-console-casing: #edeae4;
+  --color-console-casing-active: #f4f2ec;
+  --color-console-slot: #1a1f2c;
+  --color-console-screen: #1a1f2c;
+  --color-console-screen-border: rgba(26, 31, 44, 0.2);
+  --color-console-text: #f7f4ef;
+  --color-console-desc: rgba(247, 244, 239, 0.7);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism - Optimized */
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 2px 8px var(--color-shadow);
+  border-radius: var(--radius-lg);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-md);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+  font-size: var(--font-size-5xl);
+  color: var(--color-text-primary);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: var(--font-heading);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: var(--color-primary-dark);
+  box-shadow: 0 8px 20px var(--color-shadow-md);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(4px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Layout */
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+section {
+  padding: var(--spacing-2xl) 0;
+  position: relative;
+}
+
+/* Animations - GPU Accelerated */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left-scroll {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.slide-in-left-scroll.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-in-right-scroll {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.slide-in-right-scroll.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.stagger-delay-1 {
+  transition-delay: 100ms;
+}
+
+.stagger-delay-2 {
+  transition-delay: 200ms;
+}
+
+.stagger-delay-3 {
+  transition-delay: 300ms;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-glass-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  :root {
+    --font-size-5xl: 2.75rem;
+    --font-size-3xl: 2rem;
+    --spacing-2xl: 3rem;
+  }
+
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+}

@@ -1,0 +1,734 @@
+.certificates {
+  position: relative;
+  overflow: hidden;
+  padding: var(--spacing-xl) 0;
+}
+
+.certificates-projector-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1.3fr;
+  gap: var(--spacing-xl);
+  align-items: center;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+/* Keycard Rack */
+.keycard-rack-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.rack-title-text {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  letter-spacing: 1px;
+}
+
+.keycard-rack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 348px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Custom Scrollbar for Keycard Rack */
+.keycard-rack::-webkit-scrollbar {
+  width: 4px;
+}
+
+.keycard-rack::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: var(--radius-full);
+}
+
+.keycard-rack::-webkit-scrollbar-thumb {
+  background: rgba(var(--color-primary-rgb), 0.2);
+  border-radius: var(--radius-full);
+}
+
+.keycard-rack::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--color-primary-rgb), 0.5);
+}
+
+.keycard-slot {
+  position: relative;
+  height: 60px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all var(--transition-bounce);
+  box-shadow: 0 4px 12px var(--color-shadow);
+  text-align: left;
+}
+
+.keycard-slot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--card-color);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  transition: width 0.2s ease;
+}
+
+.keycard-slot:hover {
+  transform: translateX(8px);
+  border-color: var(--card-color);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.keycard-slot.selected {
+  transform: translateX(4px);
+  background: var(--color-bg-secondary);
+  border-color: var(--card-color);
+  box-shadow: inset 0 2px 8px var(--color-shadow);
+}
+
+.keycard-slot.selected::before {
+  width: 8px;
+}
+
+.keycard-chip {
+  width: 24px;
+  height: 24px;
+  background: #d4af37; /* Gold microchip feel */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111318;
+  border: 1px solid #aa8c2c;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.keycard-meta {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.keycard-num {
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--card-color);
+}
+
+.keycard-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.keycard-barcode {
+  width: 40px;
+  height: 20px;
+  background-image: linear-gradient(90deg, 
+    var(--color-text-muted) 0px, var(--color-text-muted) 1px, 
+    transparent 1px, transparent 3px,
+    var(--color-text-muted) 3px, var(--color-text-muted) 5px,
+    transparent 5px, transparent 6px,
+    var(--color-text-muted) 6px, var(--color-text-muted) 7px
+  );
+  background-size: 8px 20px;
+  opacity: 0.15;
+  flex-shrink: 0;
+}
+
+/* Hologram Projector Screen */
+.hologram-projector-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.projector-glass {
+  width: 100%;
+  aspect-ratio: 1.45;
+  background: var(--color-glass);
+  border: 1px dashed rgba(var(--color-primary-rgb), 0.35);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px var(--color-shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.projection-schematic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border: 1px dashed rgba(var(--color-primary-rgb), 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.projection-schematic::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  border: 1px double rgba(var(--color-primary-rgb), 0.05);
+  border-radius: 50%;
+}
+
+.projection-scanline {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(var(--color-primary-rgb), 0.05) 50%, transparent 100%);
+  z-index: 5;
+  pointer-events: none;
+  animation: hologramScan 3s linear infinite;
+}
+
+@keyframes hologramScan {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+/* Hologram content output */
+.hologram-projection {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  z-index: 2;
+}
+
+.projection-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 9px;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 6px;
+}
+
+.projection-header .node-status {
+  color: #10b981;
+}
+
+.projection-details {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  margin: var(--spacing-sm) 0;
+  flex: 1;
+}
+
+.projection-icon-orb {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.projection-text-content {
+  flex: 1;
+}
+
+.projection-title {
+  font-size: var(--font-size-lg);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.projection-issuer {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.projection-date {
+  font-size: 10px;
+  font-family: monospace;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.projection-hash {
+  font-size: 10px;
+  font-family: monospace;
+  color: var(--color-text-secondary);
+}
+
+.projection-hash code {
+  color: var(--color-primary-light);
+  font-weight: 600;
+}
+
+.projection-action {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.verify-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--color-glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-primary);
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.verify-action-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.verify-signed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--color-glass-border);
+  background: rgba(255, 255, 255, 0.01);
+  color: var(--color-text-muted);
+  font-family: monospace;
+  font-size: 9px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+}
+
+/* Emitter Base Visuals */
+.projector-emitter-base {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+.emitter-lens {
+  width: 80px;
+  height: 8px;
+  background: var(--color-bg-secondary);
+  border-radius: 4px 4px 0 0;
+  border: 1px solid var(--color-glass-border);
+  border-bottom: none;
+}
+
+.emitter-beams {
+  width: 120px;
+  height: 24px;
+  background: linear-gradient(to top, rgba(var(--color-primary-rgb), 0.05) 0%, transparent 100%);
+  clip-path: polygon(25% 100%, 75% 100%, 100% 0%, 0% 0%);
+  opacity: 0.4;
+}
+
+/* Hologram Boot Screen */
+.hologram-boot {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.hologram-wave {
+  width: 40px;
+  height: 1px;
+  background: var(--color-primary);
+  animation: wavePulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes wavePulse {
+  0% { transform: scaleX(0.2); opacity: 0.3; }
+  100% { transform: scaleX(1); opacity: 0.9; }
+}
+
+.hologram-boot-text {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--color-primary);
+  letter-spacing: 2px;
+  animation: crtPulse 1.2s infinite;
+}
+
+.animate-crt-flicker {
+  animation: crtOn 0.3s ease-out;
+}
+
+/* Tablet responsiveness */
+@media (max-width: 992px) {
+  .certificates-projector-layout {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .project-glass {
+    padding: var(--spacing-md);
+  }
+
+  .projection-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .projection-icon-orb {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Light Theme Contrast Overrides */
+[data-theme="light"] .keycard-slot {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-glass-border);
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+[data-theme="light"] .keycard-slot:hover {
+  border-color: var(--card-color);
+  box-shadow: 0 8px 20px var(--color-shadow-md);
+}
+
+[data-theme="light"] .keycard-slot.selected {
+  background: #f1f5f9;
+  border-color: var(--card-color);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .keycard-barcode {
+  opacity: 0.25;
+}
+
+[data-theme="light"] .projector-glass {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px dashed rgba(var(--color-primary-rgb), 0.25);
+  box-shadow: 0 15px 35px var(--color-shadow-md);
+}
+
+[data-theme="light"] .projection-header {
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .projection-icon-orb {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="light"] .verify-action-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: var(--color-glass-border);
+}
+
+[data-theme="light"] .verify-action-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+[data-theme="light"] .verify-signed-badge {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .emitter-beams {
+  background: linear-gradient(to top, rgba(var(--color-primary-rgb), 0.05) 0%, transparent 100%);
+  opacity: 0.6;
+}
+
+[data-theme="light"] .hologram-boot-text {
+  color: var(--color-primary);
+}
+
+[data-theme="light"] .hologram-wave {
+  background: var(--color-primary);
+}
+
+/* Clickable Projector Glass */
+.clickable-projector {
+  cursor: pointer;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.clickable-projector:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.7);
+  box-shadow: 0 0 25px rgba(var(--color-primary-rgb), 0.2), 0 15px 35px var(--color-shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Projection Image Split Layout */
+.projection-image-wrapper {
+  width: 140px;
+  height: 95px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.projection-image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
+  background-size: 100% 4px, 6px 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.projection-cert-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: all var(--transition-base);
+}
+
+.clickable-projector:hover .projection-cert-image {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.projection-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 80%, rgba(var(--color-primary-rgb), 0.2) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.projection-image-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 3px 0;
+  text-align: center;
+  z-index: 4;
+  transition: opacity var(--transition-fast);
+  opacity: 0;
+}
+
+.projection-image-hint span {
+  font-family: monospace;
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--color-primary-light);
+  letter-spacing: 1px;
+}
+
+.clickable-projector:hover .projection-image-hint {
+  opacity: 1;
+}
+
+/* Certificate Lightbox Modal */
+.cert-lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(8, 10, 15, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: certFadeIn 0.3s ease-out;
+}
+
+.cert-lightbox-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10000;
+}
+
+.cert-lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.cert-lightbox-content-box {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+}
+
+.cert-lightbox-display-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 85vw;
+  max-height: 80vh;
+}
+
+.cert-lightbox-polaroid {
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: certScaleIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+[data-theme="light"] .cert-lightbox-polaroid {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.cert-lightbox-image-container {
+  width: auto;
+  height: auto;
+  max-width: 85vw;
+  max-height: 70vh;
+  background: transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  border: none;
+}
+
+.cert-lightbox-image-container img {
+  max-width: 85vw;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.cert-lightbox-caption {
+  margin-top: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 10px 24px;
+  border-radius: 30px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.cert-lightbox-title {
+  font-size: var(--font-size-base);
+  font-weight: 800;
+  margin-bottom: 4px;
+  font-family: var(--font-heading);
+}
+
+.cert-lightbox-subtitle {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-family: monospace;
+  margin-bottom: 8px;
+}
+
+.cert-lightbox-hash {
+  font-family: monospace;
+  font-size: 9px;
+  color: var(--color-text-muted);
+}
+
+.cert-lightbox-hash code {
+  color: var(--color-primary-light);
+}
+
+@keyframes certFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes certScaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive Overrides */
+@media (max-width: 600px) {
+  .projection-image-wrapper {
+    width: 100%;
+    height: 120px;
+  }
+  
+  .cert-lightbox-polaroid {
+    max-width: 95vw;
+    padding: 12px 12px 18px 12px;
+  }
+}
