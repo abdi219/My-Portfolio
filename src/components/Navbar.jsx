@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
-import ThemeToggle from "./ThemeToggle";
 import { MessageCircle } from "lucide-react";
 
 const Navbar = ({ isChatOpen, setIsChatOpen }) => {
@@ -66,7 +65,7 @@ const Navbar = ({ isChatOpen, setIsChatOpen }) => {
         >
           <MessageCircle size={14} className="nav-icon" />
         </button>
-        <ThemeToggle />
+
         <button
           className="mobile-menu-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

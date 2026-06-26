@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <style>
+    .accent {
+      fill: none;
+      stroke: #18181b;
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .dot {
+      fill: #18181b;
+    }
+    @media (prefers-color-scheme: dark) {
+      .accent {
+        stroke: #e4e4e7;
+      }
+      .dot {
+        fill: #e4e4e7;
+      }
+    }
+  </style>
+  <path class="accent" d="M25 103 L64 25 L103 103" />
+  <path class="accent" d="M43 75 L85 75" />
+  <circle class="dot" cx="64" cy="52" r="7" />
+</svg>

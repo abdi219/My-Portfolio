@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Sun, Moon } from 'lucide-react';
 import './ThemeToggle.css';
 
 const ThemeToggle = () => {
     const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('theme') || 'light';
+        return localStorage.getItem('theme') || 'dark';
     });
 
     useEffect(() => {
@@ -12,19 +13,26 @@ const ThemeToggle = () => {
     }, [theme]);
 
     const toggleTheme = () => {
-        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+        setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
     };
 
     return (
-        <button
-            className="theme-toggle glass"
+        <div 
+            className={`theme-toggle-sidebar ${theme}`} 
             onClick={toggleTheme}
-            aria-label="Toggle theme"
+            role="button"
+            tabIndex={0}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleTheme(); }}
         >
-            <span className="theme-icon">
-                {theme === 'light' ? '☀️' : '🌙'}
-            </span>
-        </button>
+            <div className="toggle-thumb">
+                {theme === 'light' ? (
+                    <Sun size={12} className="thumb-icon-anim sun" fill="#ffffff" color="#ffffff" />
+                ) : (
+                    <Moon size={12} className="thumb-icon-anim moon" fill="#09090b" color="#09090b" />
+                )}
+            </div>
+        </div>
     );
 };
 
