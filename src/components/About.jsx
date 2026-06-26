@@ -38,9 +38,9 @@ const About = () => {
     "[LOAD]: Semester 1: GPA 3.2 | Fundamentals of Programming (C++)",
     "[LOAD]: Semester 2: GPA 3.3 | Object Oriented Programming",
     "[LOAD]: Semester 3: GPA 3.0 | Data Structures & Algorithms",
-    "[LOAD]: Semester 4: GPA 3.1 | Active - BS Computer Science at LGU",
+    "[LOAD]: Semester 4: GPA 3.4 | Active - BS Computer Science at LGU",
     "[LOAD]: Internship at DeveloperHub as AI / ML Engineer (Active)",
-    "[CHECK]: Cumulative CGPA: 3.14 / 4.00 (Verified)",
+    "[CHECK]: Cumulative CGPA: 3.23 / 4.00 (Verified)",
     "[MODULE]: Game Dev Subsystem loaded: Raylib C++ & Godot GDScript active",
     "[MODULE]: Web Dev Subsystem loaded: React, Node.js, and CSS modules active",
     "[SUCCESS]: System state green. READY TO COLLABORATE."
@@ -125,7 +125,7 @@ const About = () => {
                   <h3 className="tab-title">Journey Specifications</h3>
                   <p>
                     I’m Abdullah Faisal, a 4th Semester Computer Science student at
-                    Lahore Garrison University with a CGPA of 3.14. I genuinely enjoy
+                    Lahore Garrison University with a CGPA of 3.23. I genuinely enjoy
                     problem-solving and building things from scratch, constantly
                     diving deep into how software works under the hood.
                   </p>
@@ -142,7 +142,7 @@ const About = () => {
 
                   <div className="dossier-stats">
                     <div className="dossier-stat-box glass-subtle">
-                      <div className="stat-num">3.14</div>
+                      <div className="stat-num">3.23</div>
                       <div className="stat-lbl">CGPA</div>
                     </div>
                     <div className="dossier-stat-box glass-subtle">

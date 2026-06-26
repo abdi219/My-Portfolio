@@ -1,4 +1,5 @@
 .chatbot-container {
+    position: relative;
     z-index: var(--z-modal);
     font-family: var(--font-body);
 }
@@ -6,6 +7,7 @@
 /* Chat Window - Aligned to top-right under navbar */
 .chatbot-window {
     position: fixed;
+    z-index: 10000;
     top: 5rem;
     right: 2rem;
     width: 360px;

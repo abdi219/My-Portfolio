@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import ThemeToggle from "./ThemeToggle";
-import { MessageCircle, FlaskConical } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
-const Navbar = ({ isChatOpen, setIsChatOpen, isLabOpen, setIsLabOpen }) => {
+const Navbar = ({ isChatOpen, setIsChatOpen }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -65,14 +65,6 @@ const Navbar = ({ isChatOpen, setIsChatOpen, isLabOpen, setIsLabOpen }) => {
           title="Toggle Chatbot"
         >
           <MessageCircle size={14} className="nav-icon" />
-        </button>
-        <button
-          className={`lab-toggle-btn ${isLabOpen ? "active" : ""}`}
-          onClick={() => setIsLabOpen(!isLabOpen)}
-          aria-label="Open Visual Lab"
-          title="Open Visual Lab"
-        >
-          <FlaskConical size={14} className="nav-icon" />
         </button>
         <ThemeToggle />
         <button

@@ -52,7 +52,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
 
   // ──────────────── KNOWLEDGE BASE ────────────────
   const abdullahInfo = {
-    about: `Abdullah Faisal is a 4th Semester Computer Science student at Lahore Garrison University (LGU) with a CGPA of 3.14. He is passionate about building creative and practical tech solutions from scratch.
+    about: `Abdullah Faisal is a 4th Semester Computer Science student at Lahore Garrison University (LGU) with a CGPA of 3.23. He is passionate about building creative and practical tech solutions from scratch.
 
 His core interests lie at the intersection of Game Development (C++/Raylib and Godot/GDScript), Web Architectures, and AI Engineering (LLM agents, prompt pipelines, and ML diagnostics). He leverages AI systems to enhance productivity and streamline developer workflows.
 
@@ -90,7 +90,7 @@ Visit the Certificates section for credential links.`,
 
     education: `Lahore Garrison University (LGU)
 BS Computer Science, 4th Semester
-CGPA: 3.14
+CGPA: 3.23
 Lahore, Punjab, Pakistan
 
 He is actively deepening his knowledge in DSA, exploring AI/ML, and building game and web projects to complement his academics.`,
@@ -161,7 +161,7 @@ Technologies: React.js, Node.js, Tailwind CSS, HTML/CSS, JavaScript. He focuses 
 
     resume: `Abdullah's key highlights:
 
-BS Computer Science, LGU (4th Semester, CGPA 3.14)
+BS Computer Science, LGU (4th Semester, CGPA 3.23)
 10+ Projects (Game, Web & AI Dev)
 Oracle Cloud AI Foundations Associate
 Microsoft Business Analytics with Excel

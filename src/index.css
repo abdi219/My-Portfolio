@@ -1,26 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Colors - Complete Black & Obsidian Grey Shades with Purple/Violet Accents */
-  --color-bg-primary: #000000;
-  --color-bg-secondary: #0c0c0c;
-  --color-glass: rgba(12, 12, 12, 0.85);
+  /* Colors - Premium Obsidian Black & Titanium Monochrome (Sleek Stark Dark Mode) */
+  --color-bg-primary: #09090b;
+  --color-bg-secondary: #18181b;
+  --color-glass: rgba(24, 24, 27, 0.85);
   --color-glass-border: rgba(255, 255, 255, 0.08);
-  --color-shadow: rgba(0, 0, 0, 0.65);
-  --color-shadow-md: rgba(0, 0, 0, 0.8);
-  --color-shadow-lg: rgba(0, 0, 0, 0.95);
+  --color-shadow: rgba(0, 0, 0, 0.4);
+  --color-shadow-md: rgba(0, 0, 0, 0.6);
+  --color-shadow-lg: rgba(0, 0, 0, 0.8);
   --color-grid-line: rgba(255, 255, 255, 0.015);
 
-  /* Primary Accent & Helpers (Amethyst Purple - No Blue) */
-  --color-primary: #a855f7; 
-  --color-primary-rgb: 168, 85, 247;
-  --color-primary-light: #c084fc;
-  --color-primary-dark: #8b5cf6;
+  /* Primary Accent & Helpers (Sleek Platinum Silver - Stark Dark Theme) */
+  --color-primary: #e4e4e7; 
+  --color-primary-rgb: 228, 228, 231;
+  --color-primary-light: #f4f4f5;
+  --color-primary-dark: #a1a1aa;
   --color-secondary: #a1a1aa; /* Monochrome grey shades */
-  --color-accent-1: #10b981; /* Emerald Green */
-  --color-accent-2: #ec4899; /* Pink/Rose */
-  --color-accent-3: #f43f5e; /* Rose Red */
-  --color-accent-4: #06b6d4; /* Teal/Cyan */
+  --color-accent-1: #e4e4e7; 
+  --color-accent-2: #e4e4e7; 
+  --color-accent-3: #e4e4e7; 
+  --color-accent-4: #e4e4e7; 
 
   /* Text Colors - Monochrome White/Grey */
   --color-text-primary: #ffffff; /* White text */
@@ -29,14 +29,14 @@
   --color-text-white: #ffffff;
 
   /* Arcade Console Theme Variables - Dark Mode */
-  --color-console-bezel: #1f2330;
-  --color-console-casing: #2b303c;
-  --color-console-casing-active: #1c1f27;
-  --color-console-slot: #111318;
-  --color-console-screen: #060b13;
-  --color-console-screen-border: #0d121c;
-  --color-console-text: #e2e8f0;
-  --color-console-desc: #c4c7d0;
+  --color-console-bezel: #27272a;
+  --color-console-casing: #18181b;
+  --color-console-casing-active: #09090b;
+  --color-console-slot: #09090b;
+  --color-console-screen: #000000;
+  --color-console-screen-border: rgba(255, 255, 255, 0.1);
+  --color-console-text: #ffffff;
+  --color-console-desc: rgba(255, 255, 255, 0.7);
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -79,40 +79,40 @@
   --z-tooltip: 3000;
 }
 
-/* Light Theme Overrides (Cozy Minimalist: Warm Oat, Charcoal & Sage Green) */
+/* Light Theme Overrides (Stark Monochrome: White & Jet Black) */
 [data-theme="light"] {
-  --color-bg-primary: #f7f4ef; /* Tier 1: Warm Oat / Cream */
-  --color-bg-secondary: #edeae4; /* Tier 1 Variant: Soft Oat card base */
-  --color-glass: rgba(237, 234, 228, 0.85);
-  --color-glass-border: rgba(26, 31, 44, 0.08);
-  --color-shadow: rgba(26, 31, 44, 0.02);
-  --color-shadow-md: rgba(26, 31, 44, 0.05);
-  --color-shadow-lg: rgba(26, 31, 44, 0.08);
-  --color-grid-line: rgba(26, 31, 44, 0.015);
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f4f4f5;
+  --color-glass: rgba(244, 244, 245, 0.85);
+  --color-glass-border: rgba(0, 0, 0, 0.08);
+  --color-shadow: rgba(0, 0, 0, 0.01);
+  --color-shadow-md: rgba(0, 0, 0, 0.03);
+  --color-shadow-lg: rgba(0, 0, 0, 0.06);
+  --color-grid-line: rgba(0, 0, 0, 0.01);
 
-  --color-text-primary: #1a1f2c; /* Tier 2: Charcoal-Ink */
-  --color-text-secondary: rgba(26, 31, 44, 0.75);
-  --color-text-muted: rgba(26, 31, 44, 0.5);
+  --color-text-primary: #000000;
+  --color-text-secondary: rgba(0, 0, 0, 0.75);
+  --color-text-muted: rgba(0, 0, 0, 0.5);
 
-  --color-primary: #4d7c0f; /* Tier 3: Olive-Sage Green */
-  --color-primary-rgb: 77, 124, 15;
-  --color-primary-light: #65a30d;
-  --color-primary-dark: #3f6212;
-  --color-secondary: #3f6212;
-  --color-accent-1: #4d7c0f;
-  --color-accent-2: #4d7c0f;
-  --color-accent-3: #4d7c0f;
-  --color-accent-4: #4d7c0f;
+  --color-primary: #4b5563;
+  --color-primary-rgb: 75, 85, 99;
+  --color-primary-light: #6b7280;
+  --color-primary-dark: #374151;
+  --color-secondary: #374151;
+  --color-accent-1: #4b5563;
+  --color-accent-2: #4b5563;
+  --color-accent-3: #4b5563;
+  --color-accent-4: #4b5563;
 
   /* Arcade Console Theme Variables - Light Mode */
-  --color-console-bezel: #dcdad4;
-  --color-console-casing: #edeae4;
-  --color-console-casing-active: #f4f2ec;
-  --color-console-slot: #1a1f2c;
-  --color-console-screen: #1a1f2c;
-  --color-console-screen-border: rgba(26, 31, 44, 0.2);
-  --color-console-text: #f7f4ef;
-  --color-console-desc: rgba(247, 244, 239, 0.7);
+  --color-console-bezel: #e4e4e7;
+  --color-console-casing: #f4f4f5;
+  --color-console-casing-active: #ffffff;
+  --color-console-slot: #18181b;
+  --color-console-screen: #18181b;
+  --color-console-screen-border: rgba(0, 0, 0, 0.15);
+  --color-console-text: #ffffff;
+  --color-console-desc: rgba(255, 255, 255, 0.7);
 }
 
 * {
