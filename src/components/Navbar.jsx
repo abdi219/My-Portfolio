@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import { MessageCircle } from "lucide-react";
 
-const Navbar = ({ isChatOpen, setIsChatOpen }) => {
+const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -57,15 +57,6 @@ const Navbar = ({ isChatOpen, setIsChatOpen }) => {
       </ul>
 
       <div className="nav-actions">
-        <button
-          className={`chat-toggle-btn ${isChatOpen ? "active" : ""}`}
-          onClick={() => setIsChatOpen(!isChatOpen)}
-          aria-label="Toggle chatbot"
-          title="Toggle Chatbot"
-        >
-          <MessageCircle size={14} className="nav-icon" />
-        </button>
-
         <button
           className="mobile-menu-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

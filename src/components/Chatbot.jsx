@@ -36,6 +36,62 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
   const inputRef = useRef(null);
   const responseCounter = useRef(0);
 
+  // ──────────────── RESIZE SYSTEM ────────────────
+  const [dimensions, setDimensions] = useState({ width: 360, height: 500 });
+  const isResizing = useRef(false);
+  const startPos = useRef({ x: 0, y: 0 });
+  const startDim = useRef({ width: 360, height: 500 });
+
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    isResizing.current = true;
+    startPos.current = { x: e.clientX, y: e.clientY };
+    startDim.current = { width: dimensions.width, height: dimensions.height };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isResizing.current) return;
+    const deltaX = e.clientX - startPos.current.x;
+    const deltaY = e.clientY - startPos.current.y;
+    
+    // Anchored bottom-right: dragging top-left corner
+    // Dragging left (negative deltaX) increases width.
+    // Dragging up (negative deltaY) increases height.
+    const maxW = Math.min(550, window.innerWidth - 48);
+    const maxH = Math.min(650, window.innerHeight - 120);
+    
+    const newWidth = Math.max(320, Math.min(maxW, startDim.current.width - deltaX));
+    const newHeight = Math.max(400, Math.min(maxH, startDim.current.height - deltaY));
+    
+    setDimensions({
+      width: newWidth,
+      height: newHeight
+    });
+  };
+
+  const handleMouseUp = () => {
+    isResizing.current = false;
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  };
+
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
+  // Reset window dimensions to default on close
+  useEffect(() => {
+    if (!isOpen) {
+      setDimensions({ width: 360, height: 500 });
+    }
+  }, [isOpen]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -67,24 +123,25 @@ Core CS: Data Structures & Algorithms, OOP
 AI Engineering: Generative AI integrations, multi-agent pipelines, prompt engineering
 Other: Business Analytics (Excel), Git/GitHub`,
 
-    projects: `Abdullah has built 10+ projects including:
+    projects: `Abdullah has built 18+ projects including:
 
-Catch or Kaboom: C++/Raylib game with custom mechanics, collision detection and performance-focused design.
-Snake Game: Classic implementation with clean logic and efficient state management (C++/Raylib).
-AI Agent App: Custom intelligence dashboard with conversation memory nodes, routing engines, and generative chatbot integrations.
-E-Commerce Website: Full frontend React/Node.js web app with modern UI and responsive design.
-Lock System: Console-based C++ OOP security system.
-Prince Adventure: 2D platformer adventure game built with Godot (GDScript), smooth character movement and custom level design.
+Catch or Kaboom: C++/Raylib game featuring custom game mechanics, logic handling, collision detection, and performance-focused design.
+MindCare LLM: Empathetic mental health chatbot fine-tuned on Hugging Face's empathetic_dialogues using DistilGPT-2.
+E-Commerce Web: Full frontend-focused web application built with React and Node.js with modern responsive design.
+FIFA Simulator: Knockout-style FIFA World Cup simulator built with Python and NumPy utilizing Poisson goal-generation and Monte Carlo simulations.
+Nvidia Predictor: Time-series forecasting regression model predicting NVIDIA's stock closing prices using Random Forest and moving averages.
+MediMind AI: Safety-first AI health chatbot querying Llama 3.3 70B Instruct via Hugging Face Router API with keyword safety filters.
 
 You can view them in the Projects section.`,
 
     certifications: `Abdullah's certifications and achievements:
 
-Oracle Cloud Infrastructure 2025 AI Foundations Associate
-Microsoft Partner Program: Business Analytics with Excel (Simplilearn)
-Top 10 Finalist at TechSphere, LGU Intra Tech Event (2024)
-ACM Technical Team Member, LGU ACM Chapter
-Game Development: Self-taught through hands-on projects (ongoing)
+Oracle Cloud AI Foundations Associate (Oracle University)
+HP AI for Business Professionals (HP LIFE)
+Huawei Algorithm & Program Design
+Business Analytics with Excel (Microsoft Partner Program / Simplilearn)
+ACM Technical Member (LGU ACM Chapter)
+Top 10 Finalist (TechSphere, LGU Intra Tech Event 2024)
 
 Visit the Certificates section for credential links.`,
 
@@ -120,14 +177,16 @@ Artificial Intelligence and Machine Learning
 Leveraging AI tools for productivity and smarter workflows
 Building things from scratch and understanding how software works under the hood`,
 
-    events: `Abdullah's extra-curricular activities:
+    events: `Abdullah's extra-curricular activities and tech events:
 
-UCP TAAKRA 2026: Speed Programming Modulo Competition
+UCP TAAKRA 2026: Speed Programming Modulo
+SUPARCO Tour: National Space Agency (AI contributions)
+Skill2Success AI Workshop: AI Agentic Workshop
 IntraTech 2.0 Hackathon: Innovation & Tech Competition
+LinkedIn Mentorship: Student Mentor from ACM Society
 Hacktoberfest 2025: Open Source Contributions
 DevSinc Industrial Tour: Corporate Tech Exposure
 Top 10 Finalist at TechSphere, LGU Intra Tech Event
-ACM & ESSE Technical Team: Active community participation
 
 Check out the Extra-curricular section for event photos.`,
 
@@ -145,16 +204,14 @@ Feel free to reach out via the Contact section.`,
 
     gamedev: `Abdullah is passionate about game development:
 
-Catch or Kaboom: C++/Raylib game with custom mechanics and collision detection.
-Snake Game: Classic implementation in C++/Raylib.
+Catch or Kaboom: C++/Raylib game with custom mechanics, collision detection, and performance-focused design.
 Prince Adventure: 2D platformer adventure in Godot/GDScript with custom level design.
 
 He works with both Raylib (C++) for performance-focused games and Godot Engine (GDScript) for 2D adventures. Game development is one of his core passions.`,
 
     webdev: `Abdullah's web development experience:
 
-E-Commerce Website: React/Node.js with modern UI.
-AI Agent App: Custom intelligence dashboard with LLM integrations.
+E-Commerce Web: React/Node.js web application with a modern UI.
 This Portfolio: Built with React + Vite.
 
 Technologies: React.js, Node.js, Tailwind CSS, HTML/CSS, JavaScript. He focuses on clean, responsive, component-based design.`,
@@ -546,8 +603,45 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
 
   return (
     <div className="chatbot-container">
+      {/* Floating Action Button (FAB) Wrapper for Bobbing Animation */}
+      <div className={`chatbot-fab-wrapper ${isOpen ? 'active' : ''}`}>
+        
+        {/* Foreground Interactive Button (Sits first so we can use CSS sibling selectors) */}
+        <button 
+          className={`chatbot-fab ${isOpen ? 'active' : ''}`}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle chat assistant"
+          title="Chat with Abdullah's AI"
+        >
+          {/* Desktop visual icon */}
+          <MessageCircle size={14} className="desktop-chat-icon" />
+          
+          {/* Mobile Icon */}
+          <span className="mobile-icon-container">
+            {isOpen ? <X size={20} /> : <MessageCircle size={20} />}
+          </span>
+        </button>
+
+        {/* Gooey Liquid Background Area */}
+        <div className="chatbot-gooey-container">
+          <div className={`chatbot-fab-bg ${isOpen ? 'active' : ''}`}></div>
+          <div className={`chatbot-connector-dot-bg ${isOpen ? 'active' : ''}`}></div>
+        </div>
+      </div>
+
       {/* Chat Window */}
-      <div className={`chatbot-window glass ${isOpen ? "open" : ""}`}>
+      <div 
+        className={`chatbot-window glass ${isOpen ? "open" : ""}`}
+        style={window.innerWidth > 768 ? { 
+          width: `${dimensions.width}px`, 
+          height: `${dimensions.height}px` 
+        } : {}}
+      >
+        <div 
+          className="chatbot-resize-handle" 
+          onMouseDown={handleMouseDown}
+          title="Drag to resize chat window"
+        />
         <div className="chatbot-header">
           <div className="chatbot-header-info">
             <div className="chatbot-avatar">
@@ -569,9 +663,6 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
               title="Clear chat"
             >
               <Trash2 size={15} />
-            </button>
-            <button className="chatbot-close" onClick={() => setIsOpen(false)}>
-              <X size={18} />
             </button>
           </div>
         </div>
@@ -636,6 +727,16 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
           </button>
         </div>
       </div>
+      {/* SVG gooey filter definition */}
+      <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }} aria-hidden="true">
+        <defs>
+          <filter id="chatbot-goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+          </filter>
+        </defs>
+      </svg>
     </div>
   );
 };

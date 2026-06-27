@@ -22,10 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar 
-        isChatOpen={isChatOpen} 
-        setIsChatOpen={setIsChatOpen}
-      />
+      <Navbar />
       <ThemeToggle />
       <main>
         <Hero />
