@@ -254,12 +254,8 @@ const Certificates = () => {
             {/* Expanded Certificate Lightbox Modal */}
             {isModalOpen && activeCert.image && (
                 <div className="cert-lightbox-modal" onClick={() => setIsModalOpen(false)}>
-                    <button className="cert-lightbox-close-btn" onClick={() => setIsModalOpen(false)} aria-label="Close preview">
-                        <X size={28} />
-                    </button>
-
-                    <div className="cert-lightbox-content-box" onClick={(e) => e.stopPropagation()}>
-                        <div className="cert-lightbox-display-area">
+                    <div className="cert-lightbox-content-box">
+                        <div className="cert-lightbox-display-area" onClick={(e) => e.stopPropagation()}>
                             <div className="cert-lightbox-polaroid">
                                 <div className="cert-lightbox-image-container">
                                     <img
@@ -268,7 +264,7 @@ const Certificates = () => {
                                     />
                                 </div>
                                 <div className="cert-lightbox-caption">
-                                    <h3 className="cert-lightbox-title" style={{ color: activeCert.color }}>{activeCert.title.toUpperCase()}</h3>
+                                    <h3 className="cert-lightbox-title">{activeCert.title.toUpperCase()}</h3>
                                     <p className="cert-lightbox-subtitle">ISSUED BY: {activeCert.issuer.toUpperCase()}</p>
                                     <div className="cert-lightbox-hash">
                                         HASH: <code>{activeCert.hash}</code>
