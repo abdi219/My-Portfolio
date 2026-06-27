@@ -36,14 +36,15 @@ const About = () => {
   const diagnosticLogs = [
     "[SYSTEM BOOT]: INITIALIZING Dossier Modules...",
     "[STATUS]: Core systems loading... OK",
-    "[LOAD]: Semester 1: GPA 3.2 | Fundamentals of Programming (C++)",
-    "[LOAD]: Semester 2: GPA 3.3 | Object Oriented Programming",
-    "[LOAD]: Semester 3: GPA 3.0 | Data Structures & Algorithms",
-    "[LOAD]: Semester 4: GPA 3.4 | Active - BS Computer Science at LGU",
+    "[LOAD]: Semester 1: GPA 2.97 | PF, Calc, ICT",
+    "[LOAD]: Semester 2: GPA 3.22 | OOP, DLD, LA, DB",
+    "[LOAD]: Semester 3: GPA 3.23 | DS, COAL, Multi Calc, DM",
+    "[LOAD]: Semester 4: GPA 3.49 | ADBMS, Prob & Stats, AOA, TOA",
     "[LOAD]: Internship at DeveloperHub as AI / ML Engineer (Active)",
     "[CHECK]: Cumulative CGPA: 3.23 / 4.00 (Verified)",
     "[MODULE]: Game Dev Subsystem loaded: Raylib C++ & Godot GDScript active",
     "[MODULE]: Web Dev Subsystem loaded: React, Node.js, and CSS modules active",
+    "[MODULE]: AI Dev Subsystem loaded: Pandas, Hugging Face, & LLM Fine-Tuning active",
     "[SUCCESS]: System state green. READY TO COLLABORATE."
   ];
 
@@ -126,8 +127,8 @@ const About = () => {
                 <div className="tab-pane-overview animate-fade-in">
                   <h3 className="tab-title">Journey Specifications</h3>
                   <p>
-                    I’m Abdullah Faisal, a 4th Semester Computer Science student at
-                    Lahore Garrison University with a CGPA of 3.23. I genuinely enjoy
+                    I’m Abdullah Faisal, a Computer Science student at
+                    Lahore Garrison University with a CGPA of 3.23 (completed 4 Semesters). I genuinely enjoy
                     problem-solving and building things from scratch, constantly
                     diving deep into how software works under the hood.
                   </p>
@@ -148,12 +149,12 @@ const About = () => {
                       <div className="stat-lbl">CGPA</div>
                     </div>
                     <div className="dossier-stat-box glass-subtle">
-                      <div className="stat-num">10+</div>
+                      <div className="stat-num">18+</div>
                       <div className="stat-lbl">Projects</div>
                     </div>
                     <div className="dossier-stat-box glass-subtle">
-                      <div className="stat-num">4th</div>
-                      <div className="stat-lbl">Semester</div>
+                      <div className="stat-num">4 Sems</div>
+                      <div className="stat-lbl">Completed</div>
                     </div>
                   </div>
                 </div>
