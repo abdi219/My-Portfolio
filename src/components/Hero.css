@@ -146,6 +146,11 @@
     max-width: 460px;
     margin-top: var(--spacing-lg);
   }
+
+  /* Hide middle symbols on tablet/mobile to prevent overlapping stacked text/3D Canvas */
+  .symbol-21, .symbol-22, .symbol-23, .symbol-24, .symbol-25, .symbol-26 {
+    display: none !important;
+  }
 }
 
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
@@ -163,4 +168,271 @@
   .attractor-canvas { aspect-ratio: 1 / 1; }
 
   .scroll-indicator { display: none; }
+}
+
+/* ── Cyber Background & Floating CS/Math Symbols ────────────────────────────────── */
+.hero-bg-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(rgba(var(--color-primary-rgb), 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--color-primary-rgb), 0.15) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  animation: gridSlide 25s linear infinite;
+  opacity: 0.9;
+}
+
+@keyframes gridSlide {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 60px;
+  }
+}
+
+.hero-bg-symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-bg-symbols .symbol {
+  position: absolute;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  font-size: 0.95rem; /* smaller, sleeker look */
+  color: var(--color-primary);
+  opacity: 0.32; /* clearly visible, not washed out */
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] .hero-bg-symbols .symbol {
+  opacity: 0.24; /* clearly visible against white in light mode */
+}
+
+/* Individual symbol styles, coordinates & floating animations */
+.symbol-1 {
+  top: 15%;
+  left: 6%;
+  animation: floatSym1 8s ease-in-out infinite;
+  font-size: 1.1rem;
+}
+
+.symbol-2 {
+  top: 25%;
+  left: 24%;
+  animation: floatSym2 10s ease-in-out infinite;
+}
+
+.symbol-3 {
+  top: 38%;
+  left: 8%;
+  animation: floatSym3 9s ease-in-out infinite;
+  font-size: 1.05rem;
+}
+
+.symbol-4 {
+  top: 48%;
+  left: 20%;
+  animation: floatSym4 11s ease-in-out infinite;
+  font-size: 1.15rem;
+}
+
+.symbol-5 {
+  top: 60%;
+  left: 5%;
+  animation: floatSym1 12s ease-in-out infinite;
+}
+
+.symbol-6 {
+  top: 72%;
+  left: 18%;
+  animation: floatSym2 7s ease-in-out infinite;
+  font-size: 1.1rem;
+}
+
+.symbol-7 {
+  top: 85%;
+  left: 8%;
+  animation: floatSym3 13s ease-in-out infinite;
+  font-size: 1.2rem;
+}
+
+.symbol-8 {
+  top: 10%;
+  left: 40%;
+  animation: floatSym4 8s ease-in-out infinite;
+}
+
+.symbol-9 {
+  top: 15%;
+  right: 40%;
+  animation: floatSym2 11s ease-in-out infinite;
+}
+
+.symbol-10 {
+  top: 8%;
+  right: 25%;
+  animation: floatSym1 10s ease-in-out infinite;
+  font-size: 1.05rem;
+}
+
+.symbol-11 {
+  top: 18%;
+  right: 8%;
+  animation: floatSym3 9s ease-in-out infinite;
+  font-size: 1.1rem;
+}
+
+.symbol-12 {
+  top: 30%;
+  right: 20%;
+  animation: floatSym4 12s ease-in-out infinite;
+}
+
+.symbol-13 {
+  top: 42%;
+  right: 6%;
+  animation: floatSym1 8s ease-in-out infinite;
+  font-size: 1.1rem;
+}
+
+.symbol-14 {
+  top: 52%;
+  right: 24%;
+  animation: floatSym2 10s ease-in-out infinite;
+}
+
+.symbol-15 {
+  top: 65%;
+  right: 10%;
+  animation: floatSym3 7s ease-in-out infinite;
+}
+
+.symbol-16 {
+  top: 78%;
+  right: 22%;
+  animation: floatSym4 11s ease-in-out infinite;
+  font-size: 1.05rem;
+}
+
+.symbol-17 {
+  top: 88%;
+  right: 6%;
+  animation: floatSym1 9s ease-in-out infinite;
+}
+
+.symbol-18 {
+  top: 85%;
+  right: 38%;
+  animation: floatSym2 12s ease-in-out infinite;
+}
+
+.symbol-19 {
+  top: 92%;
+  left: 30%;
+  animation: floatSym3 10s ease-in-out infinite;
+}
+
+.symbol-20 {
+  top: 5%;
+  left: 12%;
+  animation: floatSym4 8s ease-in-out infinite;
+}
+
+.symbol-21 {
+  top: 25%;
+  left: 47%;
+  animation: floatSym2 12s ease-in-out infinite;
+  font-size: 1.05rem;
+}
+
+.symbol-22 {
+  top: 35%;
+  left: 49%;
+  animation: floatSym3 10s ease-in-out infinite;
+  font-size: 1.1rem;
+}
+
+.symbol-23 {
+  top: 55%;
+  left: 46%;
+  animation: floatSym1 9s ease-in-out infinite;
+}
+
+.symbol-24 {
+  top: 68%;
+  left: 50%;
+  animation: floatSym4 11s ease-in-out infinite;
+}
+
+.symbol-25 {
+  top: 80%;
+  left: 48%;
+  animation: floatSym2 8s ease-in-out infinite;
+  font-size: 1.05rem;
+}
+
+.symbol-26 {
+  top: 15%;
+  left: 48%;
+  animation: floatSym1 7s ease-in-out infinite;
+}
+
+/* Animation keyframes for asynchronous organic paths */
+@keyframes floatSym1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-10px, -15px) rotate(12deg);
+  }
+}
+
+@keyframes floatSym2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(12px, -8px) rotate(-15deg);
+  }
+}
+
+@keyframes floatSym3 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-8px, 12px) rotate(8deg);
+  }
+}
+
+@keyframes floatSym4 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(15px, 10px) rotate(-10deg);
+  }
+}
+
+/* Make sure container is on top */
+.hero-container {
+  position: relative;
+  z-index: 2; /* Sits cleanly on top of grid and symbols */
 }

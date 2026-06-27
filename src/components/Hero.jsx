@@ -183,6 +183,48 @@ const Hero = () => {
 
   return (
     <section id="home" className="hero">
+      {/* Dynamic Cyber Grid Background */}
+      <div className="hero-bg-grid"></div>
+      
+      {/* Floating CS / Mathematical Coding Symbols */}
+      <div className="hero-bg-symbols">
+        {/* CS & Programming */}
+        <span className="symbol symbol-1">{"{ }"}</span>
+        <span className="symbol symbol-2">void*</span>
+        <span className="symbol symbol-3">O(n log n)</span>
+        <span className="symbol symbol-4">{"=>"}</span>
+        <span className="symbol symbol-5">std::cout</span>
+        <span className="symbol symbol-6">{"<html>"}</span>
+        
+        {/* Mathematics */}
+        <span className="symbol symbol-7">∫ dx</span>
+        <span className="symbol symbol-8">∇f</span>
+        <span className="symbol symbol-9">lim x→∞</span>
+        <span className="symbol symbol-10">dy/dx</span>
+        <span className="symbol symbol-11">∑ x_i</span>
+        <span className="symbol symbol-12">f(x) = y</span>
+        
+        {/* Machine Learning & AI */}
+        <span className="symbol symbol-13">y = wx + b</span>
+        <span className="symbol symbol-14">σ(z)</span>
+        <span className="symbol symbol-15">ReLU</span>
+        <span className="symbol symbol-16">lambda</span>
+        
+        {/* Game Dev & Vectors */}
+        <span className="symbol symbol-17">Vector3</span>
+        <span className="symbol symbol-18">lerp()</span>
+        <span className="symbol symbol-19">delta</span>
+        <span className="symbol symbol-20">Scene3D</span>
+
+        {/* Middle Band - Math, Binary, Python, ML */}
+        <span className="symbol symbol-21">0b1010</span>
+        <span className="symbol symbol-22">def __init__:</span>
+        <span className="symbol symbol-23">Loss = ∑</span>
+        <span className="symbol symbol-24">sin(θ)</span>
+        <span className="symbol symbol-25">import pandas as pd</span>
+        <span className="symbol symbol-26">0x7F</span>
+      </div>
+
       <div className="container hero-container">
         <div className="hero-content">
           <div className="hero-text fade-in-up">
