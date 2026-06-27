@@ -47,6 +47,7 @@
   flex-direction: column;
   transition: all var(--transition-bounce);
   overflow: hidden;
+  --cartridge-color: var(--color-primary);
 }
 
 .project-cartridge::after {
@@ -61,8 +62,8 @@
 }
 
 .project-cartridge:hover {
-  transform: translateY(-8px) rotate(-1deg);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
   border-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -91,14 +92,14 @@
   align-items: center;
   font-family: monospace;
   font-size: 7px;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .sticker-title {
   font-size: 11px;
   font-family: var(--font-heading);
   font-weight: 700;
-  color: var(--color-text-white);
+  color: #ffffff;
   line-height: 1.2;
   margin: 2px 0;
 }
@@ -106,7 +107,7 @@
 .sticker-footer {
   font-family: monospace;
   font-size: 7px;
-  color: var(--cartridge-color);
+  color: #a1a1aa;
   font-weight: bold;
 }
 
@@ -196,6 +197,7 @@
 }
 
 .rom-size-tag {
+  color: #a1a1aa;
   opacity: 0.8;
 }
 
@@ -204,7 +206,8 @@
   font-family: var(--font-heading);
   font-weight: 800;
   margin: 10px 0;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
 .project-display-desc {
@@ -252,12 +255,12 @@
 }
 
 .btn-git {
-  color: var(--color-text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .btn-git:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
   transform: translateY(-1px);
 }
 
@@ -442,25 +445,4 @@
 
 [data-theme="light"] .cartridge-sticker {
   border-left-color: var(--color-primary) !important;
-}
-
-[data-theme="light"] .project-display-title {
-  color: var(--color-primary) !important;
-}
-
-[data-theme="light"] .btn-play {
-  background: var(--color-primary) !important;
-  color: white !important;
-}
-
-[data-theme="light"] .boot-text {
-  color: var(--color-primary) !important;
-}
-
-[data-theme="light"] .boot-spinner {
-  border-top-color: var(--color-primary) !important;
-}
-
-[data-theme="light"] .sticker-footer {
-  color: var(--color-primary) !important;
 }

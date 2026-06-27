@@ -19,14 +19,14 @@ const Projects = () => {
       genre: "ARCADE / REFLEX"
     },
     {
-      title: "Snake Game",
-      description: "Classic Snake game implementation in C++ with clean logic, efficient state management, and smooth gameplay mechanics.",
-      tech: ["C++", "Raylib", "Algorithms"],
-      github: "https://github.com/abdi219/SnakeGameCpp_Raylib",
+      title: "MindCare LLM",
+      description: "Empathetic mental health chatbot fine-tuned on Hugging Face's empathetic_dialogues dataset using DistilGPT-2. Optimized with temperature controls and top-k/p thresholds to minimize repetition and maximize response stability.",
+      tech: ["Python", "PyTorch", "Hugging Face", "LLMs"],
+      github: "https://github.com/abdi219/MindCare-LLM-FineTuning",
       demo: "#",
-      color: "#22c55e",
-      romSize: "1.8 MB",
-      genre: "CLASSIC / LOGIC"
+      color: "#ec4899",
+      romSize: "320 MB",
+      genre: "AI / LLM FINE-TUNING"
     },
     {
       title: "E-Commerce Web",
@@ -39,34 +39,34 @@ const Projects = () => {
       genre: "COMMERCE / WEB"
     },
     {
-      title: "AI Agent App",
-      description: "A customized intelligent agent dashboard incorporating conversation memory nodes, contextual routing engines, and generative chatbot integrations.",
-      tech: ["React.js", "Generative AI", "NLP"],
-      github: "https://github.com/abdi219/Chatbot-React",
-      demo: "#",
-      color: "#8b5cf6",
-      romSize: "8.1 MB",
-      genre: "AI / CONSOLE"
-    },
-    {
-      title: "Lock System",
-      description: "Console-based security system demonstrating strong Object-Oriented Programming (OOP) principles and structured C++ design.",
-      tech: ["C++", "OOP", "Console"],
-      github: "https://github.com/abdi219/LockSystem",
+      title: "FIFA Simulator",
+      description: "Knockout-style FIFA World Cup tournament simulator built with Python and NumPy. Models goal generation using Poisson distribution based on team attack/defense attributes and runs Monte Carlo simulations to estimate win percentages.",
+      tech: ["Python", "NumPy", "Monte Carlo"],
+      github: "https://github.com/abdi219/FIFA_World_Cup_Simulator",
       demo: "#",
       color: "#f59e0b",
-      romSize: "0.5 MB",
-      genre: "SECURITY / OOP"
+      romSize: "1.2 MB",
+      genre: "SIM / PROBABILITY"
     },
     {
-      title: "Prince Adventure",
-      description: "A 2D adventure game built with Godot (GDScript) featuring smooth character movement, custom level design, and engaging gameplay mechanics.",
-      tech: ["Godot", "GDScript", "Game Dev"],
-      github: "https://github.com/abdi219/PrinceWalkthrough",
+      title: "Nvidia Predictor",
+      description: "Time-series regression model predicting NVIDIA's stock closing prices. Utilizes historical yfinance data with Random Forest, lag features, and moving averages to analyze high-volatility market movements.",
+      tech: ["Python", "Scikit-Learn", "yfinance", "Regression"],
+      github: "https://github.com/abdi219/Nvidia-Stock-Predictor",
+      demo: "#",
+      color: "#10b981",
+      romSize: "14.2 MB",
+      genre: "ML / TIME SERIES"
+    },
+    {
+      title: "MediMind AI",
+      description: "AI-powered health chatbot querying Llama 3.3 70B Instruct via Hugging Face Router API. Implements local keyword safety filtering, emergency warnings, and robust medical guardrails.",
+      tech: ["Python", "Llama 3.3", "Hugging Face", "APIs"],
+      github: "https://github.com/abdi219/MediMind-AI",
       demo: "#",
       color: "#06b6d4",
-      romSize: "8.4 MB",
-      genre: "2D PLATFORMER"
+      romSize: "85 MB",
+      genre: "AI / CLINICAL CHAT"
     },
   ];
 
@@ -106,7 +106,6 @@ const Projects = () => {
                   <button
                     key={idx}
                     className={`project-cartridge ${isSelected ? "selected" : ""}`}
-                    style={{ "--cartridge-color": proj.color }}
                     onClick={() => handleSelectProject(idx)}
                   >
                     <div className="cartridge-sticker">
@@ -145,7 +144,7 @@ const Projects = () => {
                       <span className="rom-size-tag">ROM SIZE: {activeProject.romSize}</span>
                     </div>
 
-                    <h3 className="project-display-title" style={{ color: activeProject.color }}>
+                    <h3 className="project-display-title">
                       {activeProject.title.toUpperCase()}
                     </h3>
 
