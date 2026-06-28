@@ -86,7 +86,7 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-glass-border);
   background: var(--color-bg-secondary);
-  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   overflow: hidden;
   box-shadow: 0 8px 30px var(--color-shadow);
@@ -123,26 +123,25 @@
 
 /* Navigation Arrow Button */
 .carousel-nav-arrow {
-  background: var(--color-glass);
-  border: 1px solid var(--color-glass-border);
-  color: var(--color-text-primary);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  width: auto;
+  height: auto;
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition-fast);
   z-index: 100;
-  box-shadow: 0 4px 10px var(--color-shadow);
+  box-shadow: none;
 }
 
 .carousel-nav-arrow:hover {
-  background: var(--color-primary);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05);
+  background: transparent;
+  color: var(--color-primary);
+  transform: scale(1.15);
 }
 
 /* Overlay Header elements */
@@ -180,37 +179,11 @@
   font-size: 9px;
   font-weight: 700;
   backdrop-filter: blur(4px);
-}
-
-/* Category Badge Colors */
-.badge-hackathon {
-  background: rgba(217, 119, 6, 0.7);
-  color: #ffffff;
-  border: 1px solid rgba(217, 119, 6, 0.3);
-}
-
-.badge-tour {
-  background: rgba(16, 185, 129, 0.7);
-  color: #ffffff;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.badge-open_source {
-  background: rgba(var(--color-primary-rgb), 0.7);
-  color: #ffffff;
-  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
-}
-
-.badge-mentorship {
-  background: rgba(236, 72, 153, 0.7);
-  color: #ffffff;
-  border: 1px solid rgba(236, 72, 153, 0.3);
-}
-
-.badge-workshop {
-  background: rgba(6, 182, 212, 0.7);
-  color: #ffffff;
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  
+  /* Unified Dark Mode Glass Styles */
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* Card Image Wrapper - Fill entire card */
@@ -344,11 +317,11 @@
   transform: scale(1.05);
 }
 
-/* Light Theme 3-Tier Overrides for Badges */
+/* Light Theme Overrides for Badges - High Contrast */
 [data-theme="light"] .activity-card-badge {
-  background: rgba(var(--color-primary-rgb), 0.15) !important;
-  color: var(--color-primary-dark) !important;
-  border: 1px solid rgba(var(--color-primary-rgb), 0.3) !important;
+  background: rgba(9, 9, 11, 0.07) !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid rgba(9, 9, 11, 0.15) !important;
 }
 
 /* Lightbox Modal Content Box Sizing */
@@ -411,13 +384,13 @@
 }
 
 .lightbox-caption {
-  margin-top: 20px;
+  margin-top: 16px;
   text-align: center;
-  background: rgba(0, 0, 0, 0.65);
-  padding: 10px 20px;
-  border-radius: 30px;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  backdrop-filter: none;
+  border: none;
   color: #ffffff;
 }
 
@@ -443,22 +416,69 @@
 
 /* Nav arrows */
 .lightbox-nav-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition-fast);
+  padding: var(--spacing-sm);
 }
 
 .lightbox-nav-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.08);
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+/* Thumbnail Strip Selector */
+.lightbox-thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  justify-content: center;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 4px;
+  scrollbar-width: none;
+}
+
+.lightbox-thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+.lightbox-thumb-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.45);
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.lightbox-thumb-btn:hover {
+  opacity: 0.8;
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.lightbox-thumb-btn.active {
+  opacity: 1;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
+  transform: translateY(-2px);
+}
+
+.lightbox-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Image fallback styling */
@@ -603,16 +623,92 @@
 
 /* Image transition micro-animation */
 .activity-slide-image {
-  animation: smoothImageFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: smoothImageFade 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes smoothImageFade {
   from {
-    opacity: 0.5;
-    transform: scale(1.04);
+    opacity: 0.55;
+    transform: scale(1.05);
   }
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* Carousel Direct Jump Pagination */
+.carousel-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.pagination-node {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--color-text-secondary);
+}
+
+.pagination-node-number {
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.pagination-node-title {
+  font-size: 11px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.pagination-node:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.3);
+  transform: translateY(-2px);
+  color: var(--color-text-primary);
+}
+
+.pagination-node.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-bg-primary);
+  box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.18);
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] .pagination-node.active {
+  color: white;
+}
+
+.pagination-node.active .pagination-node-number {
+  color: inherit;
+  opacity: 0.7;
+}
+
+/* Lightbox Photo Transition */
+.lightbox-active-image {
+  animation: lightboxImageFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes lightboxImageFade {
+  from {
+    opacity: 0;
+    transform: scale(0.975) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

@@ -170,9 +170,7 @@ const ExtraCurricular = () => {
 
       setActiveImageIdx((prev) => {
         if (prev >= currentEvent.images.length - 1) {
-          // Slide main coverflow to next card
-          setActiveIndex((prevActive) => (prevActive + 1) % filteredEvents.length);
-          return 0;
+          return 0; // Lock focus: only loop images of the active card, do NOT slide coverflow!
         }
         return prev + 1;
       });
@@ -384,26 +382,48 @@ const ExtraCurricular = () => {
           )}
         </div>
 
+        {/* Carousel Direct Jump Pagination Nodes */}
+        {filteredEvents.length > 1 && (
+          <div className="carousel-pagination anim-rise">
+            {filteredEvents.map((event, idx) => (
+              <button
+                key={idx}
+                className={`pagination-node ${idx === activeIndex ? "active" : ""}`}
+                onClick={() => setActiveIndex(idx)}
+                aria-label={`Go to event ${idx + 1}`}
+              >
+                <span className="pagination-node-number">0{idx + 1}</span>
+                <span className="pagination-node-title">{event.title}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Expanded Image Stack Lightbox Modal */}
         {activeEvent && (
           <div className="lightbox-modal" onClick={closeLightbox}>
-            <button className="lightbox-close-btn" onClick={closeLightbox} aria-label="Close lightbox">
-              <X size={28} />
-            </button>
-
-            <div className="lightbox-content-box" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-content-box">
               {/* Left Arrow */}
-              <button className="lightbox-nav-btn nav-left" onClick={prevImage} aria-label="Previous image">
-                <ChevronLeft size={24} />
+              <button 
+                className="lightbox-nav-btn nav-left" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevImage(e);
+                }} 
+                aria-label="Previous image"
+              >
+                <ChevronLeft size={36} />
               </button>
 
               {/* Main Photo Display Area */}
-              <div className="lightbox-display-area">
+              <div className="lightbox-display-area" onClick={(e) => e.stopPropagation()}>
                 <div className="lightbox-polaroid">
                   <div className="lightbox-image-container">
                     <img
+                      key={activeImageIdx}
                       src={encodeImagePath(activeEvent.images[activeImageIdx])}
                       alt={`${activeEvent.title} - Photo ${activeImageIdx + 1}`}
+                      className="lightbox-active-image"
                     />
                   </div>
                   <div className="lightbox-caption">
@@ -413,12 +433,38 @@ const ExtraCurricular = () => {
                       Photo {activeImageIdx + 1} of {activeEvent.images.length}
                     </div>
                   </div>
+
+                  {/* Horizontal Thumbnail Selector */}
+                  {activeEvent.images.length > 1 && (
+                    <div className="lightbox-thumbnails">
+                      {activeEvent.images.map((imgUrl, tIdx) => (
+                        <button
+                          key={tIdx}
+                          className={`lightbox-thumb-btn ${tIdx === activeImageIdx ? "active" : ""}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveImageIdx(tIdx);
+                          }}
+                          aria-label={`Jump to photo ${tIdx + 1}`}
+                        >
+                          <img src={encodeImagePath(imgUrl)} alt="Thumbnail" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Right Arrow */}
-              <button className="lightbox-nav-btn nav-right" onClick={nextImage} aria-label="Next image">
-                <ChevronRight size={24} />
+              <button 
+                className="lightbox-nav-btn nav-right" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextImage(e);
+                }} 
+                aria-label="Next image"
+              >
+                <ChevronRight size={36} />
               </button>
             </div>
           </div>
