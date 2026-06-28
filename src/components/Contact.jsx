@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Contact.css";
 import FloatingDoodles from "./FloatingDoodles";
 import {
@@ -7,11 +7,39 @@ import {
   Mail,
   Linkedin,
   Github,
+  FileDown,
 } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const formRef = useRef();
+  const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      const container = containerRef.current;
+      if (!section || !container) return;
+
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Start splitting when element top is at 95% of screen height
+      // Complete splitting when element top is at 10% of screen height
+      const startTrigger = viewportHeight * 0.95;
+      const endTrigger = viewportHeight * 0.1;
+      
+      let ratio = (startTrigger - rect.top) / (startTrigger - endTrigger);
+      ratio = Math.max(0, Math.min(1, ratio));
+      
+      container.style.setProperty('--scroll-ratio', ratio);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // initialize
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   
   const [formData, setFormData] = useState({
     name: "",
@@ -71,7 +99,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact" style={{ position: "relative" }}>
+    <section id="contact" className="contact" style={{ position: "relative" }} ref={sectionRef}>
       <FloatingDoodles section="contact" />
       <div className="container">
         <div className="section-header anim-rise">
@@ -81,44 +109,65 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="contact-content">
-          {/* Left Side: Modern Info Panel */}
+        <div className="contact-content" ref={containerRef}>
+          {/* Left Side: Diagnostics and 2x2 Network Grid */}
           <div className="contact-info anim-slide-left">
-            <div className="contact-intro-card glass">
-              <h3 className="contact-intro-title">Let's build something together</h3>
-              <p className="contact-intro-desc">
-                Have an exciting project, a role opening, or just want to talk about game development, C++, or AI agents? Fill out the form, or reach out directly through any of the channels below.
-              </p>
+            {/* Terminal Diagnostic Panel */}
+            <div className="terminal-panel glass">
+              <div className="terminal-header">
+                <div className="terminal-dots">
+                  <span className="dot red"></span>
+                  <span className="dot yellow"></span>
+                  <span className="dot green"></span>
+                </div>
+                <span className="terminal-title">system_comms.sh</span>
+              </div>
+              <div className="terminal-body">
+                <p className="terminal-log">> CONNECTING TO NETWORK PORT...</p>
+                <p className="terminal-log">> STATUS: ACTIVE [PORT 443]</p>
+                <p className="terminal-log">> SECURE ENVELOPE LINK READY.</p>
+              </div>
             </div>
 
-            <div className="contact-coords-list">
-              <a href="mailto:abdullahf0100@gmail.com" className="coord-item-link glass">
+            {/* Compact 2x2 Network Hub Grid */}
+            <div className="contact-coords-grid">
+              <a href="mailto:abdullahf0100@gmail.com" className="coord-grid-card glass">
                 <div className="coord-icon-box">
                   <Mail size={18} />
                 </div>
                 <div className="coord-details">
                   <span className="coord-label">Email</span>
-                  <span className="coord-value">abdullahf0100@gmail.com</span>
+                  <span className="coord-value">Direct Line</span>
                 </div>
               </a>
 
-              <a href="https://linkedin.com/in/abdullah-faisal-a8146930a" target="_blank" rel="noopener noreferrer" className="coord-item-link glass">
+              <a href="https://linkedin.com/in/abdullah-faisal-a8146930a" target="_blank" rel="noopener noreferrer" className="coord-grid-card glass">
                 <div className="coord-icon-box">
                   <Linkedin size={18} />
                 </div>
                 <div className="coord-details">
                   <span className="coord-label">LinkedIn</span>
-                  <span className="coord-value">abdullah-faisal-a8146930a</span>
+                  <span className="coord-value">Profile URL</span>
                 </div>
               </a>
 
-              <a href="https://github.com/abdi219" target="_blank" rel="noopener noreferrer" className="coord-item-link glass">
+              <a href="https://github.com/abdi219" target="_blank" rel="noopener noreferrer" className="coord-grid-card glass">
                 <div className="coord-icon-box">
                   <Github size={18} />
                 </div>
                 <div className="coord-details">
                   <span className="coord-label">GitHub</span>
-                  <span className="coord-value">github.com/abdi219</span>
+                  <span className="coord-value">Repository</span>
+                </div>
+              </a>
+
+              <a href="/Abdullahs Resume.pdf" download="Abdullahs_Resume.pdf" target="_blank" rel="noopener noreferrer" className="coord-grid-card glass resume-card">
+                <div className="coord-icon-box">
+                  <FileDown size={18} />
+                </div>
+                <div className="coord-details">
+                  <span className="coord-label">Resume</span>
+                  <span className="coord-value">Download CV</span>
                 </div>
               </a>
             </div>
@@ -131,7 +180,7 @@ const Contact = () => {
               onSubmit={handleSubmit}
               className="contact-form-card glass"
             >
-              <h3 className="form-card-title">Send a Message</h3>
+              <h3 className="form-card-title">Send Transmission</h3>
               
               {status.message && (
                 <div className={`form-alert-banner ${status.type}`}>
@@ -140,7 +189,7 @@ const Contact = () => {
               )}
 
               <div className="form-input-group">
-                <label htmlFor="name" className="form-field-label">Your Name</label>
+                <label htmlFor="name" className="form-field-label">NAME_INPUT ></label>
                 <input
                   type="text"
                   id="name"
@@ -155,7 +204,7 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="email" className="form-field-label">Email Address</label>
+                <label htmlFor="email" className="form-field-label">EMAIL_INPUT ></label>
                 <input
                   type="email"
                   id="email"
@@ -170,7 +219,7 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="subject" className="form-field-label">Subject</label>
+                <label htmlFor="subject" className="form-field-label">SUBJECT_INPUT ></label>
                 <input
                   type="text"
                   id="subject"
@@ -185,7 +234,7 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="message" className="form-field-label">Message</label>
+                <label htmlFor="message" className="form-field-label">MESSAGE_INPUT ></label>
                 <textarea
                   id="message"
                   name="message"
@@ -213,7 +262,7 @@ const Contact = () => {
                   ) : (
                     <>
                       <Send size={16} />
-                      <span>Send Message</span>
+                      <span>Send Transmission</span>
                     </>
                   )}
                 </button>
