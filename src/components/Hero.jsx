@@ -188,41 +188,41 @@ const Hero = () => {
       
       {/* Floating CS / Mathematical Coding Symbols */}
       <div className="hero-bg-symbols">
-        {/* CS & Programming */}
-        <span className="symbol symbol-1">{"{ }"}</span>
-        <span className="symbol symbol-2">void*</span>
-        <span className="symbol symbol-3">O(n log n)</span>
-        <span className="symbol symbol-4">{"=>"}</span>
-        <span className="symbol symbol-5">std::cout</span>
-        <span className="symbol symbol-6">{"<html>"}</span>
+        {/* Python & ML */}
+        <span className="symbol symbol-1">import numpy as np</span>
+        <span className="symbol symbol-2">def train(model):</span>
+        <span className="symbol symbol-3">y_hat = σ(Wx + b)</span>
+        <span className="symbol symbol-4">Softmax</span>
+        <span className="symbol symbol-5">QuickSort</span>
+        <span className="symbol symbol-6">learning_rate</span>
+        <span className="symbol symbol-7">gradient_descent</span>
+        <span className="symbol symbol-8">Loss = MSE</span>
+        <span className="symbol symbol-9">epochs</span>
         
-        {/* Mathematics */}
-        <span className="symbol symbol-7">∫ dx</span>
-        <span className="symbol symbol-8">∇f</span>
-        <span className="symbol symbol-9">lim x→∞</span>
-        <span className="symbol symbol-10">dy/dx</span>
-        <span className="symbol symbol-11">∑ x_i</span>
-        <span className="symbol symbol-12">f(x) = y</span>
+        {/* Stats & Maths */}
+        <span className="symbol symbol-10">μ = 0, σ = 1</span>
+        <span className="symbol symbol-11">P(A|B)</span>
+        <span className="symbol symbol-12">E[X]</span>
+        <span className="symbol symbol-13">Variance</span>
+        <span className="symbol symbol-14">Eigenvalue</span>
+        <span className="symbol symbol-15">∫ e^x dx</span>
+        <span className="symbol symbol-16">dy/dx</span>
+        <span className="symbol symbol-17">lim x→∞</span>
+        <span className="symbol symbol-18">matrix.T</span>
         
-        {/* Machine Learning & AI */}
-        <span className="symbol symbol-13">y = wx + b</span>
-        <span className="symbol symbol-14">σ(z)</span>
-        <span className="symbol symbol-15">ReLU</span>
-        <span className="symbol symbol-16">lambda</span>
-        
-        {/* Game Dev & Vectors */}
-        <span className="symbol symbol-17">Vector3</span>
-        <span className="symbol symbol-18">lerp()</span>
-        <span className="symbol symbol-19">delta</span>
-        <span className="symbol symbol-20">Scene3D</span>
+        {/* Binary */}
+        <span className="symbol symbol-19">0100</span>
+        <span className="symbol symbol-20">1010</span>
+        <span className="symbol symbol-21">0011</span>
+        <span className="symbol symbol-22">1100</span>
 
-        {/* Middle Band - Math, Binary, Python, ML */}
-        <span className="symbol symbol-21">0b1010</span>
-        <span className="symbol symbol-22">def __init__:</span>
-        <span className="symbol symbol-23">Loss = ∑</span>
-        <span className="symbol symbol-24">sin(θ)</span>
-        <span className="symbol symbol-25">import pandas as pd</span>
-        <span className="symbol symbol-26">0x7F</span>
+        {/* C++ (More than Game Dev) */}
+        <span className="symbol symbol-23">{"std::vector<T>"}</span>
+        <span className="symbol symbol-24">{"std::unique_ptr"}</span>
+        <span className="symbol symbol-25">{"const auto&"}</span>
+
+        {/* Game Dev (Less than C++) */}
+        <span className="symbol symbol-26">Update()</span>
       </div>
 
       <div className="container hero-container">
@@ -231,14 +231,13 @@ const Hero = () => {
             <p className="hero-greeting">Hi, I'm</p>
             <h1 className="hero-name">Abdullah Faisal</h1>
             <h2 className="hero-title">
-              Computer Science Student | Game, Web & AI Developer
+              Computer Science Student | AI/ML, C++ &amp; Web Developer
             </h2>
             <p className="hero-description">
-              I build things from scratch, specializing in Game Development
-              (C++, Godot/GDScript), Web Architectures, and Artificial
-              Intelligence. I love designing smart neural integrations, agents,
-              and automated workflows. ACM Technical Member at LGU, passionate
-              about clean logic and great design.
+              I build things from scratch, specializing in Artificial
+              Intelligence (AI/ML models &amp; agents), C++ programming,
+              and web architectures. ACM Technical Member at LGU, passionate
+              about clean logic, algorithms, and design.
             </p>
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">View My Work</a>
