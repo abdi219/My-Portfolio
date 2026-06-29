@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
-import ThemeToggle from './components/ThemeToggle';
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
@@ -23,7 +22,6 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <ThemeToggle />
       <main>
         <Hero />
         <About />

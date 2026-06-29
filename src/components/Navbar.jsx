@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
-import { MessageCircle } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -43,12 +43,12 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <a href="#home" className="logo" onClick={handleNavClick}>
-        <span className="logo-text">Portfolio</span>
+        <span className="logo-text">ABDULLAH //</span>
       </a>
 
       <ul className={`nav-links ${mobileMenuOpen ? "active" : ""}`}>
         {navLinks.map((link, index) => (
-          <li key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+          <li key={index} style={{ transitionDelay: `${index * 0.09}s` }}>
             <a href={link.href} onClick={handleNavClick}>
               {link.name}
             </a>
@@ -57,6 +57,7 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-actions">
+        <ThemeToggle />
         <button
           className="mobile-menu-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
