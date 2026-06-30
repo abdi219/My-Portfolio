@@ -9,6 +9,52 @@ import {
 const About = () => {
   useScrollAnimation();
   const [activeTab, setActiveTab] = useState("overview");
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    const isLeftSwipe = distance > 55;  // swiped left
+    const isRightSwipe = distance < -55; // swiped right
+
+    const tabs = ["overview", "skills", "diagnostics"];
+    const currentIndex = tabs.indexOf(activeTab);
+
+    if (isLeftSwipe && currentIndex < tabs.length - 1) {
+      setActiveTab(tabs[currentIndex + 1]);
+    } else if (isRightSwipe && currentIndex > 0) {
+      setActiveTab(tabs[currentIndex - 1]);
+    }
+
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
+  const handlePrevTab = () => {
+    const tabs = ["overview", "skills", "diagnostics"];
+    const currentIndex = tabs.indexOf(activeTab);
+    if (currentIndex > 0) {
+      setActiveTab(tabs[currentIndex - 1]);
+    }
+  };
+
+  const handleNextTab = () => {
+    const tabs = ["overview", "skills", "diagnostics"];
+    const currentIndex = tabs.indexOf(activeTab);
+    if (currentIndex < tabs.length - 1) {
+      setActiveTab(tabs[currentIndex + 1]);
+    }
+  };
+
   const [selectedSkill, setSelectedSkill] = useState({
     name: "C++",
     category: "lang",
@@ -74,7 +120,6 @@ const About = () => {
                   }
                 }}
               />
-              <div className="blueprint-tag">ABD-2026</div>
               <div className="blueprint-corner-labels">
                 <span className="lbl-tl">CS_STUDENT</span>
                 <span className="lbl-tr">LGU_PK</span>
@@ -122,26 +167,71 @@ const About = () => {
               </button>
             </div>
 
-            <div className="dossier-tab-content glass">
+            {/* Mobile-only interactive slider header */}
+            <div className="dossier-mobile-tab-header glass">
+              <button 
+                className="tab-nav-arrow" 
+                onClick={handlePrevTab}
+                disabled={activeTab === "overview"}
+              >
+                &larr;
+              </button>
+              <span className="mobile-tab-active-title">
+                {activeTab === "overview" && "[ 01. Overview ]"}
+                {activeTab === "skills" && "[ 02. Core Skills ]"}
+                {activeTab === "diagnostics" && "[ 03. System Logs ]"}
+              </span>
+              <button 
+                className="tab-nav-arrow" 
+                onClick={handleNextTab}
+                disabled={activeTab === "diagnostics"}
+              >
+                &rarr;
+              </button>
+            </div>
+            
+            <div className="mobile-tab-dots">
+              <span className={`dot ${activeTab === "overview" ? "active" : ""}`}></span>
+              <span className={`dot ${activeTab === "skills" ? "active" : ""}`}></span>
+              <span className={`dot ${activeTab === "diagnostics" ? "active" : ""}`}></span>
+            </div>
+
+            <div 
+              className="dossier-tab-content glass"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               {activeTab === "overview" && (
                 <div className="tab-pane-overview animate-fade-in">
                   <h3 className="tab-title">Journey Specifications</h3>
-                  <p>
-                    I’m Abdullah Faisal, a Computer Science student at
-                    Lahore Garrison University with a CGPA of 3.23 (completed 4 Semesters). I genuinely enjoy
-                    problem-solving and building things from scratch, constantly
-                    diving deep into how software works under the hood.
-                  </p>
-                  <p>
-                    Currently, I am doing my internship at DeveloperHub as an AI / ML Engineer,
-                    working on cutting-edge models and systems.
-                  </p>
-                  <p>
-                    My core interests lie at the intersection of Game Development,
-                    Data Structures & Algorithms, and AI/ML. I also love leveraging
-                    AI to enhance productivity and streamline development workflows,
-                    constantly pushing technical boundaries and learning by doing.
-                  </p>
+                  
+                  {/* Desktop/Tablet Paragraphs */}
+                  <div className="bio-desktop">
+                    <p>
+                      I’m Abdullah Faisal, a Computer Science student at
+                      Lahore Garrison University with a CGPA of 3.23 (completed 4 Semesters). I genuinely enjoy
+                      problem-solving and building things from scratch, constantly
+                      diving deep into how software works under the hood.
+                    </p>
+                    <p>
+                      Currently, I am doing my internship at DeveloperHub as an AI / ML Engineer,
+                      working on cutting-edge models and systems.
+                    </p>
+                    <p>
+                      My core interests lie at the intersection of Game Development,
+                      Data Structures & Algorithms, and AI/ML. I also love leveraging
+                      AI to enhance productivity and streamline development workflows,
+                      constantly pushing technical boundaries and learning by doing.
+                    </p>
+                  </div>
+
+                  {/* Mobile-only Concise Paragraph */}
+                  <div className="bio-mobile">
+                    <p>
+                      I'm Abdullah Faisal, a CS student at Lahore Garrison University (CGPA 3.23) and AI/ML Engineer intern at DeveloperHub. I specialize in building custom AI agents, C++ game logic, and responsive web architectures from scratch.
+                    </p>
+                  </div>
 
                   <div className="dossier-stats">
                     <div className="dossier-stat-box glass-subtle">
@@ -163,9 +253,14 @@ const About = () => {
               {activeTab === "skills" && (
                 <div className="tab-pane-skills animate-fade-in">
                   <h3 className="tab-title">Core Skills Nodes</h3>
-                  <p className="tab-instruction">Select a node to query details.</p>
+                  <p className="tab-instruction">Select a node to query details. Swipe left/right for more nodes &rarr;</p>
                   
-                  <div className="skills-node-grid">
+                  <div 
+                    className="skills-node-grid"
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchMove={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                  >
                     {skills.map((skill, index) => (
                       <button
                         key={index}
@@ -180,7 +275,12 @@ const About = () => {
                   </div>
 
                   {selectedSkill && (
-                    <div className="skill-detail-panel glass-subtle">
+                    <div 
+                      className="skill-detail-panel glass-subtle"
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchMove={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                    >
                       <div className="detail-header">
                         <span className="detail-category">{selectedSkill.category.toUpperCase()}</span>
                         <h4 style={{ color: selectedSkill.color }}>{selectedSkill.name}</h4>
@@ -194,16 +294,29 @@ const About = () => {
               {activeTab === "diagnostics" && (
                 <div className="tab-pane-diagnostics animate-fade-in">
                   <h3 className="tab-title">System Diagnostic Log</h3>
-                  <div className="terminal-log-output">
-                    {diagnosticLogs.map((log, index) => (
-                      <div key={index} className="terminal-log-line">
-                        <span className="log-timestamp">[SYS_RUN]</span>{" "}
-                        <span className="log-text">{log}</span>
+                  <div className="terminal-window">
+                    <div className="terminal-header-bar">
+                      <span className="term-dot term-red"></span>
+                      <span className="term-dot term-yellow"></span>
+                      <span className="term-dot term-green"></span>
+                      <span className="terminal-title">bash - diagnostics</span>
+                    </div>
+                    <div 
+                      className="terminal-log-output"
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchMove={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                    >
+                      {diagnosticLogs.map((log, index) => (
+                        <div key={index} className="terminal-log-line">
+                          <span className="log-timestamp">[SYS_RUN]</span>{" "}
+                          <span className="log-text">{log}</span>
+                        </div>
+                      ))}
+                      <div className="terminal-cursor-line">
+                        <span className="terminal-prompt">$</span>
+                        <span className="terminal-cursor">▊</span>
                       </div>
-                    ))}
-                    <div className="terminal-cursor-line">
-                      <span className="terminal-prompt">$</span>
-                      <span className="terminal-cursor">▊</span>
                     </div>
                   </div>
                 </div>
