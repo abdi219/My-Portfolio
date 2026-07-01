@@ -557,13 +557,14 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    transition: background 0.3s, box-shadow 0.3s;
+    background: var(--color-text-muted);
+    opacity: 0.35;
+    transition: background 0.3s, opacity 0.3s;
   }
 
   .mobile-tab-dots .dot.active {
-    background: var(--color-primary);
-    box-shadow: 0 0 6px var(--color-primary);
+    background: var(--color-text-primary) !important;
+    opacity: 1 !important;
   }
 
   .dossier-tab-content {
