@@ -9,11 +9,15 @@ const useScrollAnimation = () => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           } else {
-            entry.target.classList.remove('visible');
+            // Only reset (remove visible) if it exits the bottom of the viewport
+            // (boundingClientRect.top is positive and entry is not intersecting)
+            if (entry.boundingClientRect.top > 0) {
+              entry.target.classList.remove('visible');
+            }
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.12, rootMargin: '-80px 0px -40px 0px' }
     );
 
     const targets = document.querySelectorAll(
@@ -36,16 +40,19 @@ const useScrollAnimation = () => {
             });
             parent.dataset.cascadeTriggered = 'true';
           } else {
-            const children = parent.querySelectorAll(':scope > *');
-            children.forEach((child) => {
-              child.style.transitionDelay = '';
-              child.classList.remove('cascade-visible');
-            });
-            delete parent.dataset.cascadeTriggered;
+            // Only reset if it exits the bottom of the viewport
+            if (entry.boundingClientRect.top > 0) {
+              const children = parent.querySelectorAll(':scope > *');
+              children.forEach((child) => {
+                child.style.transitionDelay = '';
+                child.classList.remove('cascade-visible');
+              });
+              delete parent.dataset.cascadeTriggered;
+            }
           }
         });
       },
-      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+      { threshold: 0.08, rootMargin: '-80px 0px -30px 0px' }
     );
 
     const cascadeParents = document.querySelectorAll('[data-cascade]');

@@ -103,9 +103,9 @@ const About = () => {
           <p className="section-subtitle">Dossier & System Diagnostic</p>
         </div>
 
-        <div className="about-layout anim-slide-left">
+        <div className="about-layout">
           {/* Left Column: Blueprint Picture */}
-          <div className="blueprint-column">
+          <div className="blueprint-column anim-slide-left">
             <div className="blueprint-frame glass">
               <div className="blueprint-grid-lines"></div>
               <img
@@ -145,7 +145,7 @@ const About = () => {
           </div>
 
           {/* Right Column: Interactive Tabbed Panel */}
-          <div className="dossier-column">
+          <div className="dossier-column anim-slide-right">
             <div className="dossier-tabs-menu glass">
               <button
                 className={`tab-btn ${activeTab === "overview" ? "active" : ""}`}

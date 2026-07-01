@@ -95,9 +95,9 @@ const Projects = () => {
           <p className="section-subtitle">Tactile Cartridge Console & Arcade Browser</p>
         </div>
 
-        <div className="projects-arcade-layout anim-slide-right">
+        <div className="projects-arcade-layout">
           {/* Left Side: Cartridge Rack */}
-          <div className="cartridge-rack-container">
+          <div className="cartridge-rack-container anim-slide-left">
             <h3 className="rack-title">Game Cartridge Rack</h3>
             <div className="cartridge-rack">
               {projects.map((proj, idx) => {
@@ -126,7 +126,7 @@ const Projects = () => {
           </div>
 
           {/* Right Side: Arcade Cabinet Screen */}
-          <div className="arcade-cabinet-container">
+          <div className="arcade-cabinet-container anim-slide-right">
             <div className="cabinet-bezel glass">
               <div className="crt-screen">
                 <div className="crt-scanlines"></div>

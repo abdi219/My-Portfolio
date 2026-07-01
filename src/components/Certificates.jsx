@@ -125,9 +125,9 @@ const Certificates = () => {
                     <p className="section-subtitle">Holographic Pedestal Projector & Verification System</p>
                 </div>
 
-                <div className="certificates-projector-layout anim-slide-left">
+                <div className="certificates-projector-layout">
                     {/* Left Column: Keycard Rack */}
-                    <div className="keycard-rack-container">
+                    <div className="keycard-rack-container anim-slide-right">
                         <span className="rack-title-text">KEYCARD ARCHIVE SLOTS</span>
                         <div className="keycard-rack">
                             {certificates.map((cert, idx) => {
@@ -154,7 +154,7 @@ const Certificates = () => {
                     </div>
 
                     {/* Right Column: Holographic Pedestal Screen */}
-                    <div className="hologram-projector-container">
+                    <div className="hologram-projector-container anim-slide-left">
                         <div 
                             className={`projector-glass glass ${activeCert.image ? "clickable-projector" : ""}`}
                             onClick={() => {

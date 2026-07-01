@@ -397,22 +397,63 @@
   animation: crtPulse 1.2s infinite;
 }
 
+@keyframes holoProjectionOn {
+  0% {
+    opacity: 0;
+    filter: brightness(2.5) contrast(1.2);
+  }
+  20% {
+    opacity: 0.8;
+    filter: brightness(1) contrast(1);
+  }
+  40% {
+    opacity: 0.3;
+    filter: brightness(2) contrast(1.1);
+  }
+  60% {
+    opacity: 0.9;
+    filter: brightness(1.2) contrast(1);
+  }
+  70% {
+    opacity: 0.6;
+    filter: brightness(1.8) contrast(1.1);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) contrast(1);
+  }
+}
+
 .animate-crt-flicker {
-  animation: crtOn 0.3s ease-out;
+  animation: holoProjectionOn 0.4s ease-out;
 }
 
 /* Tablet responsiveness */
 @media (max-width: 992px) {
   .certificates-projector-layout {
     grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+    gap: 20px !important;
+  }
+
+  .hologram-projector-container {
+    order: 1; /* projector display first */
+  }
+
+  .keycard-rack-container {
+    order: 2; /* card archive rack below screen */
   }
 }
 
 /* Mobile responsiveness */
 @media (max-width: 600px) {
-  .project-glass {
-    padding: var(--spacing-md);
+  .certificates-projector-layout {
+    gap: 16px !important;
+  }
+
+  .projector-glass {
+    aspect-ratio: auto !important;
+    min-height: 250px;
+    padding: var(--spacing-md) !important;
   }
 
   .projection-details {
@@ -421,9 +462,68 @@
     gap: var(--spacing-sm);
   }
 
+  .projection-image-wrapper {
+    width: 100% !important;
+    max-width: 220px !important;
+    height: 110px !important;
+    margin: 0 auto !important;
+  }
+
   .projection-icon-orb {
     width: 44px;
     height: 44px;
+    margin: 0 auto !important;
+  }
+
+  .projection-title {
+    font-size: var(--font-size-base) !important;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  .projection-issuer {
+    font-size: 10px !important;
+    text-align: center;
+  }
+
+  .projection-date {
+    font-size: 9px !important;
+    text-align: center;
+  }
+
+  .projection-hash {
+    font-size: 9px !important;
+    word-break: break-all !important;
+    text-align: center;
+  }
+
+  .projection-text-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .projection-action {
+    justify-content: center !important;
+    margin-top: 8px;
+  }
+
+  .keycard-rack {
+    max-height: 240px !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(var(--color-primary-rgb), 0.2) transparent !important;
+  }
+
+  .keycard-rack::-webkit-scrollbar {
+    display: block !important;
+    width: 3px !important;
+  }
+
+  .keycard-rack::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.01) !important;
+  }
+
+  .keycard-rack::-webkit-scrollbar-thumb {
+    background: rgba(var(--color-primary-rgb), 0.2) !important;
   }
 }
 
