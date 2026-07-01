@@ -525,6 +525,11 @@
 
 /* Mobile responsiveness */
 @media (max-width: 600px) {
+  .activity-carousel-container {
+    margin-top: 24px !important;
+    gap: 8px !important;
+  }
+
   .activity-filter-bar {
     flex-wrap: wrap;
     border-radius: var(--radius-md);
@@ -540,26 +545,66 @@
   }
 
   .activity-carousel-viewport {
-    height: 380px;
+    width: calc(100% - 60px) !important;
+    height: 330px !important;
   }
 
   .carousel-card {
-    width: 290px;
-    height: 320px;
-    left: calc(50% - 145px);
+    width: 100% !important;
+    max-width: 280px !important;
+    height: 310px !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
   }
 
-  .carousel-card.prev {
-    transform: translateX(-25%) scale(0.8) !important;
+  /* Hide prev/next/far cards completely on mobile to prevent overlap & overflow issues */
+  .carousel-card.prev,
+  .carousel-card.next,
+  .carousel-card.far {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
-  .carousel-card.next {
-    transform: translateX(25%) scale(0.8) !important;
+  .carousel-card.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(0) scale(1) !important;
+  }
+
+  .activity-card-overlay-content {
+    padding: var(--spacing-sm) !important;
+  }
+
+  .activity-card-title {
+    font-size: 14px !important;
+  }
+
+  .activity-card-subtitle {
+    font-size: 10px !important;
+    margin-bottom: 4px !important;
   }
 
   .carousel-nav-arrow {
     width: 36px;
     height: 36px;
+    padding: 4px !important;
+  }
+
+  /* Hide pagination titles to show clean index numbers (e.g. 01, 02) horizontally */
+  .pagination-node-title {
+    display: none !important;
+  }
+
+  .carousel-pagination {
+    gap: 6px !important;
+    margin-top: 20px !important;
+  }
+
+  .pagination-node {
+    padding: 6px 12px !important;
   }
 
   .lightbox-content-box {
