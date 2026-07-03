@@ -3,7 +3,7 @@
   position: absolute;
   pointer-events: none;
   user-select: none;
-  z-index: 0;
+  z-index: 1; /* Set to 1 so they display above parent background but below z-index 10 container content */
   will-change: transform;
   /* Light mode — strong dark ink */
   opacity: 0.35;
@@ -47,7 +47,17 @@
   overflow: hidden;
 }
 
-/* ── Hide on small screens ────────────────────────────────────────────────── */
+/* ── Mobile responsiveness overrides ────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .doodle-item { display: none; }
+  /* Restore all doodles on mobile screens but keep them layered behind containers */
+  .doodle-item {
+    display: block !important;
+    opacity: 0.26 !important; /* more visible as requested */
+    z-index: 1 !important;
+  }
+
+  /* Light mode opacity override on mobile */
+  [data-theme="light"] .doodle-item {
+    opacity: 0.30 !important;
+  }
 }
