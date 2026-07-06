@@ -614,6 +614,8 @@
   flex-shrink: 0;
   transition: all var(--transition-base);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  /* WebKit border-radius clipping bug fix: */
+  transform: translateZ(0);
 }
 /* Scanline filter removed for a clean, line-free image preview */
 .projection-cert-image {
@@ -622,11 +624,15 @@
   object-fit: cover;
   opacity: 0.8;
   transition: all var(--transition-base);
+  border-radius: inherit; /* Force rounding on WebKit browser engines */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: scale(1.06); /* Scale up to crop black borders */
 }
 
 .clickable-projector:hover .projection-cert-image {
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.10); /* Keep scaled up on hover */
 }
 
 .projection-image-overlay {
@@ -742,24 +748,31 @@
 }
 
 .cert-lightbox-image-container {
-  width: auto;
-  height: auto;
+  display: inline-block; /* Wrap image width exactly */
   max-width: 85vw;
   max-height: 70vh;
   background: transparent;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle premium border to define rounded shape */
+  /* WebKit border-radius clipping bug fix: */
+  transform: translateZ(0);
 }
 
 .cert-lightbox-image-container img {
+  display: block;
+  width: 100%;
+  height: auto;
   max-width: 85vw;
   max-height: 70vh;
-  width: auto;
-  height: auto;
+  min-width: min(700px, 85vw); /* Apply upscaling rules directly to the image */
   object-fit: contain;
-  border-radius: 16px;
+  border-radius: inherit; /* Use inherit to perfectly match parent 16px radius */
+  image-rendering: -webkit-optimize-contrast; /* Sharpen upscaled text */
+  image-rendering: crisp-edges;
+  transform: scale(1.05); /* Zoom slightly to bleed off dark borders & round white edges */
+  transition: transform var(--transition-base);
 }
 
 .cert-lightbox-caption {

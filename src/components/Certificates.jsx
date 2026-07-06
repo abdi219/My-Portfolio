@@ -2,12 +2,24 @@ import React, { useState, useEffect } from 'react';
 import './Certificates.css';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import FloatingDoodles from './FloatingDoodles';
-import { Users, Bot, Gamepad2, BadgeCheck, ExternalLink, FileSpreadsheet, Award, ShieldAlert, Cpu, X } from 'lucide-react';
+import { Users, Bot, Gamepad2, BadgeCheck, ExternalLink, FileSpreadsheet, Award, ShieldAlert, Cpu, X, Code2 } from 'lucide-react';
 
 const Certificates = () => {
     useScrollAnimation();
 
     const certificates = [
+        {
+            title: 'IBM Python for Data Science',
+            issuer: 'IBM',
+            date: '2025',
+            icon: <Code2 size={20} />,
+            color: 'var(--color-primary)',
+            idTag: 'CERT-IBM-PY-501',
+            nodeNum: '01',
+            hash: '0x13721ibmpy',
+            credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/XDA7KTCE1EFA',
+            image: '/Certs/IBM Python for Data Science.png'
+        },
         {
             title: 'Oracle Cloud AI Foundations',
             issuer: 'Oracle University',
@@ -15,10 +27,22 @@ const Certificates = () => {
             icon: <Bot size={20} />,
             color: 'var(--color-primary)',
             idTag: 'CERT-ORCL-AI-902',
-            nodeNum: '01',
+            nodeNum: '02',
             hash: '0x8b5fa92d114c0a',
             credentialUrl: 'https://catalog-education.oracle.com/ords/certview/sharebadge?id=F9286A5BCCDE0BE243A01E58F4916994D4B29C14486E63A8A4E80EACB10C4DB0',
             image: '/Certs/AbdullahsOracleeCertificate_page-0001.jpg'
+        },
+        {
+            title: 'Anthropic Claude 101',
+            issuer: 'Anthropic',
+            date: '2025',
+            icon: <Bot size={20} />,
+            color: 'var(--color-primary)',
+            idTag: 'CERT-ANTH-CL-101',
+            nodeNum: '03',
+            hash: '0x62508claude',
+            credentialUrl: 'https://verify.skilljar.com/c/af5kn6bv97df',
+            image: '/Certs/Claude101.png'
         },
         {
             title: 'HP AI for Business Professionals',
@@ -27,7 +51,7 @@ const Certificates = () => {
             icon: <Award size={20} />,
             color: 'var(--color-primary)',
             idTag: 'CERT-HP-AI-102',
-            nodeNum: '02',
+            nodeNum: '04',
             hash: '0x610efc8ce92f',
             credentialUrl: 'https://www.life-global.org/certificate/610efc8c-e92f-41d0-bc14-b7d2d3f8ca69',
             image: '/Certs/HP AI for busines Proessionals.png'
@@ -39,7 +63,7 @@ const Certificates = () => {
             icon: <Cpu size={20} />,
             color: 'var(--color-primary)',
             idTag: 'CERT-HW-APD-301',
-            nodeNum: '03',
+            nodeNum: '05',
             hash: '0x306626hwalg',
             credentialUrl: null,
             image: '/Certs/Huawei Algorithm and Program Design.png'
@@ -51,7 +75,7 @@ const Certificates = () => {
             icon: <FileSpreadsheet size={20} />,
             color: 'var(--color-primary)',
             idTag: 'CERT-MSFT-AN-107',
-            nodeNum: '04',
+            nodeNum: '06',
             hash: '0x32fd90e11ab9c',
             credentialUrl: 'https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiIyOTczIiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvOTgwOTA4OF8xMDAyNTcxOF8xNzcwMzI2NTM1MTQ0LnBuZyIsInVzZXJuYW1lIjoiQWJkdWxsYWggRmFpc2FsIn0%3D&utm_source=shared-certificate&utm_medium=lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Flms.simplilearn.com%2Fcourses%2F5712%2FBusiness-Analytics-with-Excel-Beginner-Course%2Fcertificate%2Fdownload-skillup&%24web_only=true&_branch_match_id=1392848493742485176&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1k%2FVL4oyS89w8couN0iyrytKTUstKsrMS49PKsovL04tsvUBqkpN8cwDACqi8ENBAAAA',
             image: '/Certs/MicrosoftCert.jpg'
@@ -63,7 +87,7 @@ const Certificates = () => {
             icon: <Users size={20} />,
             color: 'var(--color-primary)',
             idTag: 'MEMBER-ACM-LGU',
-            nodeNum: '05',
+            nodeNum: '07',
             hash: '0xac310f829db19a',
             credentialUrl: null,
             image: null
@@ -75,7 +99,7 @@ const Certificates = () => {
             icon: <Award size={20} />,
             color: 'var(--color-primary)',
             idTag: 'FINALIST-TECH-409',
-            nodeNum: '06',
+            nodeNum: '08',
             hash: '0x992db1c08fe340',
             credentialUrl: '/image.png',
             image: '/image.png'
