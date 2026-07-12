@@ -137,6 +137,12 @@ const ExtraCurricular = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeEvent, setActiveEvent] = useState(null);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  // Reset image loading state when active index or active event changes
+  useEffect(() => {
+    setImageLoading(true);
+  }, [activeImageIdx, activeEvent]);
 
   const filteredEvents = activeFilter === "all" 
     ? events 
@@ -399,77 +405,84 @@ const ExtraCurricular = () => {
           </div>
         )}
 
-        {/* Expanded Image Stack Lightbox Modal */}
-        {activeEvent && (
-          <div className="lightbox-modal" onClick={closeLightbox}>
-            <div className="lightbox-content-box">
-              {/* Left Arrow */}
-              <button 
-                className="lightbox-nav-btn nav-left" 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prevImage(e);
-                }} 
-                aria-label="Previous image"
-              >
-                <ChevronLeft size={36} />
-              </button>
+      </div>
 
-              {/* Main Photo Display Area */}
-              <div className="lightbox-display-area" onClick={(e) => e.stopPropagation()}>
-                <div className="lightbox-polaroid">
-                  <div className="lightbox-image-container">
-                    <img
-                      key={activeImageIdx}
-                      src={encodeImagePath(activeEvent.images[activeImageIdx])}
-                      alt={`${activeEvent.title} - Photo ${activeImageIdx + 1}`}
-                      className="lightbox-active-image"
-                    />
-                  </div>
-                  <div className="lightbox-caption">
-                    <h3 className="lightbox-title">{activeEvent.title}</h3>
-                    <p className="lightbox-subtitle">{activeEvent.subtitle}</p>
-                    <div className="lightbox-photo-counter">
-                      Photo {activeImageIdx + 1} of {activeEvent.images.length}
-                    </div>
-                  </div>
+      {/* Expanded Image Stack Lightbox Modal */}
+      {activeEvent && (
+        <div className="lightbox-modal" onClick={closeLightbox}>
+          <div className="lightbox-content-box">
+            {/* Left Arrow */}
+            <button 
+              className="lightbox-nav-btn nav-left" 
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage(e);
+              }} 
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={36} />
+            </button>
 
-                  {/* Horizontal Thumbnail Selector */}
-                  {activeEvent.images.length > 1 && (
-                    <div className="lightbox-thumbnails">
-                      {activeEvent.images.map((imgUrl, tIdx) => (
-                        <button
-                          key={tIdx}
-                          className={`lightbox-thumb-btn ${tIdx === activeImageIdx ? "active" : ""}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveImageIdx(tIdx);
-                          }}
-                          aria-label={`Jump to photo ${tIdx + 1}`}
-                        >
-                          <img src={encodeImagePath(imgUrl)} alt="Thumbnail" />
-                        </button>
-                      ))}
+            {/* Main Photo Display Area */}
+            <div className="lightbox-display-area" onClick={(e) => e.stopPropagation()}>
+              <div className="lightbox-polaroid">
+                <div className="lightbox-image-container">
+                  {imageLoading && (
+                    <div className="lightbox-image-loader">
+                      <div className="lightbox-image-spinner"></div>
                     </div>
                   )}
+                  <img
+                    key={activeImageIdx}
+                    src={encodeImagePath(activeEvent.images[activeImageIdx])}
+                    alt={`${activeEvent.title} - Photo ${activeImageIdx + 1}`}
+                    className={`lightbox-active-image ${imageLoading ? "" : "loaded"}`}
+                    onLoad={() => setImageLoading(false)}
+                  />
                 </div>
-              </div>
+                <div className="lightbox-caption">
+                  <h3 className="lightbox-title">{activeEvent.title}</h3>
+                  <p className="lightbox-subtitle">{activeEvent.subtitle}</p>
+                  <div className="lightbox-photo-counter">
+                    Photo {activeImageIdx + 1} of {activeEvent.images.length}
+                  </div>
+                </div>
 
-              {/* Right Arrow */}
-              <button 
-                className="lightbox-nav-btn nav-right" 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  nextImage(e);
-                }} 
-                aria-label="Next image"
-              >
-                <ChevronRight size={36} />
-              </button>
+                {/* Horizontal Thumbnail Selector */}
+                {activeEvent.images.length > 1 && (
+                  <div className="lightbox-thumbnails">
+                    {activeEvent.images.map((imgUrl, tIdx) => (
+                      <button
+                        key={tIdx}
+                        className={`lightbox-thumb-btn ${tIdx === activeImageIdx ? "active" : ""}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveImageIdx(tIdx);
+                        }}
+                        aria-label={`Jump to photo ${tIdx + 1}`}
+                      >
+                        <img src={encodeImagePath(imgUrl)} alt="Thumbnail" loading="lazy" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
+
+            {/* Right Arrow */}
+            <button 
+              className="lightbox-nav-btn nav-right" 
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage(e);
+              }} 
+              aria-label="Next image"
+            >
+              <ChevronRight size={36} />
+            </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </section>
   );
 };
