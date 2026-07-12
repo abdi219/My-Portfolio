@@ -3,7 +3,7 @@ import "./About.css";
 import useScrollAnimation from "../hooks/useScrollAnimation";
 import FloatingDoodles from "./FloatingDoodles";
 import {
-  Code2, Gamepad2, Terminal, FileJson, Atom, Server, Palette, BrainCircuit, Sparkles, MapPin, Briefcase, UserCheck, Users
+  Code2, Gamepad2, Terminal, FileJson, Atom, Server, Palette, BrainCircuit, Sparkles, MapPin, Briefcase, UserCheck, Users, Lightbulb, RefreshCw
 } from "lucide-react";
 
 const About = () => {
@@ -76,7 +76,10 @@ const About = () => {
     { name: "Gen AI", category: "core", icon: <Sparkles size={16} />, color: "var(--color-primary)", detail: "Leveraging LLMs and prompting techniques to build assistant bots and optimize coding speed." },
     { name: "Communication", category: "soft", icon: <Users size={16} />, color: "var(--color-primary)", detail: "Articulating technical concepts clearly and collaborating effectively in team settings." },
     { name: "Problem Solving", category: "soft", icon: <BrainCircuit size={16} />, color: "var(--color-primary)", detail: "Approaching complex software challenges methodically and building optimal solutions." },
-    { name: "Team Leadership", category: "soft", icon: <UserCheck size={16} />, color: "var(--color-primary)", detail: "Mentoring peers and guiding technical initiatives within student societies." }
+    { name: "Leadership", category: "soft", icon: <UserCheck size={16} />, color: "var(--color-primary)", detail: "Mentoring peers and guiding technical initiatives within student societies." },
+    { name: "Teamwork", category: "soft", icon: <Users size={16} />, color: "var(--color-primary)", detail: "Working harmoniously with diverse groups to deliver successful project outcomes." },
+    { name: "Adaptability", category: "soft", icon: <RefreshCw size={16} />, color: "var(--color-primary)", detail: "Thriving in dynamic environments and quickly mastering new tools or frameworks." },
+    { name: "Creativity", category: "soft", icon: <Lightbulb size={16} />, color: "var(--color-primary)", detail: "Designing innovative, visually-stunning user interfaces and novel software architectures." }
   ];
 
   const diagnosticLogs = [
@@ -239,7 +242,7 @@ const About = () => {
                       <div className="stat-lbl">CGPA</div>
                     </div>
                     <div className="dossier-stat-box glass-subtle">
-                      <div className="stat-num">18+</div>
+                      <div className="stat-num">23+</div>
                       <div className="stat-lbl">Projects</div>
                     </div>
                     <div className="dossier-stat-box glass-subtle">

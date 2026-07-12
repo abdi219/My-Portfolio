@@ -121,16 +121,17 @@ Web: React.js, Node.js, Tailwind CSS, HTML/CSS
 Game Dev: Raylib (C++), Godot Engine (GDScript)
 Core CS: Data Structures & Algorithms, OOP
 AI Engineering: Generative AI integrations, multi-agent pipelines, prompt engineering
-Other: Business Analytics (Excel), Git/GitHub`,
+Other: Business Analytics (Excel), Git/GitHub
+Soft Skills: Communication, Problem Solving, Leadership, Teamwork, Adaptability, Creativity`,
 
-    projects: `Abdullah has built 18+ projects including:
+    projects: `Abdullah has built 23+ projects including:
 
 Catch or Kaboom: C++/Raylib game featuring custom game mechanics, logic handling, collision detection, and performance-focused design.
 MindCare LLM: Empathetic mental health chatbot fine-tuned on Hugging Face's empathetic_dialogues using DistilGPT-2.
 E-Commerce Web: Full frontend-focused web application built with React and Node.js with modern responsive design.
-FIFA Simulator: Knockout-style FIFA World Cup simulator built with Python and NumPy utilizing Poisson goal-generation and Monte Carlo simulations.
-Nvidia Predictor: Time-series forecasting regression model predicting NVIDIA's stock closing prices using Random Forest and moving averages.
-MediMind AI: Safety-first AI health chatbot querying Llama 3.3 70B Instruct via Hugging Face Router API with keyword safety filters.
+LLM Ticket Tagging: Automated customer support ticket classification comparing zero-shot and few-shot prompting using Qwen2.5-1.5B-Instruct.
+Telco Churn ML: End-to-end customer churn prediction pipeline using Scikit-Learn with ColumnTransformer and GridSearchCV.
+BERT News Classifier: Text classification model fine-tuning bert-base-uncased on the AG News dataset with Gradio deployment.
 
 You can view them in the Projects section.`,
 
@@ -219,7 +220,7 @@ Technologies: React.js, Node.js, Tailwind CSS, HTML/CSS, JavaScript. He focuses 
     resume: `Abdullah's key highlights:
 
 BS Computer Science, LGU (Completed 4th Semester, CGPA 3.23)
-18+ Projects (Game, Web & AI Dev)
+23+ Projects (Game, Web & AI Dev)
 Oracle Cloud AI Foundations Associate
 Microsoft Business Analytics with Excel
 Top 10 at TechSphere Hackathon

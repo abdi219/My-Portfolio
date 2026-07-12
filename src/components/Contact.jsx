@@ -123,9 +123,9 @@ const Contact = () => {
                 <span className="terminal-title">system_comms.sh</span>
               </div>
               <div className="terminal-body">
-                <p className="terminal-log">> CONNECTING TO NETWORK PORT...</p>
-                <p className="terminal-log">> STATUS: ACTIVE [PORT 443]</p>
-                <p className="terminal-log">> SECURE ENVELOPE LINK READY.</p>
+                <p className="terminal-log">&gt; CONNECTING TO NETWORK PORT...</p>
+                <p className="terminal-log">&gt; STATUS: ACTIVE [PORT 443]</p>
+                <p className="terminal-log">&gt; SECURE ENVELOPE LINK READY.</p>
               </div>
             </div>
 
@@ -189,7 +189,7 @@ const Contact = () => {
               )}
 
               <div className="form-input-group">
-                <label htmlFor="name" className="form-field-label">NAME_INPUT ></label>
+                <label htmlFor="name" className="form-field-label">NAME_INPUT &gt;</label>
                 <input
                   type="text"
                   id="name"
@@ -204,7 +204,7 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="email" className="form-field-label">EMAIL_INPUT ></label>
+                <label htmlFor="email" className="form-field-label">EMAIL_INPUT &gt;</label>
                 <input
                   type="email"
                   id="email"
@@ -219,7 +219,7 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="subject" className="form-field-label">SUBJECT_INPUT ></label>
+                <label htmlFor="subject" className="form-field-label">SUBJECT_INPUT &gt;</label>
                 <input
                   type="text"
                   id="subject"
@@ -234,7 +234,7 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="message" className="form-field-label">MESSAGE_INPUT ></label>
+                <label htmlFor="message" className="form-field-label">MESSAGE_INPUT &gt;</label>
                 <textarea
                   id="message"
                   name="message"

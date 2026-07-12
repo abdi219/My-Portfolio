@@ -39,34 +39,34 @@ const Projects = () => {
       genre: "COMMERCE / WEB"
     },
     {
-      title: "FIFA Simulator",
-      description: "Knockout-style FIFA World Cup tournament simulator built with Python and NumPy. Models goal generation using Poisson distribution based on team attack/defense attributes and runs Monte Carlo simulations to estimate win percentages.",
-      tech: ["Python", "NumPy", "Monte Carlo"],
-      github: "https://github.com/abdi219/FIFA_World_Cup_Simulator",
+      title: "LLM Ticket Tagging",
+      description: "An automated customer support ticket classification system comparing zero-shot and few-shot prompting techniques using Qwen2.5-1.5B-Instruct. Features advanced prompt engineering and tokenizer-level stopping guardrails for stable structured predictions.",
+      tech: ["Qwen2.5", "Hugging Face", "LLMs", "Prompt Eng"],
+      github: "https://github.com/abdi219/AutoTagging-SupportTickets",
       demo: "#",
       color: "#f59e0b",
-      romSize: "1.2 MB",
-      genre: "SIM / PROBABILITY"
+      romSize: "1.5 GB",
+      genre: "LLM / AUTO-TAGGING"
     },
     {
-      title: "Nvidia Predictor",
-      description: "Time-series regression model predicting NVIDIA's stock closing prices. Utilizes historical yfinance data with Random Forest, lag features, and moving averages to analyze high-volatility market movements.",
-      tech: ["Python", "Scikit-Learn", "yfinance", "Regression"],
-      github: "https://github.com/abdi219/Nvidia-Stock-Predictor",
+      title: "Telco Churn ML",
+      description: "An end-to-end customer churn prediction pipeline built using Scikit-Learn. Features automated column preprocessing to eliminate data leakage and hyperparameters tuned via GridSearchCV to achieve 82% accuracy with Logistic Regression.",
+      tech: ["Python", "Scikit-Learn", "GridSearchCV", "Pipeline"],
+      github: "https://github.com/abdi219/Customer-Churn-Pipeline",
       demo: "#",
       color: "#10b981",
-      romSize: "14.2 MB",
-      genre: "ML / TIME SERIES"
+      romSize: "24 MB",
+      genre: "ML / PIPELINE"
     },
     {
-      title: "MediMind AI",
-      description: "AI-powered health chatbot querying Llama 3.3 70B Instruct via Hugging Face Router API. Implements local keyword safety filtering, emergency warnings, and robust medical guardrails.",
-      tech: ["Python", "Llama 3.3", "Hugging Face", "APIs"],
-      github: "https://github.com/abdi219/MediMind-AI",
+      title: "BERT News Classifier",
+      description: "A text classification model fine-tuning bert-base-uncased on the AG News dataset. Achieved 89.9% classification accuracy across four distinct news topics, deployed as an interactive live inference interface using Gradio.",
+      tech: ["PyTorch", "Transformers", "BERT", "Gradio"],
+      github: "https://github.com/abdi219/BERT-News-Classifier",
       demo: "#",
       color: "#06b6d4",
-      romSize: "85 MB",
-      genre: "AI / CLINICAL CHAT"
+      romSize: "420 MB",
+      genre: "NLP / CLASSIFIER"
     },
   ];
 
