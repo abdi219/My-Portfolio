@@ -224,7 +224,7 @@
     .nav-links a::before {
         display: none !important;
     }
-    
+
     .nav-links a::after {
         display: none !important;
     }
@@ -236,6 +236,7 @@
         clip-path: circle(0% at 90% 5%);
         transform: translateY(-8px);
     }
+
     100% {
         opacity: 1;
         clip-path: circle(150% at 90% 5%);

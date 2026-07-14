@@ -1,14 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Contact.css";
 import FloatingDoodles from "./FloatingDoodles";
-import {
-  Send,
-  Loader2,
-  Mail,
-  Linkedin,
-  Github,
-  FileDown,
-} from "lucide-react";
+import { Send, Loader2, Mail, Linkedin, Github, FileDown } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
 const Contact = () => {
@@ -29,18 +22,18 @@ const Contact = () => {
       // Complete splitting when element top is at 10% of screen height
       const startTrigger = viewportHeight * 0.95;
       const endTrigger = viewportHeight * 0.1;
-      
+
       let ratio = (startTrigger - rect.top) / (startTrigger - endTrigger);
       ratio = Math.max(0, Math.min(1, ratio));
-      
-      container.style.setProperty('--scroll-ratio', ratio);
+
+      container.style.setProperty("--scroll-ratio", ratio);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // initialize
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -91,7 +84,8 @@ const Contact = () => {
       console.error("EmailJS Error:", error);
       setStatus({
         type: "error",
-        message: "Failed to send message. Please contact directly at abdullahf0100@gmail.com.",
+        message:
+          "Failed to send message. Please contact directly at abdullahf0100@gmail.com.",
       });
     } finally {
       setIsSubmitting(false);
@@ -99,7 +93,12 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact" style={{ position: "relative" }} ref={sectionRef}>
+    <section
+      id="contact"
+      className="contact"
+      style={{ position: "relative" }}
+      ref={sectionRef}
+    >
       <FloatingDoodles section="contact" />
       <div className="container">
         <div className="section-header anim-rise">
@@ -123,7 +122,9 @@ const Contact = () => {
                 <span className="terminal-title">system_comms.sh</span>
               </div>
               <div className="terminal-body">
-                <p className="terminal-log">&gt; CONNECTING TO NETWORK PORT...</p>
+                <p className="terminal-log">
+                  &gt; CONNECTING TO NETWORK PORT...
+                </p>
                 <p className="terminal-log">&gt; STATUS: ACTIVE [PORT 443]</p>
                 <p className="terminal-log">&gt; SECURE ENVELOPE LINK READY.</p>
               </div>
@@ -131,7 +132,10 @@ const Contact = () => {
 
             {/* Compact 2x2 Network Hub Grid */}
             <div className="contact-coords-grid">
-              <a href="mailto:abdullahf0100@gmail.com" className="coord-grid-card glass">
+              <a
+                href="mailto:abdullahf0100@gmail.com"
+                className="coord-grid-card glass"
+              >
                 <div className="coord-icon-box">
                   <Mail size={18} />
                 </div>
@@ -141,7 +145,12 @@ const Contact = () => {
                 </div>
               </a>
 
-              <a href="https://linkedin.com/in/abdullah-faisal-a8146930a" target="_blank" rel="noopener noreferrer" className="coord-grid-card glass">
+              <a
+                href="https://linkedin.com/in/abdullah-faisal-a8146930a"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="coord-grid-card glass"
+              >
                 <div className="coord-icon-box">
                   <Linkedin size={18} />
                 </div>
@@ -151,7 +160,12 @@ const Contact = () => {
                 </div>
               </a>
 
-              <a href="https://github.com/abdi219" target="_blank" rel="noopener noreferrer" className="coord-grid-card glass">
+              <a
+                href="https://github.com/abdi219"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="coord-grid-card glass"
+              >
                 <div className="coord-icon-box">
                   <Github size={18} />
                 </div>
@@ -161,7 +175,13 @@ const Contact = () => {
                 </div>
               </a>
 
-              <a href="/Abdullahs Resume.pdf" download="Abdullahs_Resume.pdf" target="_blank" rel="noopener noreferrer" className="coord-grid-card glass resume-card">
+              <a
+                href="/myPdf.png"
+                download="myPdf.png"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="coord-grid-card glass resume-card"
+              >
                 <div className="coord-icon-box">
                   <FileDown size={18} />
                 </div>
@@ -181,7 +201,7 @@ const Contact = () => {
               className="contact-form-card glass"
             >
               <h3 className="form-card-title">Send Transmission</h3>
-              
+
               {status.message && (
                 <div className={`form-alert-banner ${status.type}`}>
                   <span className="alert-text">{status.message}</span>
@@ -189,7 +209,9 @@ const Contact = () => {
               )}
 
               <div className="form-input-group">
-                <label htmlFor="name" className="form-field-label">NAME_INPUT &gt;</label>
+                <label htmlFor="name" className="form-field-label">
+                  NAME_INPUT &gt;
+                </label>
                 <input
                   type="text"
                   id="name"
@@ -204,7 +226,9 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="email" className="form-field-label">EMAIL_INPUT &gt;</label>
+                <label htmlFor="email" className="form-field-label">
+                  EMAIL_INPUT &gt;
+                </label>
                 <input
                   type="email"
                   id="email"
@@ -219,7 +243,9 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="subject" className="form-field-label">SUBJECT_INPUT &gt;</label>
+                <label htmlFor="subject" className="form-field-label">
+                  SUBJECT_INPUT &gt;
+                </label>
                 <input
                   type="text"
                   id="subject"
@@ -234,7 +260,9 @@ const Contact = () => {
               </div>
 
               <div className="form-input-group">
-                <label htmlFor="message" className="form-field-label">MESSAGE_INPUT &gt;</label>
+                <label htmlFor="message" className="form-field-label">
+                  MESSAGE_INPUT &gt;
+                </label>
                 <textarea
                   id="message"
                   name="message"
