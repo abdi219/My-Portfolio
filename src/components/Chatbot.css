@@ -158,24 +158,63 @@
     transform: translateY(-50%) scale(0.9) translateX(15px);
     width: 360px;
     height: 500px;
-    background: var(--color-glass);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--color-glass-border);
+    /* Liquid glass: transparent so the ::after filter shows through */
+    background: transparent;
     border-radius: var(--radius-lg);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
     opacity: 0;
     pointer-events: none;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transform-origin: right center;
+    isolation: isolate;
+    /* Drop shadow via filter to work with overflow:visible */
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
 }
 
 [data-theme="light"] .chatbot-window {
-    background: rgba(255, 255, 255, 0.65);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.12)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+}
+
+/* Inner glow border layer — sits on top of the blur layer */
+.chatbot-window::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: var(--radius-lg);
+    box-shadow:
+        inset 2px 2px 0px -2px rgba(255, 255, 255, 0.8),
+        inset 0 0 3px 1px rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+}
+
+/* Liquid glass displacement layer */
+.chatbot-window::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
+    -webkit-filter: url(#container-glass);
+    filter: url(#container-glass);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* All direct children must sit above the pseudo layers */
+.chatbot-window > * {
+    position: relative;
+    z-index: 2;
+}
+
+[data-theme="light"] .chatbot-window::before {
+    box-shadow:
+        inset 2px 2px 0px -2px rgba(255, 255, 255, 0.9),
+        inset 0 0 4px 1px rgba(255, 255, 255, 0.75);
 }
 
 .chatbot-window.open {
@@ -190,13 +229,17 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    background: rgba(0, 0, 0, 0.25);
-    border-bottom: 1px solid var(--color-glass-border);
+    background: rgba(0, 0, 0, 0.18);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     color: var(--color-text-primary);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
 }
 
 [data-theme="light"] .chatbot-header {
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba(255, 255, 255, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .chatbot-header-info {
@@ -242,6 +285,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
 }
 
 .message {
@@ -295,29 +340,52 @@
     font-size: var(--font-size-sm);
     line-height: 1.5;
     white-space: pre-line;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
+/* Bot bubble — subtle glass */
 .message.bot .message-content {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--color-glass-border);
+    background: rgba(255, 255, 255, 0.07);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.12);
     color: var(--color-text-primary);
     border-top-left-radius: 2px;
 }
 
 [data-theme="light"] .message.bot .message-content {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.06);
+    background: rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.6),
+        0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+/* User bubble — glassy primary tint */
 .message.user .message-content {
-    background: var(--color-primary);
-    color: var(--color-bg-primary);
+    background: rgba(var(--color-primary-rgb, 99, 102, 241), 0.35);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.3),
+        inset -1px -1px 0px rgba(0, 0, 0, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    color: #fff;
     border-top-right-radius: 2px;
 }
 
 [data-theme="light"] .message.user .message-content {
-    color: white;
+    background: rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.65),
+        0 4px 10px rgba(0, 0, 0, 0.08);
+    color: #111827;
 }
 
 /* Clickable links in chat messages */
@@ -466,8 +534,14 @@
 .quick-question-btn {
     padding: 6px 12px;
     border-radius: var(--radius-full);
-    border: 1px solid var(--color-glass-border);
-    background: rgba(255, 255, 255, 0.04);
+    /* Glassy pill — dark mode */
+    background: rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.2),
+        0 2px 6px rgba(0, 0, 0, 0.15);
     color: var(--color-text-secondary);
     font-size: 10px;
     font-weight: 500;
@@ -475,19 +549,33 @@
     transition: all var(--transition-fast);
 }
 
+/* Darker, more visible in light mode */
 [data-theme="light"] .quick-question-btn {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.10);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.65),
+        0 2px 6px rgba(0, 0, 0, 0.08);
+    color: var(--color-text-secondary);
 }
 
 .quick-question-btn:hover {
     background: var(--color-primary);
     color: var(--color-bg-primary);
     border-color: var(--color-primary);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.25),
+        0 4px 12px rgba(0, 0, 0, 0.2);
     transform: translateY(-1.5px);
 }
 
 [data-theme="light"] .quick-question-btn:hover {
-    color: white;
+    background: rgba(0, 0, 0, 0.18);
+    border-color: rgba(0, 0, 0, 0.25);
+    color: #111827;
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.6),
+        0 4px 10px rgba(0, 0, 0, 0.10);
 }
 
 /* Input Container */
@@ -495,12 +583,16 @@
     display: flex;
     gap: 8px;
     padding: 12px 16px;
-    border-top: 1px solid var(--color-glass-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     background: rgba(0, 0, 0, 0.12);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
 }
 
 [data-theme="light"] .chatbot-input-container {
-    background: rgba(0, 0, 0, 0.015);
+    background: rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .chatbot-input {
@@ -619,6 +711,7 @@
         border-radius: var(--radius-lg);
         transform: scale(0.9) translateY(20px);
         transform-origin: bottom right;
+        overflow: visible;
     }
 
     .chatbot-window.open {
