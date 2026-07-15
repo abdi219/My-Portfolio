@@ -6,33 +6,6 @@ import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const formRef = useRef();
-  const sectionRef = useRef(null);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      const container = containerRef.current;
-      if (!section || !container) return;
-
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-
-      // Start splitting when element top is at 95% of screen height
-      // Complete splitting when element top is at 10% of screen height
-      const startTrigger = viewportHeight * 0.95;
-      const endTrigger = viewportHeight * 0.1;
-
-      let ratio = (startTrigger - rect.top) / (startTrigger - endTrigger);
-      ratio = Math.max(0, Math.min(1, ratio));
-
-      container.style.setProperty("--scroll-ratio", ratio);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // initialize
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -93,12 +66,7 @@ const Contact = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="contact"
-      style={{ position: "relative" }}
-      ref={sectionRef}
-    >
+    <section id="contact" className="contact" style={{ position: "relative" }}>
       <FloatingDoodles section="contact" />
       <div className="container">
         <div className="section-header anim-rise">
@@ -108,7 +76,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="contact-content" ref={containerRef}>
+        <div className="contact-content">
           {/* Left Side: Diagnostics and 2x2 Network Grid */}
           <div className="contact-info anim-slide-left">
             {/* Terminal Diagnostic Panel */}

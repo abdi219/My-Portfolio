@@ -17,6 +17,18 @@ const Hero = () => {
     setSize();
     window.addEventListener("resize", setSize);
 
+    // Intersection Observer to pause drawing loop when Hero is off-screen
+    let isHeroVisible = true;
+    const scrollObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isHeroVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.01 }
+    );
+    scrollObserver.observe(canvas);
+
     // ── theme colour ─────────────────────────────────────────────────────────
     let cr = 228, cg = 228, cb = 231;
     const readColor = () => {
@@ -62,6 +74,7 @@ const Hero = () => {
 
     const animate = () => {
       raf = requestAnimationFrame(animate);
+      if (!isHeroVisible) return;
       frame++;
 
       const W = canvas.width, H = canvas.height;
@@ -105,39 +118,57 @@ const Hero = () => {
       const fov = 300;
 
       // ── draw trail ───────────────────────────────────────────────────────
-      // Stride 2: skip every other segment — halves draw calls, looks same
       const total = Math.min(trailLen, MAX_TRAIL);
       const start = trailHead - total;
 
-      let prevPX = 0, prevPY = 0;
+      const numBuckets = 16;
+      const bucketSize = Math.ceil(total / numBuckets);
+      let prevPX = null;
+      let prevPY = null;
 
-      for (let i = 0; i < total; i += 2) {
-        const idx  = ((start + i) % MAX_TRAIL + MAX_TRAIL) % MAX_TRAIL;
-        const tx = trailX[idx], ty = trailY[idx], tz = trailZ[idx] + OZ;
+      for (let b = 0; b < numBuckets; b++) {
+        const bStart = b * bucketSize;
+        const bEnd = Math.min(total, (b + 1) * bucketSize);
+        if (bStart >= bEnd) break;
 
-        // inline project
-        const rx1 = tx*cosY - tz*sinY;
-        const rz1 = tx*sinY + tz*cosY;
-        const ry1 = ty*cosX - rz1*sinX;
-        const rz2 = ty*sinX + rz1*cosX;
-        const s   = fov / (fov + rz2 + 80);
-        const px  = cx + rx1 * scale * s;
-        const py  = cy + ry1 * scale * s;
-
-        if (i === 0) { prevPX = px; prevPY = py; continue; }
-
-        const a = i / total; // 0=old → 1=new
-        // opacity: near-zero tail → bright head
-        const op = Math.pow(a, 2.2) * 0.88;
+        const progress = (bStart + bEnd) / (2 * total); // average progress of the bucket
+        const op = Math.pow(progress, 2.2) * 0.88;
+        const w = 0.3 + progress * 1.85;
 
         ctx.strokeStyle = `rgba(${cr},${cg},${cb},${op.toFixed(3)})`;
-        ctx.lineWidth   = 0.3 + a * 1.85;
+        ctx.lineWidth   = w;
         ctx.beginPath();
-        ctx.moveTo(prevPX, prevPY);
-        ctx.lineTo(px, py);
-        ctx.stroke();
 
-        prevPX = px; prevPY = py;
+        let hasMoved = false;
+        if (prevPX !== null && prevPY !== null) {
+          ctx.moveTo(prevPX, prevPY);
+          hasMoved = true;
+        }
+
+        // Stride 2: skip every other segment — halves draw calls, looks same
+        for (let i = bStart; i < bEnd; i += 2) {
+          const idx  = ((start + i) % MAX_TRAIL + MAX_TRAIL) % MAX_TRAIL;
+          const tx = trailX[idx], ty = trailY[idx], tz = trailZ[idx] + OZ;
+
+          // inline project
+          const rx1 = tx*cosY - tz*sinY;
+          const rz1 = tx*sinY + tz*cosY;
+          const ry1 = ty*cosX - rz1*sinX;
+          const rz2 = ty*sinX + rz1*cosX;
+          const s   = fov / (fov + rz2 + 80);
+          const px  = cx + rx1 * scale * s;
+          const py  = cy + ry1 * scale * s;
+
+          if (!hasMoved) {
+            ctx.moveTo(px, py);
+            hasMoved = true;
+          } else {
+            ctx.lineTo(px, py);
+          }
+          prevPX = px;
+          prevPY = py;
+        }
+        ctx.stroke();
       }
 
       // ── glowing head (no radialGradient — just layered arcs) ─────────────
@@ -178,6 +209,7 @@ const Hero = () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", setSize);
       themeObs.disconnect();
+      scrollObserver.disconnect();
     };
   }, []);
 

@@ -8,12 +8,8 @@ const useScrollAnimation = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-          } else {
-            // Only reset (remove visible) if it exits the bottom of the viewport
-            // (boundingClientRect.top is positive and entry is not intersecting)
-            if (entry.boundingClientRect.top > 0) {
-              entry.target.classList.remove('visible');
-            }
+            // Unobserve once visible to improve scroll performance and prevent scroll-up reset/jitter
+            elementObserver.unobserve(entry.target);
           }
         });
       },
@@ -39,16 +35,8 @@ const useScrollAnimation = () => {
               child.classList.add('cascade-visible');
             });
             parent.dataset.cascadeTriggered = 'true';
-          } else {
-            // Only reset if it exits the bottom of the viewport
-            if (entry.boundingClientRect.top > 0) {
-              const children = parent.querySelectorAll(':scope > *');
-              children.forEach((child) => {
-                child.style.transitionDelay = '';
-                child.classList.remove('cascade-visible');
-              });
-              delete parent.dataset.cascadeTriggered;
-            }
+            // Unobserve once visible to improve scroll performance and prevent scroll-up reset/jitter
+            cascadeObserver.unobserve(parent);
           }
         });
       },
@@ -65,8 +53,12 @@ const useScrollAnimation = () => {
     });
 
     return () => {
-      targets.forEach((el) => elementObserver.unobserve(el));
-      cascadeParents.forEach((el) => cascadeObserver.unobserve(el));
+      targets.forEach((el) => {
+        try { elementObserver.unobserve(el); } catch (e) {}
+      });
+      cascadeParents.forEach((el) => {
+        try { cascadeObserver.unobserve(el); } catch (e) {}
+      });
     };
   }, []);
 };

@@ -19,18 +19,7 @@
   top: 100px;
 }
 
-@media (min-width: 901px) {
-  .contact-info {
-    transform: translateX(calc(22% * (1 - var(--scroll-ratio)))) scale(calc(0.92 + 0.08 * var(--scroll-ratio)));
-    opacity: var(--scroll-ratio);
-    transition: transform 0.08s ease-out, opacity 0.08s ease-out;
-  }
 
-  .contact-form-wrapper {
-    transform: translateX(calc(-26.5% * (1 - var(--scroll-ratio)))) scale(calc(0.96 + 0.04 * var(--scroll-ratio)));
-    transition: transform 0.08s ease-out;
-  }
-}
 
 /* Terminal Diagnostic Panel */
 .terminal-panel {
