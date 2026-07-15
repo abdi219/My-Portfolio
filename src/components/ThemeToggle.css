@@ -1,83 +1,191 @@
-.theme-toggle-sidebar {
+/* ─────────────────────────────────────────────
+   LIQUID GLASS THEME TOGGLE — Clean & Aligned
+───────────────────────────────────────────── */
+
+.liq-toggle {
+    --w: 52px;
+    --h: 26px;
+    --thumb: 18px;
+    --pad: 4px;
+    --travel: calc(var(--w) - var(--thumb) - (var(--pad) * 2));
+
     position: relative;
-    width: 60px;
-    height: 28px;
-    border-radius: 14px;
+    width: var(--w);
+    height: var(--h);
+    flex-shrink: 0;
+    border-radius: 100px;
+    border: none;
+    padding: 0;
     cursor: pointer;
-    user-select: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    
-    /* Shares Navbar Glass style in dark mode */
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--color-glass-border);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    background: transparent;
+    overflow: visible;
+    display: flex;
+    align-items: center;
 }
 
-/* Light mode track - Shares light navbar glass */
-.theme-toggle-sidebar.light {
-    background: rgba(9, 9, 11, 0.06);
-    border: 1px solid rgba(9, 9, 11, 0.12);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.03);
+.liq-toggle:focus-visible {
+    outline: 2px solid rgba(228, 228, 231, 0.45);
+    outline-offset: 3px;
 }
 
-/* Single sliding thumb/knob inside the track */
-.toggle-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+/* ── Track (the pill background) ── */
+.liq-track {
     position: absolute;
-    top: 3px;
-    left: 3px;
-    z-index: 2;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, box-shadow 0.3s ease, width 0.2s ease;
+    inset: 0;
+    border-radius: 100px;
+    display: block;
+    overflow: hidden;
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+/* dark mode track */
+.liq-toggle--dark .liq-track {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* light mode track */
+.liq-toggle--light .liq-track {
+    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow:
+        inset 1px 1px 0px rgba(255, 255, 255, 0.65),
+        0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Goo layer — liquid squish lives here ── */
+.liq-goo-wrap {
+    position: absolute;
+    inset: var(--pad);
+    border-radius: 100px;
+    overflow: hidden;
+    pointer-events: none;
+    filter: url(#theme-goo);
+}
+
+.liq-blob {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: var(--thumb);
+    width: var(--thumb);
+    border-radius: 100px;
+    transform: translate(0, -50%);
+    will-change: transform, width;
+    transition:
+        transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
+        width    0.20s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* dark: white blob, starts at right */
+.liq-toggle--dark .liq-blob {
+    background: #ffffff;
+    transform: translate(var(--travel), -50%);
+}
+
+/* light: dark blob, starts at left */
+.liq-toggle--light .liq-blob {
+    background: #09090b;
+    transform: translate(0, -50%);
+}
+
+/* press: blob stretches wide */
+.liq-toggle--pressing .liq-blob {
+    width: calc(var(--thumb) * 1.6);
+}
+
+/* dark + pressing: anchor from right */
+.liq-toggle--dark.liq-toggle--pressing .liq-blob {
+    transform: translate(calc(var(--travel) - var(--thumb) * 0.3), -50%);
+}
+
+/* ── Thumb (visible knob on top) ── */
+.liq-thumb {
+    position: absolute;
+    top: 50%;
+    left: var(--pad);
+    width: var(--thumb);
+    height: var(--thumb);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
+    will-change: transform, width, border-radius;
+    z-index: 10;
+    transition:
+        transform      0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
+        width          0.20s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius  0.20s ease,
+        box-shadow     0.30s ease;
+    transform: translateY(-50%);
 }
 
-/* Light mode thumb position (left) and colors */
-.theme-toggle-sidebar.light .toggle-thumb {
-    transform: translateX(0);
-    background: #09090b; /* stark black thumb */
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+/* dark: white thumb at right */
+.liq-toggle--dark .liq-thumb {
+    background: linear-gradient(140deg, #fff 0%, #d4d4d8 100%);
+    transform: translate(var(--travel), -50%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Dark mode thumb position (right) and colors */
-.theme-toggle-sidebar.dark .toggle-thumb {
-    transform: translateX(32px); /* 60px track width - 20px thumb - 6px padding - 2px borders = 32px */
-    background: #ffffff; /* stark white thumb */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+/* light: dark thumb at left */
+.liq-toggle--light .liq-thumb {
+    background: linear-gradient(140deg, #27272a 0%, #09090b 100%);
+    transform: translate(0, -50%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Thumb Icon Animations */
-.thumb-icon-anim {
-    animation: spin-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+/* pressing: thumb stretches too */
+.liq-toggle--pressing .liq-thumb {
+    width: calc(var(--thumb) * 1.45);
+    border-radius: 100px;
 }
 
-@keyframes spin-in {
-    from {
-        transform: rotate(-180deg) scale(0.6);
-        opacity: 0;
-    }
-    to {
-        transform: rotate(0) scale(1);
-        opacity: 1;
-    }
+.liq-toggle--dark.liq-toggle--pressing .liq-thumb {
+    transform: translate(calc(var(--travel) - var(--thumb) * 0.225), -50%);
 }
 
-/* Hover effects */
-.theme-toggle-sidebar:hover {
-    transform: scale(1.05);
-    border-color: rgba(var(--color-primary-rgb), 0.3);
+/* ── Icons ── */
+.liq-icon {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+    transition:
+        opacity   0.22s ease,
+        transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
 }
 
-/* Click pressing micro-animation */
-.theme-toggle-sidebar:active .toggle-thumb {
-    width: 24px;
+.liq-icon--visible {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
 }
 
-.theme-toggle-sidebar.dark:active .toggle-thumb {
-    transform: translateX(28px);
+.liq-icon--sun  { color: #ffffff; }
+.liq-icon--moon { color: #09090b; }
+
+/* ── Hover ── */
+.liq-toggle:hover .liq-thumb {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.liq-toggle--light:hover .liq-thumb {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 3px 10px rgba(0, 0, 0, 0.35);
 }

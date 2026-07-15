@@ -21,6 +21,27 @@ function App() {
 
   return (
     <div className="App">
+      {/* ── Global SVG Filters (referenced by CSS filter: url(#id)) ── */}
+      <svg
+        style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none', overflow: 'hidden' }}
+        aria-hidden="true"
+      >
+        <defs>
+          {/* Liquid glass displacement — used by navbar & chatbot window */}
+          <filter id="container-glass" x="0%" y="0%" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+            <feGaussianBlur in="noise" stdDeviation="0.02" result="blur" />
+            <feDisplacementMap in="SourceGraphic" in2="blur" scale="77" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+          {/* Gooey pill — used by chatbot FAB */}
+          <filter id="chatbot-goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+          </filter>
+        </defs>
+      </svg>
+
       <Navbar />
       <main>
         <Hero />
