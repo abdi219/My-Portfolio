@@ -632,7 +632,7 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
 
       {/* Chat Window */}
       <div 
-        className={`chatbot-window glass ${isOpen ? "open" : ""}`}
+        className={`chatbot-window ${isOpen ? "open" : ""}`}
         style={window.innerWidth > 768 ? { 
           width: `${dimensions.width}px`, 
           height: `${dimensions.height}px` 

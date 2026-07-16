@@ -169,12 +169,6 @@
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transform-origin: right center;
     isolation: isolate;
-    /* Drop shadow via filter to work with overflow:visible */
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-}
-
-[data-theme="light"] .chatbot-window {
-    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.12)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
 }
 
 /* Inner glow border layer — sits on top of the blur layer */
@@ -186,21 +180,24 @@
     border-radius: var(--radius-lg);
     box-shadow:
         inset 2px 2px 0px -2px rgba(255, 255, 255, 0.8),
-        inset 0 0 3px 1px rgba(255, 255, 255, 0.6);
+        inset 0 0 3px 1px rgba(255, 255, 255, 0.6),
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 4px 12px rgba(0, 0, 0, 0.3);
     pointer-events: none;
+    transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Liquid glass displacement layer */
 .chatbot-window::after {
     content: '';
     position: absolute;
-    z-index: -1;
     inset: 0;
+    z-index: -1;
     border-radius: var(--radius-lg);
     -webkit-backdrop-filter: blur(0px);
     backdrop-filter: blur(0px);
-    -webkit-filter: url(#container-glass);
     filter: url(#container-glass);
+    -webkit-filter: url(#container-glass);
     overflow: hidden;
     isolation: isolate;
 }
@@ -214,7 +211,9 @@
 [data-theme="light"] .chatbot-window::before {
     box-shadow:
         inset 2px 2px 0px -2px rgba(255, 255, 255, 0.9),
-        inset 0 0 4px 1px rgba(255, 255, 255, 0.75);
+        inset 0 0 4px 1px rgba(255, 255, 255, 0.75),
+        0 15px 35px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .chatbot-window.open {
@@ -233,8 +232,6 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     color: var(--color-text-primary);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
 }
 
 [data-theme="light"] .chatbot-header {
@@ -285,8 +282,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
 }
 
 .message {
@@ -586,8 +581,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     background: rgba(0, 0, 0, 0.12);
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
 }
 
 [data-theme="light"] .chatbot-input-container {
