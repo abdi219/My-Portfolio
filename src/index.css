@@ -12,20 +12,24 @@
   --color-grid-line: rgba(255, 255, 255, 0.015);
 
   /* Primary Accent & Helpers (Sleek Platinum Silver - Stark Dark Theme) */
-  --color-primary: #e4e4e7; 
+  --color-primary: #e4e4e7;
   --color-primary-rgb: 228, 228, 231;
   --color-primary-light: #f4f4f5;
   --color-primary-dark: #a1a1aa;
-  --color-secondary: #a1a1aa; /* Monochrome grey shades */
-  --color-accent-1: #e4e4e7; 
-  --color-accent-2: #e4e4e7; 
-  --color-accent-3: #e4e4e7; 
-  --color-accent-4: #e4e4e7; 
+  --color-secondary: #a1a1aa;
+  /* Monochrome grey shades */
+  --color-accent-1: #e4e4e7;
+  --color-accent-2: #e4e4e7;
+  --color-accent-3: #e4e4e7;
+  --color-accent-4: #e4e4e7;
 
   /* Text Colors - Monochrome White/Grey */
-  --color-text-primary: #ffffff; /* White text */
-  --color-text-secondary: #a1a1aa; /* Soft grey text */
-  --color-text-muted: #71717a; /* Muted grey text */
+  --color-text-primary: #ffffff;
+  /* White text */
+  --color-text-secondary: #a1a1aa;
+  /* Soft grey text */
+  --color-text-muted: #71717a;
+  /* Muted grey text */
   --color-text-white: #ffffff;
 
   /* Arcade Console Theme Variables - Dark Mode */
@@ -252,14 +256,16 @@ section {
 
 /* ── 1. RISE — smooth upward drift (section headers, titles) ─────────────── */
 .anim-rise,
-.animate-on-scroll {          /* legacy compat */
+.animate-on-scroll {
+  /* legacy compat */
   opacity: 0;
   transform: translateY(44px);
   transition:
-    opacity  0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
+
 .anim-rise.visible,
 .animate-on-scroll.visible {
   opacity: 1;
@@ -271,10 +277,11 @@ section {
   opacity: 0;
   transform: scale(0.82) translateY(20px);
   transition:
-    opacity  0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: opacity, transform;
 }
+
 .anim-pop.visible {
   opacity: 1;
   transform: scale(1) translateY(0);
@@ -282,14 +289,16 @@ section {
 
 /* ── 3. SLIDE LEFT — pan in from the left (left-side panels) ─────────────── */
 .anim-slide-left,
-.slide-in-left-scroll {       /* legacy compat */
+.slide-in-left-scroll {
+  /* legacy compat */
   opacity: 0;
   transform: translateX(-60px);
   transition:
-    opacity  0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
+
 .anim-slide-left.visible,
 .slide-in-left-scroll.visible {
   opacity: 1;
@@ -298,14 +307,16 @@ section {
 
 /* ── 4. SLIDE RIGHT — pan in from the right (right-side panels) ──────────── */
 .anim-slide-right,
-.slide-in-right-scroll {      /* legacy compat */
+.slide-in-right-scroll {
+  /* legacy compat */
   opacity: 0;
   transform: translateX(60px);
   transition:
-    opacity  0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
+
 .anim-slide-right.visible,
 .slide-in-right-scroll.visible {
   opacity: 1;
@@ -318,27 +329,50 @@ section {
   opacity: 0;
   transform: translateY(28px) scale(0.95);
   transition:
-    opacity   0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
   will-change: opacity, transform;
 }
+
 .cascade-child.cascade-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
 /* ── Legacy stagger delays ────────────────────────────────────────────────── */
-.stagger-delay-1 { transition-delay: 100ms !important; }
-.stagger-delay-2 { transition-delay: 200ms !important; }
-.stagger-delay-3 { transition-delay: 300ms !important; }
-.stagger-delay-4 { transition-delay: 400ms !important; }
-.stagger-delay-5 { transition-delay: 500ms !important; }
+.stagger-delay-1 {
+  transition-delay: 100ms !important;
+}
+
+.stagger-delay-2 {
+  transition-delay: 200ms !important;
+}
+
+.stagger-delay-3 {
+  transition-delay: 300ms !important;
+}
+
+.stagger-delay-4 {
+  transition-delay: 400ms !important;
+}
+
+.stagger-delay-5 {
+  transition-delay: 500ms !important;
+}
 
 /* ── Hero text own animation (not scroll-triggered) ──────────────────────── */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(36px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .fade-in-up {
   animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

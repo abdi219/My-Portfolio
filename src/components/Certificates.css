@@ -103,7 +103,8 @@
 .keycard-chip {
   width: 24px;
   height: 24px;
-  background: #d4af37; /* Gold microchip feel */
+  background: #d4af37;
+  /* Gold microchip feel */
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -141,13 +142,12 @@
 .keycard-barcode {
   width: 40px;
   height: 20px;
-  background-image: linear-gradient(90deg, 
-    var(--color-text-muted) 0px, var(--color-text-muted) 1px, 
-    transparent 1px, transparent 3px,
-    var(--color-text-muted) 3px, var(--color-text-muted) 5px,
-    transparent 5px, transparent 6px,
-    var(--color-text-muted) 6px, var(--color-text-muted) 7px
-  );
+  background-image: linear-gradient(90deg,
+      var(--color-text-muted) 0px, var(--color-text-muted) 1px,
+      transparent 1px, transparent 3px,
+      var(--color-text-muted) 3px, var(--color-text-muted) 5px,
+      transparent 5px, transparent 6px,
+      var(--color-text-muted) 6px, var(--color-text-muted) 7px);
   background-size: 8px 20px;
   opacity: 0.15;
   flex-shrink: 0;
@@ -213,8 +213,13 @@
 }
 
 @keyframes hologramScan {
-  0% { top: -100%; }
-  100% { top: 100%; }
+  0% {
+    top: -100%;
+  }
+
+  100% {
+    top: 100%;
+  }
 }
 
 /* Hologram content output */
@@ -385,8 +390,15 @@
 }
 
 @keyframes wavePulse {
-  0% { transform: scaleX(0.2); opacity: 0.3; }
-  100% { transform: scaleX(1); opacity: 0.9; }
+  0% {
+    transform: scaleX(0.2);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 0.9;
+  }
 }
 
 .hologram-boot-text {
@@ -402,22 +414,27 @@
     opacity: 0;
     filter: brightness(2.5) contrast(1.2);
   }
+
   20% {
     opacity: 0.8;
     filter: brightness(1) contrast(1);
   }
+
   40% {
     opacity: 0.3;
     filter: brightness(2) contrast(1.1);
   }
+
   60% {
     opacity: 0.9;
     filter: brightness(1.2) contrast(1);
   }
+
   70% {
     opacity: 0.6;
     filter: brightness(1.8) contrast(1.1);
   }
+
   100% {
     opacity: 1;
     filter: brightness(1) contrast(1);
@@ -436,11 +453,13 @@
   }
 
   .hologram-projector-container {
-    order: 1; /* projector display first */
+    order: 1;
+    /* projector display first */
   }
 
   .keycard-rack-container {
-    order: 2; /* card archive rack below screen */
+    order: 2;
+    /* card archive rack below screen */
   }
 }
 
@@ -617,6 +636,7 @@
   /* WebKit border-radius clipping bug fix: */
   transform: translateZ(0);
 }
+
 /* Scanline filter removed for a clean, line-free image preview */
 .projection-cert-image {
   width: 100%;
@@ -624,15 +644,18 @@
   object-fit: cover;
   opacity: 0.8;
   transition: all var(--transition-base);
-  border-radius: inherit; /* Force rounding on WebKit browser engines */
+  border-radius: inherit;
+  /* Force rounding on WebKit browser engines */
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
-  transform: scale(1.06); /* Scale up to crop black borders */
+  transform: scale(1.06);
+  /* Scale up to crop black borders */
 }
 
 .clickable-projector:hover .projection-cert-image {
   opacity: 1;
-  transform: scale(1.10); /* Keep scaled up on hover */
+  transform: scale(1.10);
+  /* Keep scaled up on hover */
 }
 
 .projection-image-overlay {
@@ -748,14 +771,16 @@
 }
 
 .cert-lightbox-image-container {
-  display: inline-block; /* Wrap image width exactly */
+  display: inline-block;
+  /* Wrap image width exactly */
   max-width: 85vw;
   max-height: 70vh;
   background: transparent;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle premium border to define rounded shape */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* Subtle premium border to define rounded shape */
   /* WebKit border-radius clipping bug fix: */
   transform: translateZ(0);
 }
@@ -766,12 +791,16 @@
   height: auto;
   max-width: 85vw;
   max-height: 70vh;
-  min-width: min(700px, 85vw); /* Apply upscaling rules directly to the image */
+  min-width: min(700px, 85vw);
+  /* Apply upscaling rules directly to the image */
   object-fit: contain;
-  border-radius: inherit; /* Use inherit to perfectly match parent 16px radius */
-  image-rendering: -webkit-optimize-contrast; /* Sharpen upscaled text */
+  border-radius: inherit;
+  /* Use inherit to perfectly match parent 16px radius */
+  image-rendering: -webkit-optimize-contrast;
+  /* Sharpen upscaled text */
   image-rendering: crisp-edges;
-  transform: scale(1.05); /* Zoom slightly to bleed off dark borders & round white edges */
+  transform: scale(1.05);
+  /* Zoom slightly to bleed off dark borders & round white edges */
   transition: transform var(--transition-base);
 }
 
@@ -807,13 +836,25 @@
 }
 
 @keyframes certFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes certScaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Responsive Overrides */
@@ -822,7 +863,7 @@
     width: 100%;
     height: 120px;
   }
-  
+
   .cert-lightbox-polaroid {
     max-width: 95vw;
     padding: 12px 12px 18px 12px;

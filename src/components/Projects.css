@@ -389,11 +389,13 @@
   }
 
   .arcade-cabinet-container {
-    order: 1; /* screen first on mobile/tablet stack */
+    order: 1;
+    /* screen first on mobile/tablet stack */
   }
 
   .cartridge-rack-container {
-    order: 2; /* cartridge rack below screen */
+    order: 2;
+    /* cartridge rack below screen */
   }
 
   .cartridge-rack {
@@ -448,7 +450,8 @@
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
-    flex-direction: row; /* reset flex setting */
+    flex-direction: row;
+    /* reset flex setting */
   }
 
   .display-btn {

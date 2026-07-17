@@ -187,19 +187,20 @@
     transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Liquid glass displacement layer */
+/* Crystal clear glass background layer */
 .chatbot-window::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
     border-radius: var(--radius-lg);
-    -webkit-backdrop-filter: blur(0px);
-    backdrop-filter: blur(0px);
-    filter: url(#container-glass);
-    -webkit-filter: url(#container-glass);
+    background: rgba(255, 255, 255, 0.04);
     overflow: hidden;
     isolation: isolate;
+}
+
+[data-theme="light"] .chatbot-window::after {
+    background: rgba(0, 0, 0, 0.03);
 }
 
 /* All direct children must sit above the pseudo layers */
