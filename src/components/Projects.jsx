@@ -59,14 +59,14 @@ const Projects = () => {
       genre: "ML / PIPELINE"
     },
     {
-      title: "BERT News Classifier",
-      description: "A text classification model fine-tuning bert-base-uncased on the AG News dataset. Achieved 89.9% classification accuracy across four distinct news topics, deployed as an interactive live inference interface using Gradio.",
-      tech: ["PyTorch", "Transformers", "BERT", "Gradio"],
-      github: "https://github.com/abdi219/BERT-News-Classifier",
+      title: "Context-Aware RAG Chatbot",
+      description: "A context-aware conversational AI system built with LangChain and Retrieval-Augmented Generation. Uses Hugging Face embeddings, ChromaDB vector search, and conversational memory to retrieve and generate accurate responses from a custom knowledge base, deployed via Streamlit.",
+      tech: ["Python", "LangChain", "ChromaDB", "Streamlit", "RAG"],
+      github: "https://github.com/abdi219/Context-Aware-RAG-Chatbot",
       demo: "#",
-      color: "#06b6d4",
-      romSize: "420 MB",
-      genre: "NLP / CLASSIFIER"
+      color: "#8b5cf6",
+      romSize: "~500 MB",
+      genre: "AI / RAG PIPELINE"
     },
   ];
 
