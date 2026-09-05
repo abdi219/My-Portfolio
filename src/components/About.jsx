@@ -76,7 +76,7 @@ const About = () => {
     { name: "Gen AI", category: "core", icon: <Sparkles size={16} />, color: "var(--color-primary)", detail: "Leveraging LLMs and prompting techniques to build assistant bots and optimize coding speed." },
     { name: "Communication", category: "soft", icon: <Users size={16} />, color: "var(--color-primary)", detail: "Articulating technical concepts clearly and collaborating effectively in team settings." },
     { name: "Problem Solving", category: "soft", icon: <BrainCircuit size={16} />, color: "var(--color-primary)", detail: "Approaching complex software challenges methodically and building optimal solutions." },
-    { name: "Leadership", category: "soft", icon: <UserCheck size={16} />, color: "var(--color-primary)", detail: "Mentoring peers and guiding technical initiatives within student societies." },
+    { name: "Leadership", category: "soft", icon: <UserCheck size={16} />, color: "var(--color-primary)", detail: "IEEE LGU AI/ML Domain Lead, mentoring peers and guiding technical initiatives within student societies." },
     { name: "Teamwork", category: "soft", icon: <Users size={16} />, color: "var(--color-primary)", detail: "Working harmoniously with diverse groups to deliver successful project outcomes." },
     { name: "Adaptability", category: "soft", icon: <RefreshCw size={16} />, color: "var(--color-primary)", detail: "Thriving in dynamic environments and quickly mastering new tools or frameworks." },
     { name: "Creativity", category: "soft", icon: <Lightbulb size={16} />, color: "var(--color-primary)", detail: "Designing innovative, visually-stunning user interfaces and novel software architectures." }
@@ -89,6 +89,7 @@ const About = () => {
     "[LOAD]: Semester 2: GPA 3.22 | OOP, DLD, LA, DB",
     "[LOAD]: Semester 3: GPA 3.23 | DS, COAL, Multi Calc, DM",
     "[LOAD]: Semester 4: GPA 3.49 | ADBMS, Prob & Stats, AOA, TOA",
+    "[LEADERSHIP]: IEEE LGU AI/ML Domain Lead (Active)",
     "[LOAD]: Internship at DeveloperHub as AI / ML Engineer (Active)",
     "[CHECK]: Cumulative CGPA: 3.23 / 4.00 (Verified)",
     "[MODULE]: Game Dev Subsystem loaded: Raylib C++ & Godot GDScript active",
@@ -135,6 +136,10 @@ const About = () => {
               <div className="spec-row">
                 <span className="spec-label">Location</span>
                 <span className="spec-value">Lahore, PK</span>
+              </div>
+              <div className="spec-row">
+                <span className="spec-label">Leadership</span>
+                <span className="spec-value">IEEE AI/ML Lead</span>
               </div>
               <div className="spec-row">
                 <span className="spec-label">ACM Org</span>
@@ -218,7 +223,7 @@ const About = () => {
                       diving deep into how software works under the hood.
                     </p>
                     <p>
-                      Currently, I am doing my internship at DeveloperHub as an AI / ML Engineer,
+                      Currently, I serve as the <strong>IEEE LGU AI/ML Domain Lead</strong> and intern at DeveloperHub as an AI / ML Engineer,
                       working on cutting-edge models and systems.
                     </p>
                     <p>
@@ -232,7 +237,7 @@ const About = () => {
                   {/* Mobile-only Concise Paragraph */}
                   <div className="bio-mobile">
                     <p>
-                      I'm Abdullah Faisal, a CS student at Lahore Garrison University (CGPA 3.23) and AI/ML Engineer intern at DeveloperHub. I specialize in building custom AI agents, C++ game logic, and responsive web architectures from scratch.
+                      I'm Abdullah Faisal, a CS student at Lahore Garrison University (CGPA 3.23), IEEE LGU AI/ML Domain Lead, and AI/ML Engineer intern at DeveloperHub. I specialize in building custom AI agents, C++ game logic, and responsive web architectures from scratch.
                     </p>
                   </div>
 

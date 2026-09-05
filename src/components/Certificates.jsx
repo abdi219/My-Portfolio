@@ -81,13 +81,25 @@ const Certificates = () => {
             image: '/Certs/MicrosoftCert.jpg'
         },
         {
+            title: 'IEEE LGU AI/ML Domain Lead',
+            issuer: 'IEEE LGU Student Branch',
+            date: '2025 - Present',
+            icon: <Award size={20} />,
+            color: 'var(--color-primary)',
+            idTag: 'LEAD-IEEE-AIML-LGU',
+            nodeNum: '07',
+            hash: '0xee91a27f81c4e',
+            credentialUrl: null,
+            image: null
+        },
+        {
             title: 'ACM Technical Member',
             issuer: 'LGU ACM Chapter',
             date: '2024 - Present',
             icon: <Users size={20} />,
             color: 'var(--color-primary)',
             idTag: 'MEMBER-ACM-LGU',
-            nodeNum: '07',
+            nodeNum: '08',
             hash: '0xac310f829db19a',
             credentialUrl: null,
             image: null
@@ -99,7 +111,7 @@ const Certificates = () => {
             icon: <Award size={20} />,
             color: 'var(--color-primary)',
             idTag: 'FINALIST-TECH-409',
-            nodeNum: '08',
+            nodeNum: '09',
             hash: '0x992db1c08fe340',
             credentialUrl: '/image.png',
             image: '/image.png'

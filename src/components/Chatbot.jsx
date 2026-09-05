@@ -108,11 +108,11 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
 
   // ──────────────── KNOWLEDGE BASE ────────────────
   const abdullahInfo = {
-    about: `Abdullah Faisal is a Computer Science student at Lahore Garrison University (LGU) who has completed his 4th semester with a CGPA of 3.23. He is passionate about building creative and practical tech solutions from scratch.
+    about: `Abdullah Faisal is a Computer Science student at Lahore Garrison University (LGU) who has completed his 4th semester with a CGPA of 3.23. He serves as the IEEE LGU AI/ML Domain Lead and is currently an AI/ML Engineer intern at DeveloperHub.
 
-His core interests lie at the intersection of Game Development (C++/Raylib and Godot/GDScript), Web Architectures, and AI Engineering (LLM agents, prompt pipelines, and ML diagnostics). He leverages AI systems to enhance productivity and streamline developer workflows.
+He is passionate about building creative and practical tech solutions from scratch. His core interests lie at the intersection of Game Development (C++/Raylib and Godot/GDScript), Web Architectures, and AI Engineering (LLM agents, prompt pipelines, and ML diagnostics). He leverages AI systems to enhance productivity and streamline developer workflows.
 
-He is an ACM Technical Team member and ESSE Technical Team member at LGU, actively contributing to the tech community.`,
+He is the IEEE LGU AI/ML Domain Lead, an ACM Technical Team member, and an ESSE Technical Team member at LGU, actively leading and contributing to the tech community.`,
 
     skills: `Abdullah's technical skills include:
 
@@ -135,8 +135,9 @@ BERT News Classifier: Text classification model fine-tuning bert-base-uncased on
 
 You can view them in the Projects section.`,
 
-    certifications: `Abdullah's certifications and achievements:
+    certifications: `Abdullah's certifications, honors, and leadership achievements:
 
+IEEE LGU AI/ML Domain Lead (IEEE LGU Student Branch)
 Oracle Cloud AI Foundations Associate (Oracle University)
 HP AI for Business Professionals (HP LIFE)
 Huawei Algorithm & Program Design
@@ -162,12 +163,13 @@ Resume: https://abdullahfaisal.dev/Abdullahs%20Resume.pdf
 
 Or use the Contact form on this portfolio to send a direct message.`,
 
-    memberships: `Abdullah is an active member of:
+    memberships: `Abdullah holds key leadership and technical roles across tech societies:
 
-ACM Technical Team, LGU ACM Chapter (active contributor)
-ESSE Technical Team Member, engineering and tech community involvement
+- IEEE LGU AI/ML Domain Lead: Leading artificial intelligence & machine learning technical domains, student workshops, and AI initiatives at IEEE LGU Student Branch.
+- ACM Technical Team, LGU ACM Chapter: Active contributor and technical member.
+- ESSE Technical Team Member: Engineering and tech community involvement.
 
-He actively participates in hackathons, competitions, and open-source events through these organizations.`,
+He actively leads workshops, participates in hackathons, competitions, and open-source events through these organizations.`,
 
     interests: `Abdullah is passionate about:
 
@@ -193,12 +195,12 @@ Check out the Extra-curricular section for event photos.`,
 
     location: `Abdullah is based in Lahore, Punjab, Pakistan. He studies at Lahore Garrison University (LGU).`,
 
-    status: `Abdullah is currently open to work opportunities, internships, freelance projects, and collaborations.
+    status: `Abdullah is currently serving as the IEEE LGU AI/ML Domain Lead and interning as an AI/ML Engineer at DeveloperHub. He is open to work opportunities, internships, freelance projects, and collaborations.
 
 He is especially interested in roles involving:
+- AI/ML Engineering & Agentic Workflows
 - Game Development (C++/Godot)
 - Full-Stack Web Development (React/Node)
-- AI/ML projects
 - Open source contributions
 
 Feel free to reach out via the Contact section.`,
@@ -220,6 +222,8 @@ Technologies: React.js, Node.js, Tailwind CSS, HTML/CSS, JavaScript. He focuses 
     resume: `Abdullah's key highlights:
 
 BS Computer Science, LGU (Completed 4th Semester, CGPA 3.23)
+IEEE LGU AI/ML Domain Lead
+AI/ML Engineer Intern at DeveloperHub
 23+ Projects (Game, Web & AI Dev)
 Oracle Cloud AI Foundations Associate
 Microsoft Business Analytics with Excel
@@ -380,8 +384,20 @@ Currently open to work. Reach out via the Contact section.`,
       key: "memberships",
       keywords: [
         "member",
+        "membership",
         "acm",
         "esse",
+        "ieee",
+        "lead",
+        "leader",
+        "leadership",
+        "domain lead",
+        "ai lead",
+        "ml lead",
+        "role",
+        "roles",
+        "society",
+        "societies",
         "club",
         "organization",
         "team",

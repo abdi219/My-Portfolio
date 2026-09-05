@@ -268,7 +268,7 @@ const Hero = () => {
             <p className="hero-description">
               I build things from scratch, specializing in Artificial
               Intelligence (AI/ML models &amp; agents), C++ programming,
-              and web architectures. ACM Technical Member at LGU, passionate
+              and web architectures. IEEE LGU AI/ML Domain Lead &amp; ACM Technical Member at LGU, passionate
               about clean logic, algorithms, and design.
             </p>
             <div className="hero-buttons">
