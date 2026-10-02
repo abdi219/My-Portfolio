@@ -214,18 +214,41 @@ const ExtraCurricular = () => {
     setActiveImageIdx((prev) => (prev - 1 + activeEvent.images.length) % activeEvent.images.length);
   };
 
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
+
   const handlePrev = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     const N = filteredEvents.length;
     if (N === 0) return;
     setActiveIndex((prev) => (prev - 1 + N) % N);
   };
 
   const handleNext = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     const N = filteredEvents.length;
     if (N === 0) return;
     setActiveIndex((prev) => (prev + 1) % N);
+  };
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    if (distance > 45) {
+      handleNext(); // swipe left -> next card
+    } else if (distance < -45) {
+      handlePrev(); // swipe right -> prev card
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
   };
 
   const handleCardClick = (idx) => {
@@ -318,7 +341,12 @@ const ExtraCurricular = () => {
             </button>
           )}
 
-          <div className="activity-carousel-viewport">
+          <div 
+            className="activity-carousel-viewport"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div className="activity-carousel-track">
               {filteredEvents.map((event, idx) => {
                 const { className, style } = getCardClassAndStyle(idx);

@@ -144,8 +144,8 @@ const Contact = () => {
               </a>
 
               <a
-                href="/myPdf.png"
-                download="myPdf.png"
+                href="/Abdullahs%20Resume.pdf"
+                download="Abdullah_Faisal_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="coord-grid-card glass resume-card"

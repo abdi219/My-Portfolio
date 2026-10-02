@@ -524,10 +524,16 @@
 }
 
 /* Mobile responsiveness */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .activity-carousel-container {
     margin-top: 24px !important;
     gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .activity-filter-bar {
@@ -544,53 +550,139 @@
     font-size: 10px;
   }
 
-  .activity-carousel-viewport {
-    width: calc(100% - 60px) !important;
-    height: 330px !important;
+  /* Frosted Glass Navigation Arrows flanking the card */
+  .carousel-nav-arrow {
+    display: flex !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: var(--color-glass) !important;
+    border: 1px solid var(--color-glass-border) !important;
+    color: var(--color-text-primary) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    z-index: 20 !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.2s ease, background 0.2s ease !important;
   }
 
-  .carousel-card {
-    width: 100% !important;
-    max-width: 280px !important;
+  .carousel-nav-arrow:active {
+    transform: scale(0.9) !important;
+    background: var(--color-primary) !important;
+    color: #ffffff !important;
+  }
+
+  .activity-carousel-viewport {
+    flex: 1 !important;
+    max-width: 290px !important;
     height: 310px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    perspective: none !important;
+    touch-action: pan-y !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .activity-carousel-track {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform-style: flat !important;
+  }
+
+  /* One Clean Single Focus Card Block on Mobile */
+  .carousel-card {
+    position: relative !important;
+    top: 0 !important;
     left: 0 !important;
     right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
     margin: 0 auto !important;
+    border-radius: 20px !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    overflow: hidden !important;
+    border: 1px solid var(--color-glass-border) !important;
+    background: var(--color-bg-secondary) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+    will-change: transform, opacity !important;
   }
 
-  /* Hide prev/next/far cards completely on mobile to prevent overlap & overflow issues */
+  /* Hide clipped side cards on mobile completely to prevent awkward edges and lag */
   .carousel-card.prev,
   .carousel-card.next,
   .carousel-card.far {
+    display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+    transform: none !important;
   }
 
   .carousel-card.active {
+    display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    transform: translateX(0) scale(1) !important;
+    transform: none !important;
+    z-index: 10 !important;
+    filter: none !important;
+    animation: mobileCardFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .activity-card-inner {
+    border-radius: inherit !important;
+    overflow: hidden !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .activity-card-image-wrapper {
+    border-radius: inherit !important;
+    overflow: hidden !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .activity-card-overlay-header {
+    top: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    font-size: 9.5px !important;
+  }
+
+  .activity-card-date,
+  .activity-card-badge {
+    padding: 3px 8px !important;
+    font-size: 9px !important;
+    border-radius: 6px !important;
   }
 
   .activity-card-overlay-content {
-    padding: var(--spacing-sm) !important;
+    padding: 12px 14px !important;
+    gap: 4px !important;
   }
 
   .activity-card-title {
-    font-size: 14px !important;
+    font-size: 15px !important;
+    line-height: 1.25 !important;
   }
 
   .activity-card-subtitle {
-    font-size: 10px !important;
-    margin-bottom: 4px !important;
-  }
-
-  .carousel-nav-arrow {
-    width: 36px;
-    height: 36px;
-    padding: 4px !important;
+    font-size: 10.5px !important;
+    margin-bottom: 2px !important;
+    line-height: 1.35 !important;
   }
 
   /* Hide pagination titles to show clean index numbers (e.g. 01, 02) horizontally */
@@ -600,7 +692,8 @@
 
   .carousel-pagination {
     gap: 6px !important;
-    margin-top: 20px !important;
+    margin-top: 18px !important;
+    padding: 0 8px !important;
   }
 
   .pagination-node {
@@ -635,6 +728,32 @@
 
   .nav-right {
     right: 20%;
+  }
+}
+
+@keyframes mobileCardFadeIn {
+  from {
+    opacity: 0.7;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 400px) {
+  .activity-carousel-viewport {
+    max-width: 250px !important;
+    height: 275px !important;
+  }
+
+  .activity-card-title {
+    font-size: 13.5px !important;
+  }
+
+  .activity-card-subtitle {
+    font-size: 9.5px !important;
   }
 }
 

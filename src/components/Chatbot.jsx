@@ -658,6 +658,12 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
         </div>
       </div>
 
+      {/* Mobile Dimmer Backdrop */}
+      <div 
+        className={`chatbot-mobile-backdrop ${isOpen ? "active" : ""}`} 
+        onClick={() => setIsOpen(false)} 
+      />
+
       {/* Chat Window */}
       <div 
         className={`chatbot-window ${isOpen ? "open" : ""}`}
@@ -666,6 +672,7 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
           height: `${dimensions.height}px` 
         } : {}}
       >
+        <div className="chatbot-mobile-handle" />
         <div 
           className="chatbot-resize-handle" 
           onMouseDown={handleMouseDown}
@@ -693,6 +700,14 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
             >
               <Trash2 size={15} />
             </button>
+            <button
+              className="chatbot-action-btn close-btn"
+              onClick={() => setIsOpen(false)}
+              aria-label="Close chat"
+              title="Close chat"
+            >
+              <X size={16} />
+            </button>
           </div>
         </div>
 
@@ -700,7 +715,7 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`}>
               <div className="message-icon">
-                {msg.type === "bot" ? <Bot size={16} /> : <User size={16} />}
+                {msg.type === "bot" ? <Bot size={15} /> : <User size={15} />}
               </div>
               <div className="message-content">{linkifyText(msg.text)}</div>
             </div>
@@ -709,7 +724,7 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
           {isTyping && (
             <div className="message bot">
               <div className="message-icon">
-                <Bot size={16} />
+                <Bot size={15} />
               </div>
               <div className="message-content typing-indicator">
                 <span className="typing-dot"></span>
@@ -751,8 +766,9 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
             className="chatbot-send"
             onClick={handleSend}
             disabled={isTyping || !inputValue.trim()}
+            aria-label="Send message"
           >
-            <Send size={18} />
+            <Send size={16} />
           </button>
         </div>
       </div>

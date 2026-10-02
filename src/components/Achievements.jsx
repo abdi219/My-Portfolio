@@ -173,6 +173,9 @@ const Achievements = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
+  const storyStripRef = React.useRef(null);
 
   const activeItem = achievementsData[activeIndex];
 
@@ -186,6 +189,36 @@ const Achievements = () => {
     if (e) e.stopPropagation();
     setActiveIndex((prev) => (prev + 1) % achievementsData.length);
     setImageLoading(true);
+  };
+
+  // Auto-scroll selected bubble into view on mobile
+  useEffect(() => {
+    if (storyStripRef.current) {
+      const selectedBubble = storyStripRef.current.children[activeIndex];
+      if (selectedBubble) {
+        selectedBubble.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
+    }
+  }, [activeIndex]);
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    if (distance > 45) {
+      handleNext(); // swiped left
+    } else if (distance < -45) {
+      handlePrev(); // swiped right
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
   };
 
   // Keyboard navigation support
@@ -217,14 +250,14 @@ const Achievements = () => {
       <div className="container">
         {/* Section Header */}
         <div className="section-header anim-rise">
-          <h2>Achievements & Hackathons</h2>
+          <h2>Achievements &amp; Hackathons</h2>
           <p className="section-subtitle">
-            Leadership Appointments, Global AI Hackathons & Industry Milestones
+            Leadership Appointments, Global AI Hackathons &amp; Industry Milestones
           </p>
         </div>
 
         {/* Story / Quick Selector Bubbles Strip - Centered with Crisp Monochrome SVGs */}
-        <div className="post-story-strip anim-rise">
+        <div className="post-story-strip anim-rise" ref={storyStripRef}>
           {achievementsData.map((item, idx) => {
             const isSelected = idx === activeIndex;
             return (
@@ -250,7 +283,12 @@ const Achievements = () => {
 
         {/* Main Side-by-Side Instagram/Dossier Card */}
         <div className="post-card-container anim-slide-right">
-          <div className="post-card glass">
+          <div 
+            className="post-card glass"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {/* Left Column: Photo / Certificate Canvas */}
             <div 
               className="post-media-column"
@@ -272,6 +310,9 @@ const Achievements = () => {
                 <div className="post-inspect-floating-pill">
                   <Maximize2 size={13} />
                   <span>Inspect Document</span>
+                </div>
+                <div className="post-mobile-slide-pill">
+                  {activeIndex + 1} / {achievementsData.length}
                 </div>
               </div>
             </div>
@@ -368,10 +409,6 @@ const Achievements = () => {
       {/* Expanded Certificate Lightbox Modal - Click anywhere outside to dismiss */}
       {isModalOpen && (
         <div className="achieve-inspect-modal" onClick={() => setIsModalOpen(false)}>
-          <div className="achieve-inspect-dismiss-hint">
-            <span>Click anywhere outside to return</span>
-          </div>
-
           <div className="achieve-inspect-content-box" onClick={(e) => e.stopPropagation()}>
             <div className="achieve-inspect-dossier-card">
               <div className="achieve-inspect-image-container">

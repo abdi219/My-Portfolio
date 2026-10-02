@@ -86,6 +86,9 @@ const Certificates = () => {
     const [activeCert, setActiveCert] = useState(certificates[0]);
     const [isProjecting, setIsProjecting] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [touchStartX, setTouchStartX] = useState(null);
+    const [touchEndX, setTouchEndX] = useState(null);
+    const rackRef = React.useRef(null);
 
     // Prevent background scroll when preview modal is open
     useEffect(() => {
@@ -107,7 +110,47 @@ const Certificates = () => {
         setTimeout(() => {
             setActiveCert(certificates[idx]);
             setIsProjecting(false);
-        }, 350);
+        }, 300);
+    };
+
+    const handlePrev = () => {
+        const prevIdx = selectedIdx === 0 ? certificates.length - 1 : selectedIdx - 1;
+        handleSelectCert(prevIdx);
+    };
+
+    const handleNext = () => {
+        const nextIdx = selectedIdx === certificates.length - 1 ? 0 : selectedIdx + 1;
+        handleSelectCert(nextIdx);
+    };
+
+    // Auto-scroll selected keycard into view on mobile
+    useEffect(() => {
+        if (rackRef.current) {
+            const selectedCard = rackRef.current.children[selectedIdx];
+            if (selectedCard) {
+                selectedCard.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+            }
+        }
+    }, [selectedIdx]);
+
+    const handleTouchStart = (e) => {
+        setTouchStartX(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchMove = (e) => {
+        setTouchEndX(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStartX === null || touchEndX === null) return;
+        const distance = touchStartX - touchEndX;
+        if (distance > 45) {
+            handleNext(); // swiped left
+        } else if (distance < -45) {
+            handlePrev(); // swiped right
+        }
+        setTouchStartX(null);
+        setTouchEndX(null);
     };
 
     const handleCredentialClick = (url) => {
@@ -122,14 +165,17 @@ const Certificates = () => {
             <div className="container">
                 <div className="section-header anim-rise">
                     <h2>Certificates</h2>
-                    <p className="section-subtitle">Holographic Pedestal Projector & Verification System</p>
+                    <p className="section-subtitle">Holographic Pedestal Projector &amp; Verification System</p>
                 </div>
 
                 <div className="certificates-projector-layout">
-                    {/* Left Column: Keycard Rack */}
+                    {/* Left Column: Keycard Rack (Desktop Left / Mobile Bottom) */}
                     <div className="keycard-rack-container anim-slide-right">
-                        <span className="rack-title-text">KEYCARD ARCHIVE SLOTS</span>
-                        <div className="keycard-rack">
+                        <div className="keycard-rack-header-row">
+                            <span className="rack-title-text">KEYCARD ARCHIVE SLOTS</span>
+                            <span className="cert-counter-badge">{selectedIdx + 1} / {certificates.length}</span>
+                        </div>
+                        <div className="keycard-rack" ref={rackRef}>
                             {certificates.map((cert, idx) => {
                                 const isSelected = idx === selectedIdx;
                                 return (
@@ -138,6 +184,7 @@ const Certificates = () => {
                                         className={`keycard-slot ${isSelected ? "selected" : ""}`}
                                         style={{ "--card-color": cert.color }}
                                         onClick={() => handleSelectCert(idx)}
+                                        type="button"
                                     >
                                         <div className="keycard-chip">
                                             <Cpu size={12} />
@@ -153,10 +200,13 @@ const Certificates = () => {
                         </div>
                     </div>
 
-                    {/* Right Column: Holographic Pedestal Screen */}
+                    {/* Right Column: Holographic Pedestal Screen (Desktop Right / Mobile Top) */}
                     <div className="hologram-projector-container anim-slide-left">
                         <div 
                             className={`projector-glass glass ${activeCert.image ? "clickable-projector" : ""}`}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
                             onClick={() => {
                                 if (activeCert.image) {
                                     setIsModalOpen(true);
@@ -239,6 +289,33 @@ const Certificates = () => {
                                                 <span>LOCAL SYSTEM VERIFIED</span>
                                             </div>
                                         )}
+                                    </div>
+
+                                    {/* Mobile Projector Quick Nav */}
+                                    <div className="mobile-projector-nav" onClick={(e) => e.stopPropagation()}>
+                                        <button 
+                                            type="button" 
+                                            className="proj-nav-btn" 
+                                            onClick={handlePrev}
+                                        >
+                                            &larr; PREV
+                                        </button>
+                                        <div className="proj-nav-dots">
+                                            {certificates.map((_, i) => (
+                                                <span 
+                                                    key={i} 
+                                                    className={`proj-dot ${i === selectedIdx ? "active" : ""}`}
+                                                    onClick={() => handleSelectCert(i)}
+                                                />
+                                            ))}
+                                        </div>
+                                        <button 
+                                            type="button" 
+                                            className="proj-nav-btn" 
+                                            onClick={handleNext}
+                                        >
+                                            NEXT &rarr;
+                                        </button>
                                     </div>
                                 </div>
                             )}
