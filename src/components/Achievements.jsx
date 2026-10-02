@@ -5,7 +5,6 @@ import FloatingDoodles from "./FloatingDoodles";
 import { 
   ChevronLeft, 
   ChevronRight, 
-  X, 
   Building2, 
   Maximize2, 
   CheckCircle2, 
@@ -44,11 +43,11 @@ const Achievements = () => {
     {
       id: "ieee-lead",
       nodeNum: "02",
-      bubbleLabel: "IEEE Lead",
+      bubbleLabel: "IEEE",
       icon: <Award size={22} />,
       title: "IEEE AI/ML Domain Lead & Mentor",
       issuer: "IEEE Open Source • Cohort 1",
-      categoryLabel: "LEADERSHIP & MENTORSHIP",
+      categoryLabel: "LEADERSHIP",
       date: "2026 – Present",
       badge: "DOMAIN LEAD • COHORT 1",
       highlight: "12-Week AI/ML Curriculum Design & Student Mentorship",
@@ -76,7 +75,7 @@ const Achievements = () => {
     {
       id: "ibm-bob-hackathon",
       nodeNum: "04",
-      bubbleLabel: "IBM Bob",
+      bubbleLabel: "IBM",
       icon: <Bot size={22} />,
       title: "IBM Bob 2.0 Hackathon",
       issuer: "Lablab.ai & IBM",
@@ -92,7 +91,7 @@ const Achievements = () => {
     {
       id: "ai-factory-hackathon",
       nodeNum: "05",
-      bubbleLabel: "AI Factory",
+      bubbleLabel: "AIFactory",
       icon: <Zap size={22} />,
       title: "AI Factory Hackathon",
       issuer: "Lablab.ai & NativelyAI",
@@ -140,7 +139,7 @@ const Achievements = () => {
     {
       id: "lablab-next-hackathon",
       nodeNum: "08",
-      bubbleLabel: "LabLab Next",
+      bubbleLabel: "LabLab",
       icon: <Layers size={22} />,
       title: "LabLab Next Hackathon",
       issuer: "Lablab.ai & NativelyAI",
@@ -156,11 +155,11 @@ const Achievements = () => {
     {
       id: "acm-member",
       nodeNum: "09",
-      bubbleLabel: "ACM Member",
+      bubbleLabel: "ACM",
       icon: <Users size={22} />,
       title: "ACM Technical Member & Event Mentor",
       issuer: "LGU ACM Student Chapter",
-      categoryLabel: "COMMUNITY & LEADERSHIP",
+      categoryLabel: "COMMUNITY",
       date: "2025 – Present",
       badge: "TECHNICAL MEMBER",
       highlight: "LinkedIn Corner Mentor, Industrial Visits & Society Meetings",
@@ -262,16 +261,17 @@ const Achievements = () => {
             >
               <div className="post-image-canvas">
                 <img
+                  key={`img-${activeItem.id}`}
                   src={activeItem.image}
                   alt={activeItem.title}
-                  className="post-main-img"
+                  className="post-main-img post-fade-in"
                   loading="lazy"
                 />
-                <div className="post-media-overlay">
-                  <div className="post-inspect-pill">
-                    <Maximize2 size={15} />
-                    <span>INSPECT DOCUMENT</span>
-                  </div>
+              </div>
+              <div className="post-media-overlay">
+                <div className="post-inspect-floating-pill">
+                  <Maximize2 size={13} />
+                  <span>Inspect Document</span>
                 </div>
               </div>
             </div>
@@ -279,10 +279,10 @@ const Achievements = () => {
             {/* Right Column: Post Details Feed */}
             <div className="post-details-column">
               {/* Post Header */}
-              <div className="post-author-header">
+              <div className="post-author-header" key={`hdr-${activeItem.id}`}>
                 <div className="post-author-left">
                   <div className="post-author-avatar">
-                    <Building2 size={16} />
+                    <Building2 size={15} />
                   </div>
                   <div className="post-author-info">
                     <div className="post-author-name-row">
@@ -297,25 +297,28 @@ const Achievements = () => {
               </div>
 
               {/* Post Body Content */}
-              <div className="post-content-body">
-                <h3 className="post-title">{activeItem.title}</h3>
-                
-                <div className="post-highlight-strip">
-                  <span>{activeItem.highlight}</span>
+              <div className="post-content-body" key={`body-${activeItem.id}`}>
+                <div className="post-title-group">
+                  <h3 className="post-title">{activeItem.title}</h3>
+                  <div className="post-highlight-strip">
+                    <span>{activeItem.highlight}</span>
+                  </div>
                 </div>
 
                 <p className="post-description">{activeItem.description}</p>
 
-                <div className="post-verification-tag">
-                  <CheckCircle2 size={13} className="check-icon" />
-                  <span>{activeItem.verification}</span>
-                </div>
+                <div className="post-meta-bottom-group">
+                  <div className="post-verification-tag">
+                    <CheckCircle2 size={13} className="check-icon" />
+                    <span>{activeItem.verification}</span>
+                  </div>
 
-                {/* Hashtags */}
-                <div className="post-hashtags-row">
-                  {activeItem.tags.map((tag, idx) => (
-                    <span key={idx} className="post-tag">#{tag}</span>
-                  ))}
+                  {/* Hashtags */}
+                  <div className="post-hashtags-row">
+                    {activeItem.tags.map((tag, idx) => (
+                      <span key={idx} className="post-tag">#{tag}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -362,40 +365,39 @@ const Achievements = () => {
         </div>
       </div>
 
-      {/* Expanded Certificate Lightbox Modal */}
+      {/* Expanded Certificate Lightbox Modal - Click anywhere outside to dismiss */}
       {isModalOpen && (
         <div className="achieve-inspect-modal" onClick={() => setIsModalOpen(false)}>
-          <button 
-            className="achieve-inspect-close-btn" 
-            onClick={() => setIsModalOpen(false)}
-            aria-label="Close preview"
-          >
-            <X size={24} />
-          </button>
+          <div className="achieve-inspect-dismiss-hint">
+            <span>Click anywhere outside to return</span>
+          </div>
 
           <div className="achieve-inspect-content-box" onClick={(e) => e.stopPropagation()}>
-            <div className="achieve-inspect-display-area">
-              <div className="achieve-inspect-polaroid">
-                <div className="achieve-inspect-image-container">
-                  {imageLoading && (
-                    <div className="achieve-inspect-spinner-wrap">
-                      <div className="achieve-inspect-spinner"></div>
-                    </div>
-                  )}
-                  <img
-                    src={activeItem.image}
-                    alt={activeItem.title}
-                    className={`achieve-inspect-img ${imageLoading ? "" : "loaded"}`}
-                    onLoad={() => setImageLoading(false)}
-                  />
-                </div>
-
-                <div className="achieve-inspect-caption">
-                  <h3 className="achieve-inspect-title">{activeItem.title.toUpperCase()}</h3>
-                  <p className="achieve-inspect-subtitle">ISSUED BY: {activeItem.issuer.toUpperCase()} • {activeItem.date.toUpperCase()}</p>
-                  <div className="achieve-inspect-badge-tag">
-                    <span>{activeItem.verification}</span>
+            <div className="achieve-inspect-dossier-card">
+              <div className="achieve-inspect-image-container">
+                {imageLoading && (
+                  <div className="achieve-inspect-spinner-wrap">
+                    <div className="achieve-inspect-spinner"></div>
                   </div>
+                )}
+                <img
+                  src={activeItem.image}
+                  alt={activeItem.title}
+                  className={`achieve-inspect-img ${imageLoading ? "" : "loaded"}`}
+                  onLoad={() => setImageLoading(false)}
+                />
+              </div>
+
+              <div className="achieve-inspect-footer-bar">
+                <div className="achieve-inspect-meta-left">
+                  <h3 className="achieve-inspect-title">{activeItem.title}</h3>
+                  <p className="achieve-inspect-subtitle">
+                    {activeItem.issuer} • {activeItem.date}
+                  </p>
+                </div>
+                <div className="achieve-inspect-badge-pill">
+                  <ShieldCheck size={13} className="inspect-verified-icon" />
+                  <span>{activeItem.verification}</span>
                 </div>
               </div>
             </div>
