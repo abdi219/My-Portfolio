@@ -135,17 +135,29 @@ BERT News Classifier: Text classification model fine-tuning bert-base-uncased on
 
 You can view them in the Projects section.`,
 
-    certifications: `Abdullah's certifications, honors, and leadership achievements:
+    certifications: `Abdullah's course certifications:
 
-IEEE LGU AI/ML Domain Lead (IEEE LGU Student Branch)
-Oracle Cloud AI Foundations Associate (Oracle University)
-HP AI for Business Professionals (HP LIFE)
-Huawei Algorithm & Program Design
-Business Analytics with Excel (Microsoft Partner Program / Simplilearn)
-ACM Technical Member (LGU ACM Chapter)
-Top 10 Finalist (TechSphere, LGU Intra Tech Event 2024)
+- IBM Python for Data Science (IBM)
+- Oracle Cloud AI Foundations Associate (Oracle University)
+- Anthropic Claude 101 (Anthropic)
+- HP AI for Business Professionals (HP LIFE)
+- Huawei Algorithm & Program Design (Huawei)
+- Business Analytics with Excel (Microsoft Partner Program / Simplilearn)
 
-Visit the Certificates section for credential links.`,
+Visit the Certificates section for credential links and verification.`,
+
+    achievements: `Abdullah's achievements, leadership roles, and hackathons:
+
+- IEEE AI/ML Domain Lead: IEEE LGU Student Branch leadership, workshops, and AI engineering guidance.
+- FortyGuard Hackathon '26: Excellence award for HeatShield AI urban microclimate intelligence platform.
+- IBM Bob 2.0 Hackathon: Multi-agent AI architecture with IBM, OpenAI, Groq, and Vercel.
+- AI Factory Hackathon: Real-time automation pipeline leveraging Meta LLaMA 3 and Groq LPUs.
+- IntraTech 2.0 Hackathon: Top 10 Finalist in university web coding and rapid prototyping.
+- UCP Taakra 2026 Speed Programming: Algorithmic speed problem-solving contestant.
+- LabLab Next Hackathon: Generative prototype utilizing LLaMA 3 models.
+- ACM Technical Member: Active technical contributor and event organizer at ACM LGU Chapter.
+
+Visit the Achievements & Hackathons section for detailed certificates and documents.`,
 
     education: `Lahore Garrison University (LGU)
 BS Computer Science (Completed 4th Semester)

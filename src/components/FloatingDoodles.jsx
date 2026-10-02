@@ -40,6 +40,7 @@ const SHAPES = {
 const SECTION_SHAPES = {
   about:           ["brain","brackets","gradcap","pencil","circuit","atom","book","brain","brackets","gradcap","pencil","circuit","atom","book","brain","brackets","gradcap","pencil","circuit","atom"],
   projects:        ["terminal","folder","gear","gitbranch","puzzle","code","terminal","folder","gear","gitbranch","puzzle","code","terminal","folder","gear","gitbranch","puzzle","code","terminal","folder"],
+  achievements:    ["trophy","medal","crown","sparkle","ribbon","diamond","trophy","medal","crown","sparkle","ribbon","diamond","trophy","medal","crown","sparkle","ribbon","diamond","trophy","medal"],
   certificates:    ["star","medal","scroll","sparkle","ribbon","diamond","star","medal","scroll","sparkle","ribbon","diamond","star","medal","scroll","sparkle","ribbon","diamond","star","medal"],
   extracurricular: ["chess","lightbulb","trophy","people","crown","lightning","chess","lightbulb","trophy","people","crown","lightning","chess","lightbulb","trophy","people","crown","lightning","chess","lightbulb"],
   contact:         ["envelope","paperplane","chatbubble","pin","signal","phone","envelope","paperplane","chatbubble","pin","signal","phone","envelope","paperplane","chatbubble","pin","signal","phone","envelope","paperplane"],

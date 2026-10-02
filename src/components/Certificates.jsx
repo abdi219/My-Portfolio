@@ -79,42 +79,6 @@ const Certificates = () => {
             hash: '0x32fd90e11ab9c',
             credentialUrl: 'https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiIyOTczIiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvOTgwOTA4OF8xMDAyNTcxOF8xNzcwMzI2NTM1MTQ0LnBuZyIsInVzZXJuYW1lIjoiQWJkdWxsYWggRmFpc2FsIn0%3D&utm_source=shared-certificate&utm_medium=lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Flms.simplilearn.com%2Fcourses%2F5712%2FBusiness-Analytics-with-Excel-Beginner-Course%2Fcertificate%2Fdownload-skillup&%24web_only=true&_branch_match_id=1392848493742485176&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1k%2FVL4oyS89w8couN0iyrytKTUstKsrMS49PKsovL04tsvUBqkpN8cwDACqi8ENBAAAA',
             image: '/Certs/MicrosoftCert.jpg'
-        },
-        {
-            title: 'IEEE LGU AI/ML Domain Lead',
-            issuer: 'IEEE LGU Student Branch',
-            date: '2025 - Present',
-            icon: <Award size={20} />,
-            color: 'var(--color-primary)',
-            idTag: 'LEAD-IEEE-AIML-LGU',
-            nodeNum: '07',
-            hash: '0xee91a27f81c4e',
-            credentialUrl: null,
-            image: null
-        },
-        {
-            title: 'ACM Technical Member',
-            issuer: 'LGU ACM Chapter',
-            date: '2024 - Present',
-            icon: <Users size={20} />,
-            color: 'var(--color-primary)',
-            idTag: 'MEMBER-ACM-LGU',
-            nodeNum: '08',
-            hash: '0xac310f829db19a',
-            credentialUrl: null,
-            image: null
-        },
-        {
-            title: 'Top 10 Finalist (TechSphere)',
-            issuer: 'LGU Intra Tech Event',
-            date: '2024',
-            icon: <Award size={20} />,
-            color: 'var(--color-primary)',
-            idTag: 'FINALIST-TECH-409',
-            nodeNum: '09',
-            hash: '0x992db1c08fe340',
-            credentialUrl: '/image.png',
-            image: '/image.png'
         }
     ];
 

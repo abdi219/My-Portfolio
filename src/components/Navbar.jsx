@@ -18,6 +18,7 @@ const Navbar = () => {
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
+    { name: "Achievements", href: "#achievements" },
     { name: "Certificates", href: "#certificates" },
     { name: "Events", href: "#extracurricular" },
     { name: "Contact", href: "#contact" },
@@ -29,6 +30,7 @@ const Navbar = () => {
     const section = document.querySelector(href);
     if (section) {
       let offset = 80;
+      if (href === "#achievements") offset = 40;
       if (href === "#certificates") offset = 40;
       if (href === "#contact") offset = 10;
       if (href === "#extracurricular") offset = 45;
