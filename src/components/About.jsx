@@ -3,57 +3,13 @@ import "./About.css";
 import useScrollAnimation from "../hooks/useScrollAnimation";
 import FloatingDoodles from "./FloatingDoodles";
 import {
-  Code2, Gamepad2, Terminal, FileJson, Atom, Server, Palette, BrainCircuit, Sparkles, MapPin, Briefcase, UserCheck, Users, Lightbulb, RefreshCw
+  Code2, Gamepad2, Terminal, FileJson, Atom, Server, Palette, BrainCircuit, Sparkles, MapPin, Briefcase, UserCheck, Users, Lightbulb, RefreshCw, User, Cpu, TerminalSquare
 } from "lucide-react";
 
 const About = () => {
   useScrollAnimation();
   const [activeTab, setActiveTab] = useState("overview");
-  const [touchStartX, setTouchStartX] = useState(null);
-  const [touchEndX, setTouchEndX] = useState(null);
-
-  const handleTouchStart = (e) => {
-    setTouchStartX(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEndX(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX === null || touchEndX === null) return;
-    const distance = touchStartX - touchEndX;
-    const isLeftSwipe = distance > 55;  // swiped left
-    const isRightSwipe = distance < -55; // swiped right
-
-    const tabs = ["overview", "skills", "diagnostics"];
-    const currentIndex = tabs.indexOf(activeTab);
-
-    if (isLeftSwipe && currentIndex < tabs.length - 1) {
-      setActiveTab(tabs[currentIndex + 1]);
-    } else if (isRightSwipe && currentIndex > 0) {
-      setActiveTab(tabs[currentIndex - 1]);
-    }
-
-    setTouchStartX(null);
-    setTouchEndX(null);
-  };
-
-  const handlePrevTab = () => {
-    const tabs = ["overview", "skills", "diagnostics"];
-    const currentIndex = tabs.indexOf(activeTab);
-    if (currentIndex > 0) {
-      setActiveTab(tabs[currentIndex - 1]);
-    }
-  };
-
-  const handleNextTab = () => {
-    const tabs = ["overview", "skills", "diagnostics"];
-    const currentIndex = tabs.indexOf(activeTab);
-    if (currentIndex < tabs.length - 1) {
-      setActiveTab(tabs[currentIndex + 1]);
-    }
-  };
+  const [mobileSegment, setMobileSegment] = useState("profile");
 
   const [selectedSkill, setSelectedSkill] = useState({
     name: "C++",
@@ -64,22 +20,22 @@ const About = () => {
   });
 
   const skills = [
-    { name: "C++", category: "lang", icon: <Code2 size={16} />, color: "var(--color-primary)", detail: "Used extensively in Game Dev with Raylib and Object-Oriented programming tasks." },
-    { name: "Raylib", category: "game", icon: <Gamepad2 size={16} />, color: "var(--color-primary)", detail: "C++ framework used to build game logic, drawing loops, and physics for Snake and Catch/Kaboom." },
-    { name: "Python", category: "lang", icon: <Terminal size={16} />, color: "var(--color-primary)", detail: "Primary language for DSA problem-solving and experimenting with Machine Learning models." },
-    { name: "JavaScript", category: "lang", icon: <FileJson size={16} />, color: "var(--color-primary)", detail: "Used for interactive web elements and logic in frontend React/Node components." },
-    { name: "React", category: "web", icon: <Atom size={16} />, color: "var(--color-primary)", detail: "Frontend JS library used to build component architectures, custom hooks, and state logic." },
-    { name: "Node.js", category: "web", icon: <Server size={16} />, color: "var(--color-primary)", detail: "Backend JavaScript environment for API development, routing, and backend integrations." },
-    { name: "Tailwind CSS", category: "web", icon: <Palette size={16} />, color: "var(--color-primary)", detail: "CSS utility framework for constructing clean responsive designs rapidly." },
-    { name: "DSA", category: "core", icon: <BrainCircuit size={16} />, color: "var(--color-primary)", detail: "Core CS knowledge: structures, algorithmic runtime analysis (Big O), and pathfinding algorithms." },
-    { name: "AI & ML", category: "core", icon: <BrainCircuit size={16} />, color: "var(--color-primary)", detail: "Study of model trainings, regression analyses, and neural network foundations." },
-    { name: "Gen AI", category: "core", icon: <Sparkles size={16} />, color: "var(--color-primary)", detail: "Leveraging LLMs and prompting techniques to build assistant bots and optimize coding speed." },
-    { name: "Communication", category: "soft", icon: <Users size={16} />, color: "var(--color-primary)", detail: "Articulating technical concepts clearly and collaborating effectively in team settings." },
-    { name: "Problem Solving", category: "soft", icon: <BrainCircuit size={16} />, color: "var(--color-primary)", detail: "Approaching complex software challenges methodically and building optimal solutions." },
-    { name: "Leadership", category: "soft", icon: <UserCheck size={16} />, color: "var(--color-primary)", detail: "IEEE LGU AI/ML Domain Lead, mentoring peers and guiding technical initiatives within student societies." },
-    { name: "Teamwork", category: "soft", icon: <Users size={16} />, color: "var(--color-primary)", detail: "Working harmoniously with diverse groups to deliver successful project outcomes." },
-    { name: "Adaptability", category: "soft", icon: <RefreshCw size={16} />, color: "var(--color-primary)", detail: "Thriving in dynamic environments and quickly mastering new tools or frameworks." },
-    { name: "Creativity", category: "soft", icon: <Lightbulb size={16} />, color: "var(--color-primary)", detail: "Designing innovative, visually-stunning user interfaces and novel software architectures." }
+    { name: "C++", category: "lang", icon: <Code2 size={15} />, color: "var(--color-primary)", detail: "Used extensively in Game Dev with Raylib and Object-Oriented programming tasks." },
+    { name: "Raylib", category: "game", icon: <Gamepad2 size={15} />, color: "var(--color-primary)", detail: "C++ framework used to build game logic, drawing loops, and physics for Snake and Catch/Kaboom." },
+    { name: "Python", category: "lang", icon: <Terminal size={15} />, color: "var(--color-primary)", detail: "Primary language for DSA problem-solving and experimenting with Machine Learning models." },
+    { name: "JavaScript", category: "lang", icon: <FileJson size={15} />, color: "var(--color-primary)", detail: "Used for interactive web elements and logic in frontend React/Node components." },
+    { name: "React", category: "web", icon: <Atom size={15} />, color: "var(--color-primary)", detail: "Frontend JS library used to build component architectures, custom hooks, and state logic." },
+    { name: "Node.js", category: "web", icon: <Server size={15} />, color: "var(--color-primary)", detail: "Backend JavaScript environment for API development, routing, and backend integrations." },
+    { name: "Tailwind CSS", category: "web", icon: <Palette size={15} />, color: "var(--color-primary)", detail: "CSS utility framework for constructing clean responsive designs rapidly." },
+    { name: "DSA", category: "core", icon: <BrainCircuit size={15} />, color: "var(--color-primary)", detail: "Core CS knowledge: structures, algorithmic runtime analysis (Big O), and pathfinding algorithms." },
+    { name: "AI & ML", category: "core", icon: <BrainCircuit size={15} />, color: "var(--color-primary)", detail: "Study of model trainings, regression analyses, and neural network foundations." },
+    { name: "Gen AI", category: "core", icon: <Sparkles size={15} />, color: "var(--color-primary)", detail: "Leveraging LLMs and prompting techniques to build assistant bots and optimize coding speed." },
+    { name: "Communication", category: "soft", icon: <Users size={15} />, color: "var(--color-primary)", detail: "Articulating technical concepts clearly and collaborating effectively in team settings." },
+    { name: "Problem Solving", category: "soft", icon: <BrainCircuit size={15} />, color: "var(--color-primary)", detail: "Approaching complex software challenges methodically and building optimal solutions." },
+    { name: "Leadership", category: "soft", icon: <UserCheck size={15} />, color: "var(--color-primary)", detail: "IEEE LGU AI/ML Domain Lead, mentoring peers and guiding technical initiatives within student societies." },
+    { name: "Teamwork", category: "soft", icon: <Users size={15} />, color: "var(--color-primary)", detail: "Working harmoniously with diverse groups to deliver successful project outcomes." },
+    { name: "Adaptability", category: "soft", icon: <RefreshCw size={15} />, color: "var(--color-primary)", detail: "Thriving in dynamic environments and quickly mastering new tools or frameworks." },
+    { name: "Creativity", category: "soft", icon: <Lightbulb size={15} />, color: "var(--color-primary)", detail: "Designing innovative, visually-stunning user interfaces and novel software architectures." }
   ];
 
   const diagnosticLogs = [
@@ -92,9 +48,9 @@ const About = () => {
     "[LEADERSHIP]: IEEE LGU AI/ML Domain Lead (Active)",
     "[LOAD]: Internship at DeveloperHub as AI / ML Engineer (Active)",
     "[CHECK]: Cumulative CGPA: 3.23 / 4.00 (Verified)",
-    "[MODULE]: Game Dev Subsystem loaded: Raylib C++ & Godot GDScript active",
-    "[MODULE]: Web Dev Subsystem loaded: React, Node.js, and CSS modules active",
-    "[MODULE]: AI Dev Subsystem loaded: Pandas, Hugging Face, & LLM Fine-Tuning active",
+    "[MODULE]: Game Dev Subsystem loaded: Raylib C++ active",
+    "[MODULE]: Web Dev Subsystem loaded: React & Node.js active",
+    "[MODULE]: AI Dev Subsystem loaded: Pandas & LLM Agents active",
     "[SUCCESS]: System state green. READY TO COLLABORATE."
   ];
 
@@ -104,10 +60,13 @@ const About = () => {
       <div className="container">
         <div className="section-header anim-rise">
           <h2>About Me</h2>
-          <p className="section-subtitle">Dossier & System Diagnostic</p>
+          <p className="section-subtitle">Dossier &amp; System Diagnostic</p>
         </div>
 
-        <div className="about-layout">
+        {/* ═══════════════════════════════════════════════════════════
+            DESKTOP LAYOUT (100% Intact & Untouched for min-width: 901px)
+            ═══════════════════════════════════════════════════════════ */}
+        <div className="about-layout about-desktop-layout">
           {/* Left Column: Blueprint Picture */}
           <div className="blueprint-column anim-slide-left">
             <div className="blueprint-frame glass">
@@ -175,46 +134,10 @@ const About = () => {
               </button>
             </div>
 
-            {/* Mobile-only interactive slider header */}
-            <div className="dossier-mobile-tab-header glass">
-              <button 
-                className="tab-nav-arrow" 
-                onClick={handlePrevTab}
-                disabled={activeTab === "overview"}
-              >
-                &larr;
-              </button>
-              <span className="mobile-tab-active-title">
-                {activeTab === "overview" && "[ 01. Overview ]"}
-                {activeTab === "skills" && "[ 02. Core Skills ]"}
-                {activeTab === "diagnostics" && "[ 03. System Logs ]"}
-              </span>
-              <button 
-                className="tab-nav-arrow" 
-                onClick={handleNextTab}
-                disabled={activeTab === "diagnostics"}
-              >
-                &rarr;
-              </button>
-            </div>
-            
-            <div className="mobile-tab-dots">
-              <span className={`dot ${activeTab === "overview" ? "active" : ""}`}></span>
-              <span className={`dot ${activeTab === "skills" ? "active" : ""}`}></span>
-              <span className={`dot ${activeTab === "diagnostics" ? "active" : ""}`}></span>
-            </div>
-
-            <div 
-              className="dossier-tab-content glass"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
+            <div className="dossier-tab-content glass">
               {activeTab === "overview" && (
                 <div className="tab-pane-overview animate-fade-in">
                   <h3 className="tab-title">Journey Specifications</h3>
-                  
-                  {/* Desktop/Tablet Paragraphs */}
                   <div className="bio-desktop">
                     <p>
                       I’m Abdullah Faisal, a Computer Science student at
@@ -228,16 +151,9 @@ const About = () => {
                     </p>
                     <p>
                       My core interests lie at the intersection of Game Development,
-                      Data Structures & Algorithms, and AI/ML. I also love leveraging
+                      Data Structures &amp; Algorithms, and AI/ML. I also love leveraging
                       AI to enhance productivity and streamline development workflows,
                       constantly pushing technical boundaries and learning by doing.
-                    </p>
-                  </div>
-
-                  {/* Mobile-only Concise Paragraph */}
-                  <div className="bio-mobile">
-                    <p>
-                      I'm Abdullah Faisal, a CS student at Lahore Garrison University (CGPA 3.23), IEEE LGU AI/ML Domain Lead, and AI/ML Engineer intern at DeveloperHub. I specialize in building custom AI agents, C++ game logic, and responsive web architectures from scratch.
                     </p>
                   </div>
 
@@ -261,14 +177,9 @@ const About = () => {
               {activeTab === "skills" && (
                 <div className="tab-pane-skills animate-fade-in">
                   <h3 className="tab-title">Core Skills Nodes</h3>
-                  <p className="tab-instruction">Select a node to query details. Swipe left/right for more nodes &rarr;</p>
+                  <p className="tab-instruction">Select a node to query details &rarr;</p>
                   
-                  <div 
-                    className="skills-node-grid"
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchMove={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                  >
+                  <div className="skills-node-grid">
                     {skills.map((skill, index) => (
                       <button
                         key={index}
@@ -283,12 +194,7 @@ const About = () => {
                   </div>
 
                   {selectedSkill && (
-                    <div 
-                      className="skill-detail-panel glass-subtle"
-                      onTouchStart={(e) => e.stopPropagation()}
-                      onTouchMove={(e) => e.stopPropagation()}
-                      onTouchEnd={(e) => e.stopPropagation()}
-                    >
+                    <div className="skill-detail-panel glass-subtle">
                       <div className="detail-header">
                         <span className="detail-category">{selectedSkill.category.toUpperCase()}</span>
                         <h4 style={{ color: selectedSkill.color }}>{selectedSkill.name}</h4>
@@ -309,12 +215,7 @@ const About = () => {
                       <span className="term-dot term-green"></span>
                       <span className="terminal-title">bash - diagnostics</span>
                     </div>
-                    <div 
-                      className="terminal-log-output"
-                      onTouchStart={(e) => e.stopPropagation()}
-                      onTouchMove={(e) => e.stopPropagation()}
-                      onTouchEnd={(e) => e.stopPropagation()}
-                    >
+                    <div className="terminal-log-output">
                       {diagnosticLogs.map((log, index) => (
                         <div key={index} className="terminal-log-line">
                           <span className="log-timestamp">[SYS_RUN]</span>{" "}
@@ -330,6 +231,139 @@ const About = () => {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════════
+            APPLE-STYLE COMPACT MOBILE WIDGET (max-width: 900px)
+            ═══════════════════════════════════════════════════════════ */}
+        <div className="about-apple-widget">
+          {/* iOS Profile Header Card */}
+          <div className="apple-profile-header glass">
+            <div className="apple-avatar-box">
+              <img
+                src="/abdi.JPG"
+                alt="Abdullah Faisal"
+                className="apple-avatar"
+                onError={(e) => { e.target.style.display = "none"; }}
+              />
+              <span className="apple-status-pulse"></span>
+            </div>
+            <div className="apple-header-meta">
+              <div className="apple-name-row">
+                <h3 className="apple-name">Abdullah Faisal</h3>
+                <span className="apple-verified-pill">CS @ LGU</span>
+              </div>
+              <p className="apple-role-sub">IEEE AI/ML Lead • DevHub Intern</p>
+            </div>
+          </div>
+
+          {/* Apple Segmented Control Pill Switcher */}
+          <div className="apple-segmented-bar glass">
+            <button
+              type="button"
+              className={`apple-segment-btn ${mobileSegment === "profile" ? "active" : ""}`}
+              onClick={() => setMobileSegment("profile")}
+            >
+              <User size={13} />
+              <span>Profile</span>
+            </button>
+            <button
+              type="button"
+              className={`apple-segment-btn ${mobileSegment === "skills" ? "active" : ""}`}
+              onClick={() => setMobileSegment("skills")}
+            >
+              <Cpu size={13} />
+              <span>Skills</span>
+            </button>
+            <button
+              type="button"
+              className={`apple-segment-btn ${mobileSegment === "logs" ? "active" : ""}`}
+              onClick={() => setMobileSegment("logs")}
+            >
+              <TerminalSquare size={13} />
+              <span>Logs</span>
+            </button>
+          </div>
+
+          {/* Apple Widget Body (Compact Viewport) */}
+          <div className="apple-widget-body glass">
+            {mobileSegment === "profile" && (
+              <div className="apple-pane animate-fade-in">
+                {/* 3 Metric Chips */}
+                <div className="apple-metrics-row">
+                  <div className="apple-metric-card glass-subtle">
+                    <span className="metric-val">3.23</span>
+                    <span className="metric-label">CGPA</span>
+                  </div>
+                  <div className="apple-metric-card glass-subtle">
+                    <span className="metric-val">23+</span>
+                    <span className="metric-label">Projects</span>
+                  </div>
+                  <div className="apple-metric-card glass-subtle">
+                    <span className="metric-val">4 Sems</span>
+                    <span className="metric-label">Completed</span>
+                  </div>
+                </div>
+
+                {/* Clean Bio */}
+                <p className="apple-bio-text">
+                  CS student passionate about building AI/ML models &amp; agents, C++ game logic (Raylib), and clean web architectures. Passionate about logic, algorithms, and deep system architecture.
+                </p>
+
+                {/* Quick Info Badges */}
+                <div className="apple-quick-tags">
+                  <span className="apple-tag"><MapPin size={11} /> Lahore, PK</span>
+                  <span className="apple-tag"><Briefcase size={11} /> DeveloperHub</span>
+                  <span className="apple-tag active-tag"><UserCheck size={11} /> Open to Work</span>
+                </div>
+              </div>
+            )}
+
+            {mobileSegment === "skills" && (
+              <div className="apple-pane animate-fade-in">
+                <div className="apple-skills-grid">
+                  {skills.map((skill, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      className={`apple-skill-chip ${selectedSkill?.name === skill.name ? "selected" : ""}`}
+                      onClick={() => setSelectedSkill(skill)}
+                    >
+                      <span className="chip-icon">{skill.icon}</span>
+                      <span className="chip-name">{skill.name}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {selectedSkill && (
+                  <div className="apple-skill-detail glass-subtle">
+                    <span className="detail-tag">{selectedSkill.name}</span>
+                    <span className="detail-txt">{selectedSkill.detail}</span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {mobileSegment === "logs" && (
+              <div className="apple-pane animate-fade-in">
+                <div className="apple-terminal-box">
+                  <div className="apple-term-header">
+                    <span className="mac-dot red"></span>
+                    <span className="mac-dot yellow"></span>
+                    <span className="mac-dot green"></span>
+                    <span className="mac-title">diagnostics.sh</span>
+                  </div>
+                  <div className="apple-term-scroll">
+                    {diagnosticLogs.map((log, index) => (
+                      <div key={index} className="apple-term-row">
+                        <span className="apple-term-cyan">[SYS]</span> {log}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Projects.css";
 import useScrollAnimation from "../hooks/useScrollAnimation";
 import FloatingDoodles from "./FloatingDoodles";
-import { Github, Cpu, Play, CircleAlert } from "lucide-react";
+import { Github, Cpu, Play, CircleAlert, ChevronLeft, ChevronRight } from "lucide-react";
 
 const Projects = () => {
   useScrollAnimation();
+  const rackRef = useRef(null);
 
   const projects = [
     {
@@ -83,7 +84,17 @@ const Projects = () => {
     setTimeout(() => {
       setActiveProject(projects[idx]);
       setIsInserting(false);
-    }, 450);
+    }, 380);
+  };
+
+  const handlePrev = () => {
+    const prevIdx = selectedIdx === 0 ? projects.length - 1 : selectedIdx - 1;
+    handleSelectProject(prevIdx);
+  };
+
+  const handleNext = () => {
+    const nextIdx = selectedIdx === projects.length - 1 ? 0 : selectedIdx + 1;
+    handleSelectProject(nextIdx);
   };
 
   return (
@@ -92,14 +103,17 @@ const Projects = () => {
       <div className="container">
         <div className="section-header anim-rise">
           <h2>Featured Projects</h2>
-          <p className="section-subtitle">Tactile Cartridge Console & Arcade Browser</p>
+          <p className="section-subtitle">Tactile Cartridge Console &amp; Arcade Browser</p>
         </div>
 
         <div className="projects-arcade-layout">
-          {/* Left Side: Cartridge Rack */}
+          {/* Left Side: Cartridge Rack (Desktop Left / Mobile Bottom) */}
           <div className="cartridge-rack-container anim-slide-left">
-            <h3 className="rack-title">Game Cartridge Rack</h3>
-            <div className="cartridge-rack">
+            <div className="rack-header-row">
+              <h3 className="rack-title">Game Cartridge Rack</h3>
+              <span className="rack-counter-badge">{selectedIdx + 1} / {projects.length}</span>
+            </div>
+            <div className="cartridge-rack" ref={rackRef}>
               {projects.map((proj, idx) => {
                 const isSelected = idx === selectedIdx;
                 return (
@@ -107,6 +121,8 @@ const Projects = () => {
                     key={idx}
                     className={`project-cartridge ${isSelected ? "selected" : ""}`}
                     onClick={() => handleSelectProject(idx)}
+                    type="button"
+                    aria-label={`Select ${proj.title}`}
                   >
                     <div className="cartridge-sticker">
                       <div className="sticker-header">
@@ -125,7 +141,7 @@ const Projects = () => {
             </div>
           </div>
 
-          {/* Right Side: Arcade Cabinet Screen */}
+          {/* Right Side: Arcade Cabinet Screen (Desktop Right / Mobile Top) */}
           <div className="arcade-cabinet-container anim-slide-right">
             <div className="cabinet-bezel glass">
               <div className="crt-screen">
@@ -141,7 +157,7 @@ const Projects = () => {
                   <div className="crt-project-content animate-fade-in">
                     <div className="project-display-header">
                       <span className="genre-tag">{activeProject.genre}</span>
-                      <span className="rom-size-tag">ROM SIZE: {activeProject.romSize}</span>
+                      <span className="rom-size-tag">ROM: {activeProject.romSize}</span>
                     </div>
 
                     <h3 className="project-display-title">
@@ -192,6 +208,35 @@ const Projects = () => {
                   </div>
                 )}
               </div>
+
+              {/* Mobile Arcade Cabinet Nav Buttons */}
+              <div className="mobile-arcade-nav">
+                <button
+                  type="button"
+                  className="arcade-nav-btn"
+                  onClick={handlePrev}
+                  aria-label="Previous ROM"
+                >
+                  <ChevronLeft size={14} /> PREV ROM
+                </button>
+                <div className="arcade-nav-rom-dots">
+                  {projects.map((_, i) => (
+                    <span
+                      key={i}
+                      className={`rom-dot ${i === selectedIdx ? "active" : ""}`}
+                      onClick={() => handleSelectProject(i)}
+                    />
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="arcade-nav-btn"
+                  onClick={handleNext}
+                  aria-label="Next ROM"
+                >
+                  NEXT ROM <ChevronRight size={14} />
+                </button>
+              </div>
             </div>
             
             {/* Console Slot Visualizer */}
@@ -209,3 +254,4 @@ const Projects = () => {
 };
 
 export default Projects;
+
