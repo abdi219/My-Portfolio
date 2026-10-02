@@ -35,27 +35,27 @@ const Achievements = () => {
       categoryLabel: "INTERNSHIP",
       date: "Jun 1 – Jul 14, 2026",
       badge: "BEST AWARD • DHC-2090",
-      highlight: "Production AI Pipelines & Agentic Systems",
-      description: "Successfully completed an intensive 6-week AI/ML Engineering Internship Program at DevelopersHub Corporation. Honored with the prestigious Best Award in recognition of outstanding technical performance, significant pipeline contributions, and high-impact AI feature implementation.",
+      highlight: "6-Week Intensive Internship • Multi-Phase Tasks & Team Mentorship",
+      description: "Completed an intensive 6-week AI/ML Engineering Internship at DevelopersHub Corporation, delivering technical tasks across structured phases under active team mentorship. Honored with the Best Award in recognition of outstanding performance and high-quality contributions.",
       image: "/Achievements & Hackathons/DeveloperHubIntern.png",
       verification: "Verified • Certificate ID: DHC-2090",
-      tags: ["AIMLEngineering", "AgenticWorkflows", "ProductionAI", "Python", "FastAPI"]
+      tags: ["DevelopersHub", "AIMLInternship", "TeamMentorship", "AIEngineering", "BestAward"]
     },
     {
       id: "ieee-lead",
       nodeNum: "02",
       bubbleLabel: "IEEE Lead",
       icon: <Award size={22} />,
-      title: "IEEE AI/ML Domain Lead",
-      issuer: "IEEE LGU Student Branch",
-      categoryLabel: "LEADERSHIP",
-      date: "2025 – Present",
-      badge: "DOMAIN LEAD APPOINTMENT",
-      highlight: "Technical Leadership & Student AI Bootcamps",
-      description: "Appointed as the AI/ML Domain Lead at IEEE Open Source / IEEE LGU Student Branch. Spearheading hands-on developer workshops, hackathon mentorship sessions, and open-source project development for computing students.",
+      title: "IEEE AI/ML Domain Lead & Mentor",
+      issuer: "IEEE Open Source • Cohort 1",
+      categoryLabel: "LEADERSHIP & MENTORSHIP",
+      date: "2026 – Present",
+      badge: "DOMAIN LEAD • COHORT 1",
+      highlight: "12-Week AI/ML Curriculum Design & Student Mentorship",
+      description: "Served as the AI/ML Domain Lead and Mentor for Cohort 1 of IEEE Open Source. Designed and created the comprehensive 12-week AI/ML roadmap and course outline, mentoring students throughout the entire curriculum, managing weekly tasks, announcements, and providing structured guidance to build strong AI/ML foundations.",
       image: "/Achievements & Hackathons/IEEE.png",
-      verification: "Verified • IEEE LGU Student Branch",
-      tags: ["IEEE", "AIMLDomain", "Leadership", "OpenSource", "Workshops"]
+      verification: "Verified • IEEE Open Source Cohort 1",
+      tags: ["IEEEOpenSource", "DomainLead", "AIML", "CurriculumDesign", "StudentMentorship", "Cohort1"]
     },
     {
       id: "fortyguard-hackathon",
@@ -67,11 +67,11 @@ const Achievements = () => {
       categoryLabel: "HACKATHON",
       date: "Aug 18 – 30, 2026",
       badge: "DEMONSTRATED EXCELLENCE",
-      highlight: "HeatShield AI — Urban Heat Risk Intelligence",
-      description: "Awarded Certificate of Demonstrated Excellence for designing and developing HeatShield AI during FortyGuard Hackathon '26. Built an end-to-end street-level microclimate intelligence engine providing predictive urban heat hazard analytics.",
+      highlight: "HeatShield AI • Microclimate Maps, Cool Routing & What-If Simulator",
+      description: "Engineered HeatShield AI using FortyGuard's street-level climate APIs and Antigravity. Features multi-layer urban heat maps (street heat & tree canopy deficit), dual-route simulator (fastest vs coolest path), interactive what-if urban planting simulator, and context-aware AI with exportable PDF hazard reports.",
       image: "/Achievements & Hackathons/FortyGuardHackhton.png",
       verification: "Verified • Project: HeatShield AI",
-      tags: ["HeatShieldAI", "UrbanAI", "Microclimate", "PredictiveAnalytics"]
+      tags: ["HeatShieldAI", "FortyGuard", "UrbanMicroclimate", "CoolestRouting", "WhatIfSimulator", "Antigravity"]
     },
     {
       id: "ibm-bob-hackathon",
@@ -83,11 +83,11 @@ const Achievements = () => {
       categoryLabel: "HACKATHON",
       date: "Sep 25 – 27, 2026",
       badge: "GLOBAL AI COMPLETION",
-      highlight: "Multi-Agent System with IBM Watson & Groq",
-      description: "Awarded Certificate of Completion for outstanding performance in architecting an enterprise multi-agent workflow solution integrating IBM Watson, OpenAI models, Groq LPUs, and Vercel cloud architecture.",
+      highlight: "Parity — Deterministic API Docs vs Codebase Parity Checker",
+      description: "Architected Parity, an automated codebase-to-documentation parity checker that eliminates API drift. Employs AST-level parsing and Regex for high-precision deterministic code inspection, intelligent markdown doc parsing with LLM fallback for ambiguous docs, smart file heuristics, and actionable discrepancy diff reports.",
       image: "/Achievements & Hackathons/IBMBob2.0Hackhton.png",
       verification: "Verified • ID: CMJLAR0GC02AFS601DLOBMSI4",
-      tags: ["IBMWatson", "GroqLPU", "AIAgents", "MultiAgent", "OpenAI"]
+      tags: ["Parity", "IBMBob", "APIDrift", "ASTParsing", "DocParity", "CodeIntelligence"]
     },
     {
       id: "ai-factory-hackathon",
@@ -99,27 +99,27 @@ const Achievements = () => {
       categoryLabel: "HACKATHON",
       date: "Aug 3 – 10, 2026",
       badge: "COMPLETION & DEMO",
-      highlight: "Meta LLaMA 3 & Groq High-Throughput Automation",
-      description: "Awarded Certificate of Completion for engineering a real-time automated workflow system leveraging Groq hardware acceleration and Meta LLaMA 3 foundation models for ultra-low latency response generation.",
+      highlight: "ScopeCreep Zero — AI-Powered Scope Drift & Client Sign-Off Engine",
+      description: "Built ScopeCreep Zero to detect and eliminate client scope creep. Ingests initial client specs and messy follow-up messages, analyzes scope diffs with AI, auto-calculates hours & budgets with task breakdowns, generates client email drafts with interactive sign-off portals, and maintains an automated project change journal.",
       image: "/Achievements & Hackathons/AIFactoryHackhton.png",
       verification: "Verified • ID: CMSR9BRLQ00TPS601BY9ER7KX",
-      tags: ["LLaMA3", "GroqLPUs", "FastInference", "Automation"]
+      tags: ["ScopeCreepZero", "AIFactory", "ScopeDrift", "ClientPortals", "AutomatedJournal", "FreelanceAI"]
     },
     {
       id: "intratech-hackathon",
       nodeNum: "06",
       bubbleLabel: "IntraTech",
       icon: <Code2 size={22} />,
-      title: "IntraTech 2.0 Hackathon",
+      title: "Top 10 Finalist — IntraTech 2.0 C++ Hackathon",
       issuer: "TechSphere Society",
       categoryLabel: "HACKATHON",
-      date: "Dec 9 – 10, 2025",
+      date: "December 2025",
       badge: "TOP 10 FINALIST",
-      highlight: "Top 10 Finalist in Web Coding & Innovation",
-      description: "Secured Top 10 Finalist recognition in the IntraTech 2.0 multi-day technical hackathon conducted by TechSphere Society. Designed, engineered, and pitched a full-stack responsive web application prototype within 48 hours.",
+      highlight: "Two-Phase C++ Problem Solving & Algorithmic AI Optimization",
+      description: "Competed in the IntraTech 2.0 C++ Hackathon structured in two rounds: Phase 1 and the Phase 2 Top 10 Finalist round. Solved complex, large-scale C++ problem scenarios using algorithmic and AI-driven optimization techniques to maximize benchmark scores, qualifying and finishing as a Top 10 Finalist.",
       image: "/image.png",
       verification: "Verified • TechSphere Society LGU",
-      tags: ["WebCoding", "ReactJS", "Top10Finalist", "RapidPrototyping"]
+      tags: ["IntraTech", "Top10Finalist", "Cpp", "ProblemSolving", "Optimization", "TechSphere"]
     },
     {
       id: "ucp-taakra-speed",
@@ -131,11 +131,11 @@ const Achievements = () => {
       categoryLabel: "COMPETITION",
       date: "Feb 2026",
       badge: "OLYMPIAD COMPETITOR",
-      highlight: "Speed Programming Modulo Contestant",
-      description: "Speed Programming contestant at University of Central Punjab's national tech olympiad TAAKRA 2026. Tackled rigorous data structure and algorithmic problem solving challenges under high time pressure.",
+      highlight: "Team Lead • ACM LGU 3-Member Speed Programming Contingent",
+      description: "Led a 3-member contingent sent officially by the ACM LGU Chapter to the national olympiad UCP TAAKRA 2026. Competed in the high-intensity Speed Programming module, solving multiple complex algorithmic and data structure problem sets under strict time limits.",
       image: "/UCP Taakra Hackathon/WhatsApp Image 2026-02-16 at 10.05.34 PM.jpeg",
       verification: "Verified • UCP TAAKRA 2026",
-      tags: ["CompetitiveProgramming", "SpeedCoding", "DataStructures", "Algorithms"]
+      tags: ["UCPTaakra", "TeamLead", "ACMLGU", "SpeedProgramming", "CompetitiveCoding", "Algorithms"]
     },
     {
       id: "lablab-next-hackathon",
@@ -147,27 +147,27 @@ const Achievements = () => {
       categoryLabel: "HACKATHON",
       date: "Jun 28 – Jul 4, 2024",
       badge: "COMPLETION CERTIFICATE",
-      highlight: "LLaMA 3 Powered Intelligent Application",
-      description: "Completed the global LabLab Next Hackathon by developing a full-stack intelligent prototype powered by LLaMA 3, focusing on prompt engineering, latency optimization, and developer experience.",
+      highlight: "Prompt-to-Presentation — Real-Time Generative Slide Engine",
+      description: "Engineered 'Prompt-to-Presentation' during the global LabLab Next Hackathon. Built an end-to-end AI slide generator that transforms raw prompts and unstructured topic ideas into structured, presentation-ready decks using LLMs, prompt engineering, and custom layout orchestration.",
       image: "/Achievements & Hackathons/LablabNextHackhton.png",
       verification: "Verified • ID: CLZVCADDS004OV7ZUAIKGOW0",
-      tags: ["LLaMA3", "GenerativeAI", "Lablab", "FullStack"]
+      tags: ["PromptToPresentation", "LablabNext", "GenerativeAI", "SlideGeneration", "LLMs", "FullStack"]
     },
     {
       id: "acm-member",
       nodeNum: "09",
       bubbleLabel: "ACM Member",
       icon: <Users size={22} />,
-      title: "ACM Technical Member",
-      issuer: "LGU ACM Chapter",
-      categoryLabel: "LEADERSHIP",
-      date: "2024 – Present",
-      badge: "CORE TECHNICAL TEAM",
-      highlight: "Competitive Coding Contests & Peer Mentorship",
-      description: "Active technical contributor and society organizer at ACM LGU Chapter. Co-organizing university competitive coding contests, student developer workshops, and open-source learning bootcamps.",
+      title: "ACM Technical Member & Event Mentor",
+      issuer: "LGU ACM Student Chapter",
+      categoryLabel: "COMMUNITY & LEADERSHIP",
+      date: "2025 – Present",
+      badge: "TECHNICAL MEMBER",
+      highlight: "LinkedIn Corner Mentor, Industrial Visits & Society Meetings",
+      description: "Active Technical Member of the ACM Student Chapter. Served as a student mentor for the 'LinkedIn Corner' event, guiding university peers on profile optimization, networking, and career growth. Actively participated in industrial tours, technical meetings, and chapter initiatives.",
       image: "/Achievements & Hackathons/ACM.png",
       verification: "Verified • LGU ACM Chapter",
-      tags: ["ACMChapter", "DeveloperCommunity", "PeerMentorship", "Events"]
+      tags: ["ACMChapter", "TechnicalMember", "LinkedInCorner", "Mentorship", "IndustrialTours", "Community"]
     }
   ];
 
