@@ -14,10 +14,16 @@ import './App.css';
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
-  // Scroll to top on page load/refresh
+  // Scroll to top on initial page load / refresh
   useEffect(() => {
-    window.history.scrollRestoration = 'manual';
-    window.scrollTo(0, 0);
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 40);
+    return () => clearTimeout(timer);
   }, []);
 
   return (

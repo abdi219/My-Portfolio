@@ -3,7 +3,7 @@ import './ThemeToggle.css';
 
 const ThemeToggle = () => {
     const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('theme') || 'dark';
+        return localStorage.getItem('theme') || 'light';
     });
     const [pressing, setPressing] = useState(false);
 

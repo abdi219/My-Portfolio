@@ -95,6 +95,7 @@ const Certificates = () => {
     const [touchStartX, setTouchStartX] = useState(null);
     const [touchEndX, setTouchEndX] = useState(null);
     const rackRef = React.useRef(null);
+    const isInitialMount = React.useRef(true);
 
     // Prevent background scroll when preview modal is open
     useEffect(() => {
@@ -129,12 +130,18 @@ const Certificates = () => {
         handleSelectCert(nextIdx);
     };
 
-    // Auto-scroll selected keycard into view on mobile
+    // Auto-scroll selected keycard horizontally inside rack ONLY on user interaction
     useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            return;
+        }
         if (rackRef.current) {
             const selectedCard = rackRef.current.children[selectedIdx];
             if (selectedCard) {
-                selectedCard.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                const container = rackRef.current;
+                const scrollLeft = selectedCard.offsetLeft - (container.offsetWidth / 2) + (selectedCard.offsetWidth / 2);
+                container.scrollTo({ left: scrollLeft, behavior: "smooth" });
             }
         }
     }, [selectedIdx]);

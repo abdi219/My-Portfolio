@@ -182,6 +182,7 @@ const Achievements = () => {
   const [touchStartX, setTouchStartX] = useState(null);
   const [touchEndX, setTouchEndX] = useState(null);
   const storyStripRef = React.useRef(null);
+  const isInitialMount = React.useRef(true);
 
   const activeItem = achievementsData[activeIndex];
 
@@ -197,12 +198,18 @@ const Achievements = () => {
     setImageLoading(true);
   };
 
-  // Auto-scroll selected bubble into view on mobile
+  // Auto-scroll selected bubble horizontally inside story strip ONLY on user interaction
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     if (storyStripRef.current) {
       const selectedBubble = storyStripRef.current.children[activeIndex];
       if (selectedBubble) {
-        selectedBubble.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        const container = storyStripRef.current;
+        const scrollLeft = selectedBubble.offsetLeft - (container.offsetWidth / 2) + (selectedBubble.offsetWidth / 2);
+        container.scrollTo({ left: scrollLeft, behavior: "smooth" });
       }
     }
   }, [activeIndex]);
