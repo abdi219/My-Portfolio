@@ -275,6 +275,12 @@ const Hero = () => {
               <a href="#projects" className="btn btn-primary">View My Work</a>
               <a href="#contact"  className="btn btn-secondary">Get In Touch</a>
             </div>
+            <div className="hero-domain-strip mobile-only-strip">
+              <span className="hero-domain-pill">Python Dev</span>
+              <span className="hero-domain-pill">AI / ML</span>
+              <span className="hero-domain-pill">Leadership</span>
+              <span className="hero-domain-pill">C++ Dev</span>
+            </div>
           </div>
 
           <div className="hero-3d-wrapper">

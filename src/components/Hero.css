@@ -64,6 +64,41 @@
   flex-wrap: wrap;
 }
 
+/* Mobile-Only Domain Badges Strip - 100% hidden on desktop */
+.mobile-only-strip {
+  display: none !important;
+}
+
+.hero-domain-pill {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3.5px 10px;
+  border-radius: var(--radius-full);
+  transition: all 0.25s ease;
+}
+
+.hero-domain-pill:hover {
+  color: var(--color-text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .hero-domain-pill {
+  background: #f4f4f5;
+  border-color: #e4e4e7;
+  color: #52525b;
+}
+
+[data-theme="light"] .hero-domain-pill:hover {
+  color: #000000;
+  border-color: #d4d4d8;
+  background: #e4e4e7;
+}
+
 /* ── Attractor canvas wrapper ────────────────────────────────────────────── */
 .hero-3d-wrapper {
   position: relative;
@@ -148,6 +183,14 @@
 
   .hero-buttons { justify-content: center; }
 
+  .mobile-only-strip {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 6px;
+  }
+
   .hero-3d-wrapper {
     display: none !important;
   }
@@ -166,8 +209,16 @@
     padding-bottom: var(--spacing-lg);
   }
 
-  .hero-name  { font-size: var(--font-size-4xl); }
-  .hero-title { font-size: var(--font-size-lg); }
+  .hero-name  { font-size: 2.4rem; }
+  .hero-title { font-size: var(--font-size-base); }
+
+  .hero-buttons .btn {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.4rem;
+  }
 
   .scroll-indicator { display: none; }
 }

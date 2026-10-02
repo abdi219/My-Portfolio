@@ -42,35 +42,70 @@ const Navbar = () => {
     }
   };
 
+  // Prevent background scroll and hide floating widgets when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("nav-menu-open");
+    } else {
+      document.body.style.overflow = "";
+      document.body.classList.remove("nav-menu-open");
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.classList.remove("nav-menu-open");
+    };
+  }, [mobileMenuOpen]);
+
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <a href="#home" className="logo" onClick={handleNavClick}>
-        <span className="logo-text">ABDULLAH //</span>
-      </a>
+    <>
+      <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+        <a href="#home" className="logo" onClick={handleNavClick}>
+          <span className="logo-text">ABDULLAH //</span>
+        </a>
 
-      <ul className={`nav-links ${mobileMenuOpen ? "active" : ""}`}>
-        {navLinks.map((link, index) => (
-          <li key={index} style={{ transitionDelay: `${index * 0.09}s` }}>
-            <a href={link.href} onClick={handleNavClick}>
-              {link.name}
-            </a>
-          </li>
-        ))}
-      </ul>
+        {/* Desktop Navigation Links */}
+        <ul className="nav-links desktop-nav-links">
+          {navLinks.map((link, index) => (
+            <li key={index}>
+              <a href={link.href} onClick={handleNavClick}>
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-      <div className="nav-actions">
-        <ThemeToggle />
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div className="nav-actions">
+          <ThemeToggle />
+          <button
+            className={`mobile-menu-btn ${mobileMenuOpen ? "open" : ""}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+
+      {/* Fullscreen Mobile Navigation Overlay (100% Screen Coverage) */}
+      <div 
+        className={`mobile-nav-overlay ${mobileMenuOpen ? "active" : ""}`} 
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        <ul className="mobile-nav-list" onClick={(e) => e.stopPropagation()}>
+          {navLinks.map((link, index) => (
+            <li key={index} style={{ transitionDelay: `${index * 0.04}s` }}>
+              <a href={link.href} onClick={handleNavClick}>
+                <span className="mobile-nav-index">0{index + 1}</span>
+                <span className="mobile-nav-title">{link.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-    </nav>
+    </>
   );
 };
 
