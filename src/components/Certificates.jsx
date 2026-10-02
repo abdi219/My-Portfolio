@@ -4,6 +4,12 @@ import useScrollAnimation from '../hooks/useScrollAnimation';
 import FloatingDoodles from './FloatingDoodles';
 import { Users, Bot, Gamepad2, BadgeCheck, ExternalLink, FileSpreadsheet, Award, ShieldAlert, Cpu, X, Code2 } from 'lucide-react';
 
+// Helper to safely encode spaces and special chars in image paths
+const encodeImagePath = (path) => {
+  if (!path) return "";
+  return encodeURI(path);
+};
+
 const Certificates = () => {
     useScrollAnimation();
 
@@ -336,8 +342,13 @@ const Certificates = () => {
                             <div className="cert-lightbox-polaroid">
                                 <div className="cert-lightbox-image-container">
                                     <img
-                                        src={activeCert.image}
+                                        src={encodeImagePath(activeCert.image)}
                                         alt={activeCert.title}
+                                        loading="lazy"
+                                        decoding="async"
+                                        onError={(e) => {
+                                            e.target.style.opacity = "0.7";
+                                        }}
                                     />
                                 </div>
                                 <div className="cert-lightbox-caption">

@@ -4,12 +4,10 @@ import useScrollAnimation from "../hooks/useScrollAnimation";
 import FloatingDoodles from "./FloatingDoodles";
 import { ChevronLeft, ChevronRight, X, Calendar, FolderOpen, Images } from "lucide-react";
 
-// Helper to encode spaces and parentheses in image paths
+// Helper to encode spaces and special characters in image paths
 const encodeImagePath = (path) => {
-  return path
-    .split("/")
-    .map((segment) => encodeURIComponent(segment))
-    .join("/");
+  if (!path) return "";
+  return encodeURI(path);
 };
 
 const ExtraCurricular = () => {
@@ -110,6 +108,22 @@ const ExtraCurricular = () => {
         "/Hacktoberfest 2025/WhatsApp Image 2026-02-16 at 10.36.03 PM (1).jpeg",
         "/Hacktoberfest 2025/WhatsApp Image 2026-02-16 at 10.36.03 PM.jpeg",
         "/Hacktoberfest 2025/WhatsApp Image 2026-02-16 at 10.36.04 PM.jpeg",
+      ],
+    },
+    {
+      title: "Open Source Connect",
+      subtitle: "Systems Limited Tech Networking & Collaboration",
+      category: "open_source",
+      date: "Dec 2025",
+      coverImage: "/Open Source Connect System Limited/image1.png",
+      images: [
+        "/Open Source Connect System Limited/image1.png",
+        "/Open Source Connect System Limited/image2.png",
+        "/Open Source Connect System Limited/image3.png",
+        "/Open Source Connect System Limited/image4.png",
+        "/Open Source Connect System Limited/image5.png",
+        "/Open Source Connect System Limited/image6.png",
+        "/Open Source Connect System Limited/image7.png",
       ],
     },
     {
@@ -465,7 +479,13 @@ const ExtraCurricular = () => {
                     src={encodeImagePath(activeEvent.images[activeImageIdx])}
                     alt={`${activeEvent.title} - Photo ${activeImageIdx + 1}`}
                     className={`lightbox-active-image ${imageLoading ? "" : "loaded"}`}
+                    loading="lazy"
+                    decoding="async"
                     onLoad={() => setImageLoading(false)}
+                    onError={(e) => {
+                      setImageLoading(false);
+                      e.target.style.opacity = "0.7";
+                    }}
                   />
                 </div>
                 <div className="lightbox-caption">
@@ -489,7 +509,13 @@ const ExtraCurricular = () => {
                         }}
                         aria-label={`Jump to photo ${tIdx + 1}`}
                       >
-                        <img src={encodeImagePath(imgUrl)} alt="Thumbnail" loading="lazy" />
+                        <img 
+                          src={encodeImagePath(imgUrl)} 
+                          alt="Thumbnail" 
+                          loading="lazy" 
+                          decoding="async" 
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                        />
                       </button>
                     ))}
                   </div>

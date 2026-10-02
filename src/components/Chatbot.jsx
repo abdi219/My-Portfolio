@@ -199,6 +199,7 @@ SUPARCO Tour: National Space Agency (AI contributions)
 Skill2Success AI Workshop: AI Agentic Workshop
 IntraTech 2.0 Hackathon: Innovation & Tech Competition
 LinkedIn Mentorship: Student Mentor from ACM Society
+Open Source Connect: Systems Limited Tech Networking & Collaboration
 Hacktoberfest 2025: Open Source Contributions
 DevSinc Industrial Tour: Corporate Tech Exposure
 Top 10 Finalist at TechSphere, LGU Intra Tech Event

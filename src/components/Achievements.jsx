@@ -20,6 +20,12 @@ import {
   Users
 } from "lucide-react";
 
+// Helper to safely encode spaces in image paths
+const encodeImagePath = (path) => {
+  if (!path) return "";
+  return encodeURI(path);
+};
+
 const Achievements = () => {
   useScrollAnimation();
 
@@ -300,10 +306,14 @@ const Achievements = () => {
               <div className="post-image-canvas">
                 <img
                   key={`img-${activeItem.id}`}
-                  src={activeItem.image}
+                  src={encodeImagePath(activeItem.image)}
                   alt={activeItem.title}
                   className="post-main-img post-fade-in"
                   loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    e.target.style.opacity = "0.7";
+                  }}
                 />
               </div>
               <div className="post-media-overlay">
@@ -418,10 +428,16 @@ const Achievements = () => {
                   </div>
                 )}
                 <img
-                  src={activeItem.image}
+                  src={encodeImagePath(activeItem.image)}
                   alt={activeItem.title}
                   className={`achieve-inspect-img ${imageLoading ? "" : "loaded"}`}
+                  loading="lazy"
+                  decoding="async"
                   onLoad={() => setImageLoading(false)}
+                  onError={(e) => {
+                    setImageLoading(false);
+                    e.target.style.opacity = "0.7";
+                  }}
                 />
               </div>
 

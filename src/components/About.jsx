@@ -75,6 +75,8 @@ const About = () => {
                 src="/abdi.JPG"
                 alt="Abdullah Faisal"
                 className="blueprint-image"
+                loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   e.target.style.display = "none";
                   const pNode = e.target.parentElement;
@@ -245,6 +247,8 @@ const About = () => {
                 src="/abdi.JPG"
                 alt="Abdullah Faisal"
                 className="apple-avatar"
+                loading="lazy"
+                decoding="async"
                 onError={(e) => { e.target.style.display = "none"; }}
               />
               <span className="apple-status-pulse"></span>
