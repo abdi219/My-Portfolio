@@ -2,32 +2,174 @@ import React, { useState, useRef, useEffect } from "react";
 import "./Chatbot.css";
 import { MessageCircle, X, Send, Bot, User, Trash2 } from "lucide-react";
 
-// Converts URLs in text into clickable <a> tags
-const linkifyText = (text) => {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const parts = text.split(urlRegex);
-  return parts.map((part, i) =>
-    urlRegex.test(part) ? (
-      <a
-        key={i}
-        href={part}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="chat-link"
-      >
-        {part.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
-      </a>
-    ) : (
-      <span key={i}>{part}</span>
-    ),
-  );
+// Parser to format markdown headings, subheadings, lists, bold, code tags, callouts, and links
+const parseInline = (text) => {
+  if (!text) return text;
+  const tokens = [];
+  let keyIdx = 0;
+
+  // Regex matches:
+  // 1 & 2 & 3: [Title](url)
+  // 4: raw URL (https://...)
+  // 5 & 6: **bold text**
+  // 7 & 8: `code tag`
+  const regex = /(\[([^\]]+)\]\((https?:\/\/[^\s)]+)\))|(https?:\/\/[^\s]+)|(\*\*([^*]+)\*\*)|(`([^`]+)`)/g;
+
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      tokens.push(<span key={`txt-${keyIdx++}`}>{text.slice(lastIndex, match.index)}</span>);
+    }
+
+    if (match[1]) {
+      // Markdown link
+      tokens.push(
+        <a key={`link-${keyIdx++}`} href={match[3]} target="_blank" rel="noopener noreferrer" className="chat-link">
+          {match[2]} ↗
+        </a>
+      );
+    } else if (match[4]) {
+      // Raw URL
+      const rawUrl = match[4];
+      const display = rawUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+      tokens.push(
+        <a key={`rawlink-${keyIdx++}`} href={rawUrl} target="_blank" rel="noopener noreferrer" className="chat-link">
+          {display} ↗
+        </a>
+      );
+    } else if (match[5]) {
+      // Bold
+      tokens.push(
+        <strong key={`bold-${keyIdx++}`} className="chat-bold">
+          {match[6]}
+        </strong>
+      );
+    } else if (match[7]) {
+      // Code Pill
+      tokens.push(
+        <code key={`code-${keyIdx++}`} className="chat-code-pill">
+          {match[8]}
+        </code>
+      );
+    }
+
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    tokens.push(<span key={`end-${keyIdx++}`}>{text.slice(lastIndex)}</span>);
+  }
+
+  return tokens.length > 0 ? tokens : text;
+};
+
+const renderFormattedMessage = (content) => {
+  if (typeof content !== "string") return content;
+
+  const lines = content.split("\n");
+  const elements = [];
+  let currentList = [];
+  let isNumberedList = false;
+  let key = 0;
+
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul key={`list-${key++}`} className={isNumberedList ? "chat-list numbered" : "chat-list"}>
+          {currentList.map((item, i) => (
+            <li key={i} className="chat-list-item">
+              <span className="chat-bullet">{isNumberedList ? `${i + 1}.` : "•"}</span>
+              <span className="chat-list-text">{parseInline(item)}</span>
+            </li>
+          ))}
+        </ul>
+      );
+      currentList = [];
+      isNumberedList = false;
+    }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const rawLine = lines[i];
+    const line = rawLine.trim();
+
+    if (!line) {
+      flushList();
+      continue;
+    }
+
+    // Horizontal divider --- or ***
+    if (/^(\-{3,}|\*{3,})$/.test(line)) {
+      flushList();
+      elements.push(<hr key={`hr-${key++}`} className="chat-divider" />);
+      continue;
+    }
+
+    if (line.startsWith("### ")) {
+      flushList();
+      elements.push(
+        <h4 key={`h3-${key++}`} className="chat-heading-3">
+          {parseInline(line.replace(/^###\s+/, ""))}
+        </h4>
+      );
+    } else if (line.startsWith("## ")) {
+      flushList();
+      elements.push(
+        <h3 key={`h2-${key++}`} className="chat-heading-2">
+          {parseInline(line.replace(/^##\s+/, ""))}
+        </h3>
+      );
+    } else if (line.startsWith("# ")) {
+      flushList();
+      elements.push(
+        <h2 key={`h1-${key++}`} className="chat-heading-1">
+          {parseInline(line.replace(/^#\s+/, ""))}
+        </h2>
+      );
+    } else if (line.startsWith("> ")) {
+      flushList();
+      elements.push(
+        <div key={`quote-${key++}`} className="chat-callout">
+          {parseInline(line.replace(/^>\s+/, ""))}
+        </div>
+      );
+    } else if (/^[-*•]\s+/.test(line)) {
+      if (isNumberedList) flushList();
+      currentList.push(line.replace(/^[-*•]\s+/, ""));
+    } else if (/^\d+\.\s+/.test(line)) {
+      if (!isNumberedList && currentList.length > 0) flushList();
+      isNumberedList = true;
+      currentList.push(line.replace(/^\d+\.\s+/, ""));
+    } else {
+      flushList();
+      elements.push(
+        <p key={`p-${key++}`} className="chat-paragraph">
+          {parseInline(line)}
+        </p>
+      );
+    }
+  }
+
+  flushList();
+  return elements;
 };
 
 const Chatbot = ({ isOpen, setIsOpen }) => {
   const [messages, setMessages] = useState([
     {
       type: "bot",
-      text: "Hi, I'm Abdullah's portfolio assistant. Ask me anything about his skills, projects, events, or more.",
+      text: `### Welcome to Abdullah's Portfolio
+I am his **AI Assistant**. I can provide details regarding his skills, 23+ projects, leadership experience, credentials, and technical background.
+
+---
+
+## Suggested Topics
+- **"What are his core technical skills?"**
+- **"Tell me about his game and AI projects"**
+- **"What hackathons and competitions has he won?"**
+- **"How can I contact or collaborate with him?"**`,
     },
   ]);
   const [inputValue, setInputValue] = useState("");
@@ -57,9 +199,6 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
     const deltaX = e.clientX - startPos.current.x;
     const deltaY = e.clientY - startPos.current.y;
     
-    // Anchored bottom-right: dragging top-left corner
-    // Dragging left (negative deltaX) increases width.
-    // Dragging up (negative deltaY) increases height.
     const maxW = Math.min(550, window.innerWidth - 48);
     const maxH = Math.min(650, window.innerHeight - 120);
     
@@ -106,147 +245,235 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
     }
   }, [isOpen]);
 
-  // ──────────────── KNOWLEDGE BASE ────────────────
+  // ──────────────── COMPREHENSIVE KNOWLEDGE BASE (EXECUTIVE PROFESSIONAL FORMAT) ────────────────
   const abdullahInfo = {
-    about: `Abdullah Faisal is a Computer Science student at Lahore Garrison University (LGU) who has completed his 4th semester with a CGPA of 3.23. He serves as the IEEE LGU AI/ML Domain Lead and is currently an AI/ML Engineer intern at DeveloperHub.
+    about: `### Abdullah Faisal
+**Computer Science Undergraduate & AI/ML Engineer**
 
-He is passionate about building creative and practical tech solutions from scratch. His core interests lie at the intersection of Game Development (C++/Raylib and Godot/GDScript), Web Architectures, and AI Engineering (LLM agents, prompt pipelines, and ML diagnostics). He leverages AI systems to enhance productivity and streamline developer workflows.
+> **Education**: Completed 4th Semester at **Lahore Garrison University (LGU)** with a **3.23 CGPA**.
 
-He is the IEEE LGU AI/ML Domain Lead, an ACM Technical Team member, and an ESSE Technical Team member at LGU, actively leading and contributing to the tech community.`,
+---
 
-    skills: `Abdullah's technical skills include:
+## Current Roles & Leadership
+- **IEEE LGU AI/ML Domain Lead**: Leading AI engineering workshops, curriculum development, and technical mentorship.
+- **AI/ML Engineer Intern @ DeveloperHub**: Building production machine learning workflows; recipient of the **Best Award (DHC-2090)**.
+- **ACM Technical Member**: Active member at the LGU ACM Student Chapter.
+- **ESSE Technical Member**: Contributing to university engineering initiatives.
 
-Languages: C++, Python, JavaScript, GDScript
-Web: React.js, Node.js, Tailwind CSS, HTML/CSS
-Game Dev: Raylib (C++), Godot Engine (GDScript)
-Core CS: Data Structures & Algorithms, OOP
-AI Engineering: Generative AI integrations, multi-agent pipelines, prompt engineering
-Other: Business Analytics (Excel), Git/GitHub
-Soft Skills: Communication, Problem Solving, Leadership, Teamwork, Adaptability, Creativity`,
+---
 
-    projects: `Abdullah has built 23+ projects including:
+## Core Technical Focus
+Building robust, low-level and high-performance software at the intersection of:
+- **Game Development** (\`C++/Raylib\`, \`Godot Engine\`)
+- **AI Systems & LLMs** (Multi-Agent architectures, fine-tuned models, prompt engineering)
+- **Modern Web Architectures** (\`React.js\`, \`Node.js\`, \`Tailwind CSS\`)`,
 
-Catch or Kaboom: C++/Raylib game featuring custom game mechanics, logic handling, collision detection, and performance-focused design.
-MindCare LLM: Empathetic mental health chatbot fine-tuned on Hugging Face's empathetic_dialogues using DistilGPT-2.
-E-Commerce Web: Full frontend-focused web application built with React and Node.js with modern responsive design.
-LLM Ticket Tagging: Automated customer support ticket classification comparing zero-shot and few-shot prompting using Qwen2.5-1.5B-Instruct.
-Telco Churn ML: End-to-end customer churn prediction pipeline using Scikit-Learn with ColumnTransformer and GridSearchCV.
-BERT News Classifier: Text classification model fine-tuning bert-base-uncased on the AG News dataset with Gradio deployment.
+    skills: `### Technical Stack & Core Competencies
 
-You can view them in the Projects section.`,
+## Programming Languages
+- \`C++\` (Game loops, Object-Oriented Programming, Data Structures & Algorithms)
+- \`Python\` (PyTorch, Pandas, Scikit-Learn, Generative AI pipelines)
+- \`JavaScript (ES6+)\` (React.js frontend architecture, Node.js backend logic)
+- \`GDScript\` (Godot Engine 2D/3D state management)
 
-    certifications: `Abdullah's course certifications:
+---
 
-- IBM Python for Data Science (IBM)
-- Oracle Cloud AI Foundations Associate (Oracle University)
-- Anthropic Claude 101 (Anthropic)
-- HP AI for Business Professionals (HP LIFE)
-- Huawei Algorithm & Program Design (Huawei)
-- Business Analytics with Excel (Microsoft Partner Program / Simplilearn)
+## Web & Full-Stack Architecture
+- **Frontend**: \`React.js\` • \`Vite\` • \`Tailwind CSS\` • \`HTML5/CSS3\`
+- **Backend**: \`Node.js\` • REST APIs • Component Architecture
 
-Visit the Certificates section for credential links and verification.`,
+---
 
-    achievements: `Abdullah's achievements, leadership roles, and hackathons:
+## AI & Machine Learning Systems
+- **Agentic AI & LLMs**: Prompt pipelines, LangChain, Multi-Agent systems, Hugging Face
+- **Machine Learning**: Scikit-Learn, ColumnTransformer, GridSearchCV, BERT Classification
+- **Cloud & AI Platforms**: Oracle Cloud AI, IBM Cloud, Groq LPUs, Meta LLaMA 3
 
-- IEEE AI/ML Domain Lead: IEEE LGU Student Branch leadership, workshops, and AI engineering guidance.
-- FortyGuard Hackathon '26: Excellence award for HeatShield AI urban microclimate intelligence platform.
-- IBM Bob 2.0 Hackathon: Multi-agent AI architecture with IBM, OpenAI, Groq, and Vercel.
-- AI Factory Hackathon: Real-time automation pipeline leveraging Meta LLaMA 3 and Groq LPUs.
-- IntraTech 2.0 Hackathon: Top 10 Finalist in university web coding and rapid prototyping.
-- UCP Taakra 2026 Speed Programming: Algorithmic speed problem-solving contestant.
-- LabLab Next Hackathon: Generative prototype utilizing LLaMA 3 models.
-- ACM Technical Member: Active technical contributor and event organizer at ACM LGU Chapter.
+---
 
-Visit the Achievements & Hackathons section for detailed certificates and documents.`,
+## Computer Science Foundations
+- Data Structures & Algorithms, System Design, Big-O Complexity Analysis
+- Technical Mentorship, Team Leadership, Agile Problem Solving`,
 
-    education: `Lahore Garrison University (LGU)
-BS Computer Science (Completed 4th Semester)
-CGPA: 3.23
-Lahore, Punjab, Pakistan
+    projects: `### Featured Projects (23+ Built)
 
-He is actively deepening his knowledge in DSA, exploring AI/ML, and building game and web projects to complement his academics.`,
+## Game Development
+- **Catch or Kaboom** (\`C++\` / \`Raylib\`): Fast-paced 2D arcade game featuring custom collision mathematics, physics loops, and particle animations.
+- **Prince Adventure** (\`Godot\` / \`GDScript\`): 2D adventure platformer featuring custom level design and fluid character physics.
 
-    contact: `You can reach Abdullah at:
+---
 
-Email: abdullahf0100@gmail.com
-GitHub: https://github.com/abdi219
-LinkedIn: https://www.linkedin.com/in/abdullah-faisal-a8146930a/
-Resume: https://abdullahfaisal.dev/Abdullahs%20Resume.pdf
+## AI & Machine Learning Systems
+- **MindCare LLM**: Empathetic mental health assistant fine-tuned on Hugging Face's \`empathetic_dialogues\` with \`DistilGPT-2\`.
+- **LLM Support Ticket Tagging**: Classification pipeline comparing zero-shot and few-shot prompting using \`Qwen2.5-1.5B-Instruct\`.
+- **Telco Churn ML**: End-to-end predictive churn pipeline utilizing ColumnTransformer and GridSearchCV.
+- **BERT News Classifier**: Text classification model fine-tuning \`bert-base-uncased\` on AG News with Gradio UI.
 
-Or use the Contact form on this portfolio to send a direct message.`,
+---
 
-    memberships: `Abdullah holds key leadership and technical roles across tech societies:
+## Web Applications
+- **E-Commerce Web Application**: Full frontend/backend web store built with React and Node.js.
+- **Interactive Developer Portfolio**: State-of-the-art developer terminal built with React and Vite.
 
-- IEEE LGU AI/ML Domain Lead: Leading artificial intelligence & machine learning technical domains, student workshops, and AI initiatives at IEEE LGU Student Branch.
-- ACM Technical Team, LGU ACM Chapter: Active contributor and technical member.
-- ESSE Technical Team Member: Engineering and tech community involvement.
+> Explore the **Projects Section** below to inspect all interactive cartridges and repositories.`,
 
-He actively leads workshops, participates in hackathons, competitions, and open-source events through these organizations.`,
+    certifications: `### Verified Credentials & Certifications
 
-    interests: `Abdullah is passionate about:
+- **IBM Python for Data Science** — \`IBM\` • [Verify Credential](https://www.coursera.org/account/accomplishments/verify/XDA7KTCE1EFA)
+- **Oracle Cloud AI Foundations Associate** — \`Oracle University\` • [Verify Badge](https://catalog-education.oracle.com/ords/certview/sharebadge?id=F9286A5BCCDE0BE243A01E58F4916994D4B29C14486E63A8A4E80EACB10C4DB0)
+- **Anthropic Claude 101** — \`Anthropic\` • [Verify Credential](https://verify.skilljar.com/c/af5kn6bv97df)
+- **HP AI for Business Professionals** — \`HP LIFE\` • [Verify Credential](https://www.life-global.org/certificate/610efc8c-e92f-41d0-bc14-b7d2d3f8ca69)
+- **Huawei Algorithm & Program Design** — \`Huawei\`
+- **Business Analytics with Excel** — \`Microsoft Partner / Simplilearn\` • [Verify Credential](https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiIyOTczIiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvOTgwOTA4OF8xMDAyNTcxOF8xNzcwMzI2NTM1MTQ0LnBuZyIsInVzZXJuYW1lIjoiQWJkdWxsYWggRmFpc2FsIn0%3D)
 
-Game Development with C++/Raylib and Godot/GDScript
-Web Development with React, Tailwind, and Node.js
-Data Structures & Algorithms and problem-solving
-Artificial Intelligence and Machine Learning
-Leveraging AI tools for productivity and smarter workflows
-Building things from scratch and understanding how software works under the hood`,
+---
 
-    events: `Abdullah's extra-curricular activities and tech events:
+> Visit the **Certificates Section** to inspect all digital credentials and badges.`,
 
-UCP TAAKRA 2026: Speed Programming Modulo
-SUPARCO Tour: National Space Agency (AI contributions)
-Skill2Success AI Workshop: AI Agentic Workshop
-IntraTech 2.0 Hackathon: Innovation & Tech Competition
-LinkedIn Mentorship: Student Mentor from ACM Society
-Open Source Connect: Systems Limited Tech Networking & Collaboration
-Hacktoberfest 2025: Open Source Contributions
-DevSinc Industrial Tour: Corporate Tech Exposure
-Top 10 Finalist at TechSphere, LGU Intra Tech Event
+    achievements: `### Achievements & Competitions
 
-Check out the Extra-curricular section for event photos.`,
+## Leadership & Experience
+- **DeveloperHub AI/ML Internship**: Awarded **Best Award (DHC-2090)** for high-impact model delivery and technical excellence.
+- **IEEE Open Source AI/ML Domain Lead**: Designed the 12-week comprehensive AI curriculum and mentored Cohort 1.
 
-    location: `Abdullah is based in Lahore, Punjab, Pakistan. He studies at Lahore Garrison University (LGU).`,
+---
 
-    status: `Abdullah is currently serving as the IEEE LGU AI/ML Domain Lead and interning as an AI/ML Engineer at DeveloperHub. He is open to work opportunities, internships, freelance projects, and collaborations.
+## Global Competitions & Hackathons
+- **FortyGuard Hackathon '26**: Demonstrated Excellence award for **HeatShield AI** (microclimate maps, cool routing, planting simulator).
+- **IBM Bob 2.0 Global Hackathon**: Built **Parity** — AST code parser vs API documentation parity checker.
+- **AI Factory Hackathon**: Built **ScopeCreep Zero** — AI-powered scope drift detection & client sign-off portal.
+- **IntraTech 2.0 C++ Hackathon**: **Top 10 Finalist** in competitive two-phase algorithmic problem solving.
+- **UCP Taakra 2026**: Led the official 3-member ACM LGU contingent in national Speed Programming.
+- **LabLab Next Hackathon**: Built **Prompt-to-Presentation** — real-time generative slide engine.
 
-He is especially interested in roles involving:
-- AI/ML Engineering & Agentic Workflows
-- Game Development (C++/Godot)
-- Full-Stack Web Development (React/Node)
-- Open source contributions
+---
 
-Feel free to reach out via the Contact section.`,
+> Visit the **Achievements Section** to view verified certificates and competition dossiers.`,
 
-    gamedev: `Abdullah is passionate about game development:
+    education: `### Academic Profile
 
-Catch or Kaboom: C++/Raylib game with custom mechanics, collision detection, and performance-focused design.
-Prince Adventure: 2D platformer adventure in Godot/GDScript with custom level design.
+## Lahore Garrison University (LGU)
+- **Degree**: Bachelor of Science in Computer Science (BSCS)
+- **Current Standing**: Completed 4th Semester
+- **Cumulative CGPA**: **3.23 / 4.00**
+- **Location**: Lahore, Punjab, Pakistan
 
-He works with both Raylib (C++) for performance-focused games and Godot Engine (GDScript) for 2D adventures. Game development is one of his core passions.`,
+---
 
-    webdev: `Abdullah's web development experience:
+## Key Academic Coursework
+- Data Structures & Algorithms, Analysis of Algorithms (AOA)
+- Object-Oriented Programming (OOP), Database Systems & Advanced DBMS
+- Probability & Statistics, Discrete Mathematics, Computer Organization & Assembly (COAL)
+- Active technical leadership across university IEEE and ACM student societies.`,
 
-E-Commerce Web: React/Node.js web application with a modern UI.
-This Portfolio: Built with React + Vite.
+    contact: `### Contact & Inquiries
 
-Technologies: React.js, Node.js, Tailwind CSS, HTML/CSS, JavaScript. He focuses on clean, responsive, component-based design.`,
+> Abdullah is **actively open to opportunities**, internships, freelance projects, and engineering collaborations.
 
-    resume: `Abdullah's key highlights:
+---
 
-BS Computer Science, LGU (Completed 4th Semester, CGPA 3.23)
-IEEE LGU AI/ML Domain Lead
-AI/ML Engineer Intern at DeveloperHub
-23+ Projects (Game, Web & AI Dev)
-Oracle Cloud AI Foundations Associate
-Microsoft Business Analytics with Excel
-Top 10 at TechSphere Hackathon
-ACM & ESSE Technical Teams
-Hacktoberfest 2025 Open Source Contributor
+## Direct Channels
+- **Email**: \`abdullahf0100@gmail.com\`
+- **GitHub**: [github.com/abdi219](https://github.com/abdi219)
+- **LinkedIn**: [Abdullah Faisal Profile](https://www.linkedin.com/in/abdullah-faisal-a8146930a/)
+- **Resume**: [Download PDF Resume](https://abdullahfaisal.dev/Abdullahs%20Resume.pdf)
 
-Download his resume: https://abdullahfaisal.dev/Abdullahs%20Resume.pdf
+---
 
-Currently open to work. Reach out via the Contact section.`,
+> You can also send a direct message using the **Contact Form** at the bottom of the page.`,
+
+    memberships: `### Societies & Leadership Roles
+
+- **IEEE LGU AI/ML Domain Lead**: Leading artificial intelligence & machine learning technical domains, student workshops, and AI initiatives at IEEE LGU Student Branch.
+- **ACM Technical Team, LGU ACM Chapter**: Active contributor, event organizer, and student mentor for LinkedIn Corner.
+- **ESSE Technical Team Member**: Engineering and tech community involvement.
+
+He actively leads workshops, participates in hackathons, competitions, and open-source initiatives through these organizations.`,
+
+    interests: `### Core Technical Interests
+
+- **Game Development**: High-performance game loops with \`C++/Raylib\` and 2D mechanics in \`Godot/GDScript\`.
+- **AI Engineering**: Agentic workflows, multi-agent systems, prompt pipelines, and ML diagnostics.
+- **Web Development**: Interactive web applications with \`React\`, \`Node.js\`, and modern CSS.
+- **Core Algorithms**: Data Structures & Algorithms and low-level system understanding.
+- **Open Source**: Community collaboration and open-source contributions.`,
+
+    events: `### Extra-Curricular & Technical Events
+
+- **UCP TAAKRA 2026** (Feb 2026): Speed Programming Modulo Contestant.
+- **SUPARCO Tour** (Jan 2026): National Space Agency — AI contributions & aerospace technology.
+- **Skill2Success AI Workshop** (Jan 2026): AI Agentic Workshop & workflow optimization.
+- **IntraTech 2.0 Hackathon** (Nov 2025): Top 10 Finalist in C++ problem solving.
+- **LinkedIn Corner Mentorship** (Nov 2025): ACM student mentor guiding peers on profile optimization.
+- **Open Source Connect** (Dec 2025): Systems Limited tech networking & open-source collaboration.
+- **Hacktoberfest 2025** (Oct 2025): Open source contributions.
+- **DevSinc Industrial Tour** (May 2025): Corporate tech exposure & engineering workflows.
+
+---
+
+> Explore event photo stacks in the **Extra-Curricular Section**.`,
+
+    location: `### Location & Availability
+- **Location**: Lahore, Punjab, Pakistan
+- **University**: Lahore Garrison University (LGU)
+- **Work Preference**: Open to Remote, Hybrid, or On-site roles globally and locally.`,
+
+    status: `### Availability & Status
+
+> Abdullah is **actively available** for full-time roles, internships, freelance engagements, and engineering collaborations.
+
+---
+
+## Target Opportunities
+1. **AI/ML Engineer & Agentic Systems Developer**
+2. **Game Developer** (\`C++\` / \`Godot\`)
+3. **Full-Stack / Frontend Developer** (\`React.js\`, \`Node.js\`)
+4. **Open Source Contributor & Community Lead**
+
+---
+
+Reach out via [Email](mailto:abdullahf0100@gmail.com) or submit an inquiry in the **Contact Section** below.`,
+
+    gamedev: `### Game Development Showcase
+
+## Engines & Frameworks
+- \`Raylib\` (\`C++\`): High-performance 2D arcade loops, custom collision math, and logic handling.
+- \`Godot Engine\` (\`GDScript\`): 2D level architecture, character physics, and animation state trees.
+
+---
+
+## Featured Titles
+- **Catch or Kaboom** (\`C++/Raylib\`): Fast arcade game with custom logic handling, collision math, and score tracking.
+- **Prince Adventure** (\`Godot/GDScript\`): 2D adventure platformer with custom levels and gameplay mechanics.`,
+
+    webdev: `### Web Architecture & Frontend Engineering
+
+## Technology Stack
+- \`React.js\` • \`Node.js\` • \`Tailwind CSS\` • \`Vite\` • \`HTML5/CSS3\` • \`JavaScript (ES6+)\`
+
+---
+
+## Key Highlights
+- **Full E-Commerce Web Application**: Modern frontend/backend architecture with dynamic cart and catalog features.
+- **Interactive Portfolio**: State-of-the-art developer terminal with custom liquid shaders, 3D sliders, and AI assistant.`,
+
+    resume: `### Resume & Career Dossier
+
+> **BS Computer Science @ LGU** (CGPA 3.23) • **IEEE AI/ML Domain Lead** • **AI/ML Engineer Intern @ DeveloperHub**
+
+---
+
+## Key Highlights
+- **23+ Projects** across Game Dev (\`C++/Godot\`), AI/ML (\`LLMs\`, \`PyTorch\`), and Web (\`React\`, \`Node\`).
+- **Certified**: IBM Python for Data Science, Oracle Cloud AI, Anthropic Claude 101, HP AI, Microsoft Analytics.
+- **Hackathons**: FortyGuard Excellence Award, IBM Bob 2.0, AI Factory, IntraTech Top 10, UCP Taakra.
+- **Leadership**: IEEE AI/ML Domain Lead, ACM Technical Team, ESSE Member.
+
+---
+
+[Download Complete PDF Resume](https://abdullahfaisal.dev/Abdullahs%20Resume.pdf) ↗
+
+> Currently open to work. Reach out via the **Contact Section** below.`,
   };
 
   // ──────────────── QUICK QUESTIONS ────────────────
@@ -718,7 +945,7 @@ Try asking something like "What are his skills?" or "Tell me about his game proj
               <div className="message-icon">
                 {msg.type === "bot" ? <Bot size={15} /> : <User size={15} />}
               </div>
-              <div className="message-content">{linkifyText(msg.text)}</div>
+              <div className="message-content">{renderFormattedMessage(msg.text)}</div>
             </div>
           ))}
 
